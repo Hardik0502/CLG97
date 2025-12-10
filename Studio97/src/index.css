@@ -1,0 +1,22 @@
+@font-face {
+    font-family: 'font1';
+    src: url('../Fonts/Caveat-Medium.ttf') ;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'font2';
+    src: url('../Fonts/JosefinSans-Bold.ttf');
+}
+
+@import "tailwindcss";
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    /* background-color: #970000; */
+    background-color: black;
+    color: white;
+}
+
