@@ -28,8 +28,8 @@ const Navbar = () => {
       <div className="nav flex justify-between h-full w-full items-center">
         <h1 className=' text-[3.8vw] '> STUDIO 97 </h1>
             
-        <div className="links text-[1.5vw] h-full items-center flex gap-2 ">
-        <Link to='/' className='navlink'> Home </Link>                
+        <div className="links text-[1.5vw] h-full items-center  flex gap-2 ">
+        <Link to='/' className='navlink '> Home </Link>                
         <Link to='/blogs' className='navlink'> Blogs </Link>                
         <Link to='/help' className='navlink'> Help </Link>                
         <Link to='/about' className='navlink'> About </Link>                
