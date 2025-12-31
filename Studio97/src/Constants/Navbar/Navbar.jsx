@@ -23,12 +23,12 @@ const Navbar = () => {
   })
 
   return (
-    <div className=' h-[6vw] w-full overflow-hidden absolute py-4 px-6 md:px-12 md:py-2 top-0 z-10 font-[font2] '>
+    <div className=' h-[6vw] overflow-hidden absolute top-0 z-10 font-[font2] '>
 
-      <div className="nav flex justify-between h-full w-full items-center">
+      <div className="nav flex h-full items-center ">
         <h1 className=' text-[3.8vw] '> STUDIO 97 </h1>
             
-        <div className="links text-[1.5vw] h-full items-center  flex gap-2 ">
+        <div className="links flex gap-[1vw] text-[1.5vw] text-whit ">
         <Link to='/' className='navlink '> Home </Link>                
         <Link to='/blogs' className='navlink'> Blogs </Link>                
         <Link to='/help' className='navlink'> Help </Link>                
