@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Video from '../../Constants/Videopage/Video'
@@ -25,11 +25,11 @@ const Home = () => {
   //   })
   // })
 
-
+  const scrollContainer = useRef(null);
 
   return (
     <div className=' font-[font1] h-screen w-full overflow-hidden '>
-      <div className='scrolling-container absolute inset-0 w-full h-full '>
+      <div ref={scrollContainer} className='scrolling-container absolute inset-0 w-full h-full '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
           < Navbar />
 
