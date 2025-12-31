@@ -29,7 +29,7 @@ const Home = () => {
 
   return (
     <div className=' font-[font1] h-screen w-full overflow-hidden '>
-      <div className='scrolling-container absolute inset-0 w-full h-full overflow-y-auto '>
+      <div className='scrolling-container absolute inset-0 w-full h-full '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
           < Navbar />
 

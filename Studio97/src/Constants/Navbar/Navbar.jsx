@@ -30,7 +30,7 @@ const Navbar = () => {
     let lastScroll = 0;  // It will store the previous scroll position. as you scroll down or up.
 
     ScrollTrigger.create({  // It will notice the scroll and fires events that we want.
-      // scroller : '.scrolling-container',
+
       start: 'top top',
       end: 'max',
       onUpdate: (self) => {
@@ -65,7 +65,7 @@ const Navbar = () => {
 
 
   return (
-    <div className='navbar w-full  overflow-hidden fixed top-0 z-10 font-[font2] bg-black/30 '>
+    <div className='navbar w-full overflow-hidden fixed top-0 z-10 font-[font2] bg-black/30 '>
 
       {/* <div className="nav flex h-full items-center justify-center ">
 

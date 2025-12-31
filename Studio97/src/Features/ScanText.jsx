@@ -61,7 +61,7 @@ const TrueFocus = ({
 
   return (
     <div
-      className="relative top-96 font-[font2] flex gap-4 justify-center items-center flex-wrap"
+      className="relative top-88 font-[font2] flex gap-4 justify-center items-center flex-wrap"
       ref={containerRef}
       style={{ outline: 'none', userSelect: 'none' }}
     >
