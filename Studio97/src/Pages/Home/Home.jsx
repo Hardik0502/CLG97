@@ -7,6 +7,7 @@ import CircularText from '../../Containers/CircularText'
 import ScrollStack, { ScrollStackItem } from "../../Containers/ScrollStackItem";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Package from '../../Constants/Package/Package'
+import TrueFocus from '../../Features/ScanText'
 
 
 const Home = () => {
@@ -28,12 +29,12 @@ const Home = () => {
 
   return (
     <div className=' font-[font1] h-screen w-full overflow-hidden '>
-      <div className=' absolute inset-0 w-full h-full overflow-y-auto '>
+      <div className='scrolling-container absolute inset-0 w-full h-full overflow-y-auto '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
           < Navbar />
 
           < Video />
-          <div className=' absolute top-24 bottom-6 right-16 flex flex-col justify-between opacity-90 rounded-[50px] bg-black h-[35vw] w-[90vw] ' >
+          <div className=' absolute top-24 bottom-6 right-16 flex flex-col justify-between opacity-90 rounded-[50px] h-[35vw] w-[90vw] ' >
             {/* <div className="texts">
               <h1 className=' font-[font2] text-[8vw] text-white ' > Your Memories </h1>
               <h1 className=' font-[font2] text-[6vw] text-white ' > are our </h1>
@@ -41,20 +42,31 @@ const Home = () => {
             </div>
              */}
 
-            <div className="circletext">
+            {/* <div className="circletext">
               <CircularText
                 text="S T U D I O  9 7 * S T U D I O  9 7 * S T U D I O  9 7 * "
                 onHover="speedUp"
                 spinDuration={20}
                 className="custom-class relative top-28 left-10"
               />
-            </div>
+            </div> */}
+
+            <TrueFocus
+              sentence="Studio 97"
+              manualMode={false}
+              blurAmount={5}
+              borderColor="blue"
+              animationDuration={2}
+              pauseBetweenAnimations={1}
+            />
+
+
           </div>
         </section>
 
         <section className=' h-full w-full bg-[#e6dfcf] ' >
-          
-  
+
+
           <div className=' flex justify-between ' >
 
             <div className=' font-[font2] uppercase h-[full] w-[50vw] ' >
