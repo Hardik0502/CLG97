@@ -8,6 +8,7 @@ import ScrollStack, { ScrollStackItem } from "../../Containers/ScrollStackItem";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import Package from '../../Constants/Package/Package'
 import TrueFocus from '../../Features/ScanText'
+import PageDivider from '../../Features/PageDivider'
 
 
 const Home = () => {
@@ -26,12 +27,13 @@ const Home = () => {
   // })
 
   const scrollContainer = useRef(null);
+  const scrollRef = useRef(null);
 
   return (
-    <div className=' font-[font1] h-screen w-full overflow-hidden '>
+    <div className=' font-[font1] h-screen w-full '>
       <div ref={scrollContainer} className='scrolling-container absolute inset-0 w-full h-full '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
-          < Navbar />
+          < Navbar scrollContainer={scrollRef} />
 
           < Video />
           <div className=' absolute top-24 bottom-6 right-16 flex flex-col justify-between opacity-90 rounded-[50px] h-[35vw] w-[90vw] ' >
@@ -51,27 +53,34 @@ const Home = () => {
               />
             </div> */}
 
-            <TrueFocus
-              sentence="Studio 97"
-              manualMode={false}
-              blurAmount={5}
-              borderColor="blue"
-              animationDuration={2}
-              pauseBetweenAnimations={1}
-            />
+            <div className="relative bottom-8">
+              <TrueFocus
+                sentence="Studio 97"
+                manualMode={false}
+                blurAmount={5}
+                borderColor="blue"
+                animationDuration={2}
+                pauseBetweenAnimations={1}
+              />
+            </div>
 
 
           </div>
+
+          <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
+            <PageDivider />
+          </div>
+
         </section>
 
-        <section className=' h-full w-full bg-[#e6dfcf] ' >
+        <section className=' h-full w-full bg-black -mt-[120px] pt-40 relative z-0' >
 
 
           <div className=' flex justify-between ' >
 
             <div className=' font-[font2] uppercase h-[full] w-[50vw] ' >
-              <h1 className=' text-[5vw] text-black' > The Spark of memories  </h1>
-              <h3 className=' text-[1vw] font-stretch-50% text-black font-[font1] ' > Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro placeat obcaecati repudiandae dignissimos dolor neque aut expedita voluptas, consequatur, odio quibusdam doloribus fuga inventore repellendus quae accusamus quaerat tenetur perferendis!
+              <h1 className=' text-[5vw] text-white' > The Spark of memories  </h1>
+              <h3 className=' text-[1vw] font-stretch-50% text-white font-[font1] ' > Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro placeat obcaecati repudiandae dignissimos dolor neque aut expedita voluptas, consequatur, odio quibusdam doloribus fuga inventore repellendus quae accusamus quaerat tenetur perferendis!
                 Animi quo officiis reprehenderit quas consectetur neque quam officiis nostrum suscipit dignissimos provident accusantium
                 maxime non optio, voluptate blanditiis ut quis? Reiciendis quaerat expedita repellendus.
                 Enim nulla sed labore? </h3>
