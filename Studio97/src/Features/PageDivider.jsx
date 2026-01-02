@@ -44,7 +44,7 @@ const PageDivider = ({ scrollContainer }) => {
           1440,260
           0,260
         "
-        fill="black"
+        fill="white"
       />
 
       </svg>

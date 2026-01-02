@@ -7,6 +7,18 @@
     font-family: 'font2';
     src: url('../Fonts/JosefinSans-Bold.ttf');
 }
+@font-face {
+    font-family: 'font3';
+    src: url('../Fonts/HOTC.woff2');
+}
+@font-face {
+    font-family: 'font4';
+    src: url('../Fonts/Aestera.ttf');
+}
+@font-face {
+    font-family: 'font5';
+    src: url('../Fonts/Zaslia.ttf');
+}
 
 @import "tailwindcss";
 *{
