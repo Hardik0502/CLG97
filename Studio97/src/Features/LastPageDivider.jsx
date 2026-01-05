@@ -1,0 +1,55 @@
+import { useGSAP } from '@gsap/react'
+import React, { useRef } from 'react'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger);
+
+const LastPageDivider = ({ scrollContainer }) => {
+
+  const pathRef = useRef(null);
+
+  useGSAP(() => {
+
+    gsap.from(pathRef.current, {
+      scaleX: 0,
+      transformOrigin: "center",
+      ease: "power3.out",
+      duration: 1.2,
+      scrollTrigger: {
+        trigger: pathRef.current,
+        scroller: scrollContainer?.current || window,
+        start: "top 85%",
+      },
+
+    })
+
+
+  }, [])
+
+  return (
+    <div ref={pathRef} >
+       <svg
+      viewBox="0 0 1440 260"
+      preserveAspectRatio="none"
+      className="w-full h-[150px] z-50 block"
+    >
+      <polygon
+        points="
+          0,1000
+          0,1000
+          750,260
+          1550,0
+          1780,0
+          1440,260
+          0,260
+        "
+        fill="black"
+      />
+
+      </svg>
+    </div>
+  )
+}
+
+export default LastPageDivider
