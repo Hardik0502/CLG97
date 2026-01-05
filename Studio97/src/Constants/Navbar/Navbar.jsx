@@ -12,7 +12,7 @@ const Navbar = () => {
 
     // Entry Animation
 
-    gsap.from('.nav , .navlink', {
+    gsap.from('.nav ,.navlink', {
       opacity: 0,
       y: -200,
       stagger: {

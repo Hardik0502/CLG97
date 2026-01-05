@@ -39,3 +39,9 @@ body{
     cursor: pointer;
     border: 2px solid black;
 }
+
+.subcard:hover{
+    height: 93%;
+    width: 99.9%;
+    transition: 0.5s ease ;
+}

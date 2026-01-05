@@ -10,6 +10,7 @@ import Package from '../../Constants/Package/Package'
 import TrueFocus from '../../Features/ScanText'
 import PageDivider from '../../Features/PageDivider'
 import CircularGallery from '../../Features/RoundGallery'
+import { easeIn, easeOut } from 'motion/react'
 
 
 const Home = () => {
@@ -19,9 +20,9 @@ const Home = () => {
 
 
   useGSAP(()=>{
-    gsap.to('.memories',{
+    gsap.to('.cards',{
       scrollTrigger : {
-        trigger : '.memories' ,
+        trigger : '.cards' ,
         // markers : true,
         start : 'top 5%',
         end : 'top 90%',
@@ -29,7 +30,7 @@ const Home = () => {
       },
       delay : 0.5,
       duration : 1,
-      color : 'black',
+      transition : 'easeIn',
       background : 'black'
     })
   })
@@ -37,9 +38,39 @@ const Home = () => {
   const scrollContainer = useRef(null);
   const scrollRef = useRef(null);
 
+  let memoData = [
+    {
+      link : 'https://photos.smugmug.com/Wedding/i-kBvBHkQ/0/NHxbCTVHd7Sz3Z2pP3p6M39wTWBqQbTKdXrqVx5qs/L/_DSC8406-L.jpg',
+      name : 'Dipen + Varsha',
+      date : '5th, Sept 2025 '
+    },
+    {
+      link : 'https://photos.smugmug.com/Pre-Wedding/i-HRpqFmW/0/LMSxj2FZDQknVK75PHfWwvkGXc6CcqfPG5bfGRcJ6/L/JAYU-91-L.jpg',
+      name : 'Kush + Natasha',
+      date : '18th, Jan 2024 '
+    },
+    {
+      link : 'https://photos.smugmug.com/Pre-Wedding/i-mRJSrmB/0/NK2HTkG7x8vMNzG2m5r5rDJfjbvwHZbfgL7dxTk5p/L/_DSC7655-L.jpg',
+      name : 'Rahul + Jignasha',
+      date : '8th, Apr 2025 '
+    },
+    {
+      link : 'https://photos.smugmug.com/Wedding/i-WmCdC2g/0/MtXJmvLt9XVwKj3tPLGTMh7cDz4V9xpQhk9sHNGXg/L/DSC09298-L.jpg',
+      name : 'Jayaraj + Riya',
+      date : '17th, Dec 2025 '
+    },
+    {
+      link : 'https://photos.smugmug.com/Wedding/i-HfrwtBv/0/LMrbQJrPgPmjdC6RmMXkqgGFFpFRS52RnRHXrhfr5/L/DSC00160-L.jpg',
+      name : 'Yogesh + Neesha',
+      date : '24th, May 2025 '
+    },
+  ]
+
+
+
   return (
     <div className=' font-[font1] h-screen w-full '>
-      <div ref={scrollContainer} className='scrolling-container absolute inset-0 w-full h-full '>
+      <div ref={scrollContainer} className='scrolling-container relative inset-0 w-full h-full '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
           < Navbar scrollContainer={scrollRef} />
 
@@ -81,7 +112,7 @@ const Home = () => {
 
         </section>
 
-        <section className=' min-h-[200vh] w-full bg-white -mt-[120px] pt-40 relative z-0' >
+        <section className=' min-h-[200vh] w-full bg-white relative z-0' >
 
           <div className='artboard-wrapper h-full w-full flex ' >
 
@@ -203,15 +234,15 @@ const Home = () => {
 
             <div className="texts h-full w-full absolute top-0 flex flex-col justify-center items-center ">
               <h1 className=' text-[8vw] text-[#D8D8D8] ' > <span className=' text-red-800 font-[font4] ' >love</span>+<span className=' text-black font-[font5] ' > Memories  </span> </h1>
-                <div className="para opacity-70 ">
-              <p className=' text-[1vw] w-full flex justify-center items-center ' >
+                <div className="para opacity-70 text-[1.2vw] w-full flex flex-col justify-between items-center ">
+              <p className=' ' >
                 Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.
                   <br />
                   For almost a decade House On The Clouds has been creating
                   photographs and films which are timeless and have been etched
-                  in memories of thousands of people forever.
+                  in  people forever.
                   <br />                  
               </p>
               <p>
@@ -234,24 +265,25 @@ const Home = () => {
                   Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.Considered to be the 
-                  epitome of Modern Photography and
+                  epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
                   <br />
                   Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.Considered to be the 
-                  epitome of Modern Photography and
+                  epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
                   <br />
                   Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.Considered to be the 
-                  epitome of Modern Photography and
+                  epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
                   <br />
                   Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.Considered to be the 
-                  epitome of Modern Photography and
+                  epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
                   <br />
                   <br />
+                  <br /><br />
               </p>
               </div>
 
@@ -270,14 +302,33 @@ const Home = () => {
 
         </ section>
 
-        <section className='blackpg h-[200vh] w-full bg-[#D8D8D8] ' >
-              <div className="memories h-full w-full ">
+        <section className='blackpg h-[400vh] w-full bg-[#D8D8D8] ' >
+              <div className="cards h-full w-full flex flex-col z-20 ">
+
+                <div className="txt flex justify-center  ">
+                <h1 className='relative text-red-900 text-[15vh] top-20 font-[font2]' > Memories </h1>
+                </div>
+
+
+                <div className="allcard relative h-[180vh] w-full flex flex-wrap justify-center  gap-10  ">
                 
+                {memoData.map((data,index)=>{
+                  return <div key={index} className="card group h-[45%] w-[27%] cursor-pointer bg-white relative flex flex-col top-50   ">
+                  <img className='subcard relative h-full w-full border-white ' src={data.link} alt="" />
+                <h2 className='subtxt  text-white relative flex justify-around items-baseline left-2 text-xl top-1 font-[font2] group-hover:text-black  ' > {data.name}  <span className=' underline font-[font1] text-[22px] ' > {data.date} </span> </h2>
               </div>
+                })}
+
+              </div>
+                </div>
+
+
+                
 
         </ section>
 
-        <section className=' h-full w-full bg-black ' >
+        <section className=' h-[200vh] w-full bg-red-800 ' >
+
         </ section>
 
         <section className=' h-full w-full bg-white ' >

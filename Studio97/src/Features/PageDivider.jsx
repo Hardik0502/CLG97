@@ -28,7 +28,7 @@ const PageDivider = ({ scrollContainer }) => {
   }, [])
 
   return (
-    <div>
+    <div ref={pathRef} >
        <svg
       viewBox="0 0 1440 260"
       preserveAspectRatio="none"
