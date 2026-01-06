@@ -13,6 +13,8 @@ import CircularGallery from '../../Features/RoundGallery'
 import { easeIn, easeOut } from 'motion/react'
 import LightRays from '../../Features/LightsEffect'
 import LastPageDivider from '../../Features/LastPageDivider'
+import Footer from '../../Constants/Footer'
+
 
 
 const Home = () => {
@@ -455,7 +457,7 @@ const Home = () => {
         <section className=' h-[150vh] w-full bg-black' >
           <div className="boxes relative top-20 h-screen z-20 flex flex-wrap justify-center gap-5 ">
 
-            {ytlink.map((data,index) => {
+            {ytlink.map((data, index) => {
               return <div key={index} className="v1 h-[55%] w-[40%] ">
                 <iframe
                   className="h-full w-full"
@@ -470,36 +472,7 @@ const Home = () => {
           </div>
         </ section>
 
-        <section className=' h-[40vh] relative w-full bg-[#F0E9E0] ' >
-          <div className=' h-full ' >
-
-          {/* <div className="absolute inset-0 pointer-events-none h-full w-full z-0">
-            <LastPageDivider />
-          </div> */}
-
-          <div className="footer relative top-2 h-full flex justify-around opacity-85 ">
-            <div className="info flex justify-center flex-col ">
-              <h1 className=' text-4xl text-black uppercase font-[font2]  ' > Jayu Prajapati ( studio 97 ) </h1> <br />
-              <div className="other text-xl ">
-                <p className=' font-[font2] text-black ' >
-                 <span className=' text-orange-800 ' > MO </span>    : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7777988897
-                </p>
-                <p className='font-[font2] text-black ' >
-                 <span className=' text-orange-800 ' > Address </span>  :&nbsp; 1st floor, Besides Raghuvir Society <br />&nbsp;&nbsp;
-                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Anand ~ 388001
-                </p>
-                <p className='font-[font2] text-black' >
-                 <span className=' text-orange-800 ' > E-mail </span> : &nbsp;  jp7777988897@gmail.com
-                </p>
-              </div>
-            </div>
-            <div className="logo  ">
-                <img className=' h-full w-full ' src=".././public/logo.png" alt="" />
-            </div>
-          </div>
-
-          </div>
-        </ section>
+        < Footer />
 
 
 

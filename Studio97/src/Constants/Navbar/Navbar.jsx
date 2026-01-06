@@ -36,7 +36,7 @@ const Navbar = () => {
       onUpdate: (self) => {
         const currentScroll = self.scroll();
 
-        if(currentScroll < 80) return ;
+        if (currentScroll < 80) return;
 
         if (currentScroll > lastScroll) {
           gsap.to('.navbar', {
@@ -65,7 +65,8 @@ const Navbar = () => {
 
 
   return (
-    <div className='navbar w-full overflow-hidden fixed top-0 z-50 font-[font2] bg-black/30 '>
+    <div className='navbar w-full fixed top-0 z-50 font-[font2] 
+bg-white/40 backdrop-blur-md shadow-lg transition-colors duration-300'>
 
       {/* <div className="nav flex h-full items-center justify-center ">
 
@@ -94,15 +95,28 @@ const Navbar = () => {
 
       <nav className='nav flex justify-center gap-8 items-center' >
         <div className="leftLink text-[25px] font-[font3] flex gap-4 ">
-          <Link to='/' className='navlink '> Home </Link>
-          <Link to='/blogs' className='navlink'> Blogs </Link>
+          <Link to='/' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+            Home
+          </Link>
+          <Link to='/blogs' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+            Blogs
+          </Link>
+          <Link to='/blogs' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+            Packages
+          </Link>
         </div>
         <div className="logo">
-          <h1 className=' text-[55px] font-[font5] text-black '> STUDIO 97 </h1>
+          <h1 className='text-[55px] font-[font5] text-black drop-shadow-lg'>
+            STUDIO 97
+          </h1>
         </div>
         <div className="rightLink text-[25px] flex gap-4 font-[font3]">
-          <Link to='/help' className='navlink '> Help </Link>
-          <Link to='/about' className='navlink'> About </Link>
+          <Link to='/help' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+            Help
+          </Link>
+          <Link to='/about' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+            About
+          </Link>
         </div>
       </nav>
 
