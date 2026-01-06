@@ -213,6 +213,7 @@ const Blogs = () => {
           px-20
           grid
           grid-cols-[1fr_1.15fr]
+          items-center
           gap-28
           relative top-20
         ">

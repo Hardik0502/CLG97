@@ -101,7 +101,7 @@ bg-white/40 backdrop-blur-md shadow-lg transition-colors duration-300'>
           <Link to='/blogs' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
             Blogs
           </Link>
-          <Link to='/blogs' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
+          <Link to='/package' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
             Packages
           </Link>
         </div>
