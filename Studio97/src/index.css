@@ -45,3 +45,14 @@ body{
     width: 99.9%;
     transition: 0.5s ease ;
 }
+
+
+/* Hide scrollbar but allow scrolling */
+.no-scrollbar {
+  -ms-overflow-style: none;     /* IE & Edge */
+  scrollbar-width: none;        /* Firefox */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;                /* Chrome, Safari */
+}
