@@ -3,6 +3,9 @@ import Navbar from '../../Constants/Navbar/Navbar'
 import Footer from '../../Constants/Footer'
 import { Link } from 'react-router-dom'
 import PackageModal from '../../Features/whitepage'
+import Platinumpkg from '../../WeddingPackages/Platinumpkg'
+import Silverpkg from '../../WeddingPackages/Silverpkg'
+import Goldpkg from '../../WeddingPackages/Goldpkg'
 
 const Packages = () => {
 
@@ -96,16 +99,28 @@ const Packages = () => {
                 <section className="bg-white min-h-[115vh]  text-black p-16 rounded-3xl space-y-8">
 
                   <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Silver Package
-                </div>
+                  </div>
 
+                  < Silverpkg />
 
                 </section>
 
-                <section className="bg-gray-200 min-h-screen p-16 rounded-3xl space-y-8">
-                  <h1 className="text-6xl">Section Two</h1>
-                  <p>More content...</p>
-                  <p>More content...</p>
+                <section className="bg-white min-h-screen p-16 rounded-3xl space-y-8">
+                  <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Gold Package
+                  </div>
+                  < Goldpkg />
+
                 </section>
+
+                <section className='bg-white min-h-screen p-16 rounded-3xl space-y-8'>
+                  <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Platinum Package
+                  </div>
+
+                < Platinumpkg />
+
+                </section>
+
+
               </PackageModal>
 
 
