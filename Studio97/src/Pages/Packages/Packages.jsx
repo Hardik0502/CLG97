@@ -6,6 +6,8 @@ import PackageModal from '../../Features/whitepage'
 import Platinumpkg from '../../WeddingPackages/Platinumpkg'
 import Silverpkg from '../../WeddingPackages/Silverpkg'
 import Goldpkg from '../../WeddingPackages/Goldpkg'
+import NewbornPricing from '../../Constants/Package/Babyshowerpkg'
+import PricingGuide from '../../Constants/Package/Otherpkgs'
 
 const Packages = () => {
 
@@ -45,7 +47,7 @@ const Packages = () => {
       </section>
 
 
-      <section className='pkgs h-[200vh] bg-white ' >
+      <section className='pkgs h-[155vh] bg-white ' >
 
         <div className="first h-[150vh] flex justify-center ">
 
@@ -116,18 +118,63 @@ const Packages = () => {
                   <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Platinum Package
                   </div>
 
-                < Platinumpkg />
+                  < Platinumpkg />
 
                 </section>
 
 
               </PackageModal>
 
+              {/* Pre-wedding  */}
+              <div className="one bg-[#E4E6EA] min-h-[70vh] min-w-[30%] rounded-4xl ">
+                <div className=' text-black font-[font2] h-[20vh] text-[7vh] flex justify-center opacity-85 items-center uppercase rounded-t-3xl ' > PRE-Wedding
+                </div>
+
+                <div className=' flex justify-center h-[30vh] w-[99%] ' >
+                  <div className="types w-[65%] ">
+                    <h1 className=' text-black font-[font2] uppercase text-[5vh] flex justify-center underline ' > Packages </h1>
+                    <div className="pkgname font-[font3] font-bold flex h-[25vh] text-black flex-col justify-center ">
+                      <h1 className=' uppercase text-[3.8vh] ' > Classy </h1>
+                      <h1 className=' uppercase text-[3.8vh] ' > Premium </h1>
+                    </div>
+                  </div>
+
+                  <div className="view w-[25%] ">
+                    <h1 className=' text-black font-[font2] uppercase text-[5vh] flex justify-center underline ' > Price </h1>
+                    <div className="pkgname flex h-[25vh] text-black flex-col justify-center ">
+                      <h1 className=' uppercase text-[4vh] ' >₹ 30,000 </h1>
+                      <h1 className=' uppercase text-[4vh] ' >₹ 50,000 </h1>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bottom">
+                  <div className="button h-[10vh] flex justify-center ">
+                    <a href="tel:7777988897">
+                      <button
+                        className='border-2 h-[8vh] w-[10vw] text-black relative top-4 cursor-pointer 
+               hover:bg-black hover:text-white transition-all ease-in duration-200 
+               rounded-3xl border-black'
+                      >
+                        Contact Us
+                      </button>
+                    </a>
+
+                  </div>
+                  <div className=' w-full' >
+                    <h1 className=' text-black/85 w-full flex justify-center items-center relative top-4 ' > You can ask any of your&nbsp;<Link to='/help' className=' text-green-900 underline ' > Query Here </Link> </h1>
+                  </div>
+                </div>
+
+              </div>
+              <div className="one min-h-[70vh] min-w-[60%] rounded-4xl ">
+                <img className=' h-[70vh] w-full rounded-4xl' src="https://photos.smugmug.com/Pre-Wedding/i-g6v3KLx/0/LPDjC5W3tM7WwccJVRBbLsTdwRBmD7sJG239jr7g3/L/JAYU-38-L.jpg" alt="" />
+              </div>
 
 
-              <div className="one bg-black min-h-[70vh] min-w-[30%] rounded-4xl "></div>
-              <div className="one bg-black min-h-[70vh] min-w-[30%] rounded-4xl "></div>
-              <div className="one bg-black min-h-[70vh] min-w-[30%] rounded-4xl "></div>
+              
+              {/* <div className="one bg-black min-h-[70vh] min-w-[40%] rounded-4xl "></div>
+              <div className="one bg-black min-h-[70vh] min-w-[50%] rounded-4xl "></div> */}
             </div>
           </div>
 
@@ -137,8 +184,26 @@ const Packages = () => {
 
       </section>
 
+      <section className=' otherpackages h-[260vh] w-full bg-[#FFFFFF] ' >
+
+        <div className='pkgs h-[140vh] w-full bg-[#FFFFFF] ' >
+              <div className="babyshower">
+                  < NewbornPricing />              
+              </div>
+        </div>
+
+        <div className=' personalpkg h-[150vh] w-full ' >
+                < PricingGuide />
+        </div>
+
+
+      </section>
+
 
       {/* < Footer /> */}
+              <div className="footer w-full bg-white ">
+          < Footer />
+              </div>
     </>
   )
 }

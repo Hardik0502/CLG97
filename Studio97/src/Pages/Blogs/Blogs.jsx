@@ -352,7 +352,7 @@ const Blogs = () => {
           </div>
           </section>
 
-              <div className="footer h-[45vh] w-full bg-white ">
+              <div className="footer w-full bg-white ">
           < Footer />
               </div>
 

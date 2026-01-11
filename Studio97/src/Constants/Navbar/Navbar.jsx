@@ -106,9 +106,11 @@ bg-white/40 backdrop-blur-md shadow-lg transition-colors duration-300'>
           </Link>
         </div>
         <div className="logo">
+          <Link to='/' >
           <h1 className='text-[55px] font-[font5] text-black drop-shadow-lg'>
             STUDIO 97
           </h1>
+          </Link>
         </div>
         <div className="rightLink text-[25px] flex gap-4 font-[font3]">
           <Link to='/help' className='navlink text-black drop-shadow-md hover:text-gray-300 transition-colors'>
