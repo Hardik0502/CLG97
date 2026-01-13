@@ -326,8 +326,8 @@ const Home = () => {
 
         <section className=' h-[50vw] relative bg-white ' >
 
-          <div className=" h-full ">
-            <img className=' inset-0 h-full w-full object-cover -z-10 ' src="https://photos.smugmug.com/Pre-Wedding/i-jv7BK6f/0/L79D9q5jmWhFzZMTpZQQJhZQjFBgxm4RSXTr4rd3T/L/JAYU-148-L.jpg" alt="" />
+          <div className=" h-full bg-black">
+            <img className=' inset-0 h-full opacity-85 w-full object-cover -z-10 ' src="https://photos.smugmug.com/Pre-Wedding/i-fzpNgBD/0/MfjBzkjr2hsvv3QmkD98Np2zLqJ8FLf9fdJR7W5VV/L/JAYU-113-L.jpg" alt="" />
           </div>
 
           <div className="texts h-full w-full absolute top-0 flex flex-col justify-center items-center ">
@@ -344,37 +344,6 @@ const Home = () => {
                 <br />
               </p>
               <p>
-
-                For almost a decade House On The Clouds has been creating
-                photographs and films which are timeless and have been etched
-                in memories of thousands of people forever.
-                For almost a decade House On The Clouds has
-                <br />
-                Considered to be the epitome of Modern Photography and
-                Filmmaking, HOTC has transformed the Indian Wedding landscape
-                on a regular basis.Considered to be the epitome of Modern Photography ...
-                <br />
-                <br />
-                For almost a decade House On The Clouds has been creating
-                photographs and films which are timeless and have been etched
-                in memories of thousands of people forever.
-                For almost a decade House On The Clouds has
-                <br />
-                Considered to be the epitome of Modern Photography and
-                Filmmaking, HOTC has transformed the Indian Wedding landscape
-                on a regular basis.Considered to be the
-                epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
-                <br />
-                Considered to be the epitome of Modern Photography and
-                Filmmaking, HOTC has transformed the Indian Wedding landscape
-                on a regular basis.Considered to be the
-                epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
-                <br />
-                Considered to be the epitome of Modern Photography and
-                Filmmaking, HOTC has transformed the Indian Wedding landscape
-                on a regular basis.Considered to be the
-                epitome of Modern Photography and nkkdsnfdkfdnldsnkmldz fdlk
-                <br />
                 Considered to be the epitome of Modern Photography and
                 Filmmaking, HOTC has transformed the Indian Wedding landscape
                 on a regular basis.Considered to be the
