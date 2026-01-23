@@ -1,5 +1,5 @@
 import React from 'react'
-import { Instagram, Twitter, Facebook, Mail, Phone, MapPin } from 'lucide-react'
+import { Instagram, Twitter, Facebook, Mail, Phone, MapPin, Youtube } from 'lucide-react'
 
 const Footer = () => {
   return (
@@ -82,15 +82,15 @@ const Footer = () => {
                 </a>
                 
                 <a 
-                  href="#" 
+                  href="https://www.youtube.com/@Studio_97__" target="_blank"
                   className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800 hover:bg-linear-to-br hover:from-blue-400 hover:to-blue-600 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50"
                   aria-label="Twitter"
                 >
-                  <Twitter size={18} />
+                  <Youtube size={18} />
                 </a>
                 
                 <a 
-                  href="https://www.facebook.com/captianjayu97/" 
+                  href="https://www.facebook.com/captianjayu97/" target="_blank"
                   className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800 hover:bg-linear-to-br hover:from-blue-600 hover:to-blue-800 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-600/50"
                   aria-label="Facebook"
                 >
@@ -98,7 +98,7 @@ const Footer = () => {
                 </a>
                 
                 <a 
-                  href="https://wa.me/7777988897" 
+                  href="https://wa.me/7777988897" target="_blank"
                   className="w-10 h-10 flex items-center justify-center rounded-xl bg-slate-800 hover:bg-linear-to-br hover:from-green-400 hover:to-green-600 transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-green-500/50"
                   aria-label="WhatsApp"
                 >
