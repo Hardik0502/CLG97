@@ -167,7 +167,7 @@ const Home = () => {
 
 
   return (
-    <div className=' font-[font1] h-screen w-full '>
+    <div className=' font-[font1] w-full min-h-screen overflow-y-hidden '>
       <div ref={scrollContainer} className='scrolling-container relative inset-0 w-full h-full '>
         <section id='hero' className=' h-screen w-full relative overflow-hidden '>
           < Navbar scrollContainer={scrollRef} />
