@@ -1,6 +1,6 @@
 import { useGSAP } from '@gsap/react'
 import React, { useRef, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import gsap from 'gsap'
 import ScrollTrigger from 'gsap/ScrollTrigger'
 
@@ -11,6 +11,7 @@ const Navbar = () => {
 
   const [navclick, setnavclick] = useState(false);
   const navRef = useRef(null);
+
 
   useGSAP(() => {
 
@@ -72,17 +73,49 @@ const Navbar = () => {
 
     if (!navRef.current) return;
 
-    if (navRef.current) {
-      //  navRef.current = gsap.timeline( { paused : true } );
+    // INITIAL STATE
+if (navRef.current) {
+  gsap.set(navRef.current, { xPercent: 100 });
+}
 
-      gsap.to(navRef.current, {
-        yPercent: navclick ? 0 : 100,
-        duration: 0.6,
-        ease: 'power3.out'
-      })
-    }
+// OPEN / CLOSE
+gsap.to(navRef.current, {
+  xPercent: navclick ? 0 : 100,
+  duration: 0.6,
+  ease: 'power3.out'
+});
+
+
+
+    // gsap.set(navRef.current, {
+    //   yPercent: navclick ? 0 : 100,
+    //   // duration: 0.6,
+    //   // ease: 'power3.out'
+    // });
+
 
   }, [navclick])
+
+  const location = useLocation();
+
+ React.useEffect(() => {
+  setnavclick(false);
+
+  if (navRef.current) {
+    gsap.set(navRef.current, { xPercent: 100 });
+  }
+}, [location.pathname]);
+
+React.useEffect(() => {
+  document.body.style.overflow = navclick ? 'hidden' : 'auto';
+
+  return () => {
+    document.body.style.overflow = 'auto';
+  };
+}, [navclick]);
+
+
+
 
 
 
@@ -184,14 +217,14 @@ const Navbar = () => {
     mobile-nav
     fixed
     top-0
-    left-0
-    w-full
+    right-0
+    w-screen
     h-screen
     bg-white
     z-90
     lg:hidden
   "
-      //  style={{ transform: 'translateY(-100%)' }}
+        // style={{ transform: 'translateX(100%)' }}
       >
         <div className="relative w-full h-full">
 
@@ -239,12 +272,12 @@ const Navbar = () => {
     text-[36px]
     font-[font3]
     text-black
-  ">    
-            <Link to="/" className=' h-20 flex justify-center items-center border-t border-black' >Home</Link>
-            <Link to="/blogs" className='h-20 flex justify-center items-center border-t border-black' >Blogs</Link>
-            <Link to="/package" className='h-20 flex justify-center items-center border-t border-black'>Packages</Link>
-            <Link to="/help" className=' h-20 flex justify-center items-center border-t border-black'>Help</Link>
-            <Link to="/about" className=' h-20 flex justify-center items-center border border-black' >About</Link>
+  ">
+            <Link to="/" onClick={() => setnavclick(false)} className=' h-20 flex justify-center items-center border-t border-black' >Home</Link>
+            <Link to="/blogs" onClick={() => setnavclick(false)} className='h-20 flex justify-center items-center border-t border-black' >Blogs</Link>
+            <Link to="/package" onClick={() => setnavclick(false)} className='h-20 flex justify-center items-center border-t border-black'>Packages</Link>
+            <Link to="/help" onClick={() => setnavclick(false)} className=' h-20 flex justify-center items-center border-t border-black'>Help</Link>
+            <Link to="/about" onClick={() => setnavclick(false)} className=' h-20 flex justify-center items-center border border-black' >About</Link>
           </div>
 
         </div>

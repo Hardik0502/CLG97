@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Video from '../../Constants/Videopage/Video'
@@ -165,6 +165,8 @@ const Home = () => {
     },
   ]
 
+  const [activemobileClick, setactivemobileClick] = useState(null)
+
 
   return (
     <div className=' font-[font1] w-full min-h-screen overflow-y-hidden '>
@@ -190,7 +192,7 @@ const Home = () => {
               />
             </div> */}
 
-            <div className="relative bottom-8">
+            <div className="relative md:bottom-8 left-15 top-5 md:-top-10 md:left-0 ">
               <TrueFocus
                 sentence="Studio 97"
                 manualMode={false}
@@ -204,18 +206,18 @@ const Home = () => {
 
           </div>
 
-          <div className="absolute bottom-0 left-0 w-full z-0">
+          <div className="absolute bottom-0 left-0 w-screen z-0">
             <PageDivider />
           </div>
 
         </section>
 
-        <section className=' min-h-[200vh] w-full bg-white relative z-0' >
+        <section className=' md:min-h-[210vh] max-h-[90vh] w-full bg-white relative z-0' >
 
           <div className='artboard-wrapper h-full w-full flex ' >
 
             <div className=" artboard img1 w-[50%] relative " >
-              <img className=' h-[40vw] -rotate-12 border-2 border-blue-950 p-8 relative left-[12%] -top-[15%] z-20 ' src="https://photos.smugmug.com/Wedding/i-rTKVhpV/0/LkJzk5jzmZHNHBkSR7Fwvj87jkHdpTbZbwwhFrdrW/L/_A749597-L.jpg" alt="" />
+              <img className=' md:h-[40vw] h-50 -rotate-12 border-2 border-blue-950 p-8 relative left-[12%] md:-top-[15%] top-0 z-20 ' src="https://photos.smugmug.com/Wedding/i-rTKVhpV/0/LkJzk5jzmZHNHBkSR7Fwvj87jkHdpTbZbwwhFrdrW/L/_A749597-L.jpg" alt="" />
 
               {/* 
               <div className="txt">
@@ -243,10 +245,10 @@ const Home = () => {
             </div>
 
             <div className="uptxt w-[50%] ">
-              <h1 className=' text-[30px] top-[5%] absolute right-[8%] font-[font4] text-black' > A Life be more beautiful When you  <br /> are with STUDIO 97.  </h1>
+              <h1 className=' md:text-[30px] text-[13px] md:top-[5%] top-8 absolute md:right-[8%] font-[font4] text-black' > A Life be more beautiful When you  <br /> are with STUDIO 97.  </h1>
 
-              <h2 className='text-[22px] top-[15%] -translate-y-2 right-[8%] absolute font-[font1] text-black'>
-                Considered to be the epitome of Modern Photography and Filmmaking, <br /> HOTC has transformed the Indian Wedding landscape on a regular basis.<br /> For almost a decade House On The Clouds has been creating photographs <br /> and films which are timeless and <br /> have been etched in memories of thousands of people forever.
+              <h2 className='md:text-[22px] text-[10px] md:top-[15%] top-27 -translate-y-2 md:right-[8%] right-3 absolute font-[font1] text-black md:w-[45%] w-[40%] md:leading-8 leading-3 '>
+                Considered to be the epitome of Modern Photography and Filmmaking,  HOTC has transformed the Indian Wedding landscape on a regular basis For almost a decade House On The Clouds has been creating photographs  and films which are timeless and have been etched in memories of thousands of people forever.
               </h2>
 
             </div>
@@ -269,9 +271,11 @@ const Home = () => {
                 alt="Wedding"
                 className="
               absolute
-              right-[98px]
-              top-2.5
-              w-[500px]
+              md:right-[98px]
+              right-8
+              md:top-2.5
+              top-18
+              md:w-[28vw] w-[40%]
               rotate-15
               border-2
               border-blue-950
@@ -300,14 +304,14 @@ const Home = () => {
           </h1> */}
 
               {/* ===== TEXT BLOCK (LEFT SIDE) ===== */}
-              <div className="absolute left-[70px] text-black top-[100px] w-[50%] z-10">
-                <h1 className="text-[30px] font-[font4]  ">
+              <div className="absolute md:left-[70px] left-4 text-black top-[100px] w-[50%] z-10">
+                <h1 className="md:text-[30px] text-[13px] font-[font4]  ">
                   Your Journey Is Our Destiny. <br />
                   Stay Tuned...
                 </h1>
                 <br />
 
-                <p className="text-[22px] leading-8 w-[80%] font-[font1]">
+                <p className="md:text-[22px] text-[10px] md:leading-8 leading-3 md:w-[80%] w-[75%] font-[font1]">
                   Considered to be the epitome of Modern Photography and
                   Filmmaking, HOTC has transformed the Indian Wedding landscape
                   on a regular basis.
@@ -321,18 +325,17 @@ const Home = () => {
             </div>
           </div>
 
-
         </section>
 
-        <section className=' h-[50vw] relative bg-white ' >
+        <section className=' md:h-[50vw] h-[55vh] relative bg-white ' >
 
-          <div className=" h-full bg-black">
-            <img className=' inset-0 h-full opacity-85 w-full object-cover -z-10 ' src="https://photos.smugmug.com/Pre-Wedding/i-fzpNgBD/0/MfjBzkjr2hsvv3QmkD98Np2zLqJ8FLf9fdJR7W5VV/L/JAYU-113-L.jpg" alt="" />
+          <div className=" md:h-full bg-black">
+            <img className=' inset-0 md:h-full h-[55vh] opacity-85 w-full object-cover -z-10 ' src="https://photos.smugmug.com/Pre-Wedding/i-fzpNgBD/0/MfjBzkjr2hsvv3QmkD98Np2zLqJ8FLf9fdJR7W5VV/L/JAYU-113-L.jpg" alt="" />
           </div>
 
           <div className="texts h-full w-full absolute top-0 flex flex-col justify-center items-center ">
-            <h1 className=' text-[8vw] text-[#D8D8D8] ' > <span className=' text-red-800 font-[font4] ' >love</span>+<span className=' text-black font-[font5] ' > Memories  </span> </h1>
-            <div className="para opacity-70 text-[1.2vw] w-full flex flex-col justify-between items-center ">
+            <h1 className=' md:text-[8vw] text-[11vw] text-[#D8D8D8] ' > <span className=' text-red-800 font-[font4] ' >love</span>+<span className=' md:text-black text-white font-[font5] ' > Memories  </span> </h1>
+            <div className="para opacity-70 md:text-[1.2vw] text-[10px] md:w-full w-[90%] flex flex-col justify-between items-center ">
               <p className=' ' >
                 Considered to be the epitome of Modern Photography and
                 Filmmaking, HOTC has transformed the Indian Wedding landscape
@@ -354,7 +357,7 @@ const Home = () => {
               </p>
             </div>
 
-            <button className='btn h-[50px] border w-32 font-[font2] bg-white text-black  ' > Expolre More </button>
+            <button className='btn md:h-[50px] h-10 border w-32 font-[font2] bg-white text-black  ' > Expolre More </button>
 
           </div>
 
@@ -369,30 +372,35 @@ const Home = () => {
 
         </ section>
 
-        <section className='blackpg h-[620vh] w-full bg-white ' >
+        <section className='blackpg md:h-[620vh]  w-full bg-white ' >
 
           <div className=" h-full w-full ">
 
-            <div className='cards min-h-[250vh] w-full flex flex-col z-20 '>
+            <div className='cards md:min-h-[250vh] min-h-[370vh] w-full flex flex-col z-20 '>
               <div className="txt flex justify-center  ">
-                <h1 className='relative text-red-900 text-[15vh] underline uppercase top-20 font-[font2]' > Memories : </h1>
+                <h1 className='relative text-red-900 md:text-[15vh] text-5xl underline uppercase top-20 font-[font2]' > Memories : </h1>
               </div>
 
 
               <div className="allcard relative h-[180vh] w-full flex flex-wrap justify-center  gap-10  ">
 
                 {memoData.map((data, index) => {
-                  return <div key={index} className="card group h-[45%] w-[27%] cursor-pointer bg-white relative flex flex-col top-50   ">
-                    <img className='subcard relative h-full w-full border-white ' src={data.link} alt="" />
-                    <h2 className='subtxt  text-white relative flex justify-around items-baseline left-2 text-xl top-1 font-[font2] group-hover:text-black  ' > {data.name}  <span className=' underline font-[font1] text-[22px] ' > {data.date} </span> </h2>
+                  // const isActive = activemobileClick === index;
+                  return <div key={index}
+                    // onClick={ ()=>{
+                    //   setactivemobileClick(isActive ? null : index )
+                    // } }
+                  className={`card group md:h-[45%] h-[40%] md:w-[27%] cursor-pointer md:bg-white relative flex flex-col top-50  ${ index > 3 ? ' hidden md:flex' : 'flex' } `}>
+                    <img className='subcard relative h-full w-full ' src={data.link} alt="" />
+                    <h2 className= 'subtxt w-full md:text-white bg-white md:bg-transparent text-black absolute md:relative flex justify-around items-baseline md:left-2 text-xl md:top-1 bottom-0 font-[font2] group-hover:text-black ' > {data.name}  <span className=' underline font-[font1] text-[22px] ' > {data.date} </span> </h2>
                   </div>
                 })}
 
               </div>
             </div>
 
-            <div className="galary relative h-[350vh] border-black bg-black border-15 w-full top-20 ">
-              <div className="subgal h-full w-full relative grid grid-cols-5 justify-center items-center  gap-3 ">
+            <div className="galary relative md:h-[350vh] h-[300vh] border-black bg-black border-15 w-full md:top-20 ">
+              <div className="subgal h-full w-full relative grid md:grid-cols-5 grid-cols-3 justify-center items-center  gap-3 ">
                 {galImg.map((data, index) => {
                   return <img key={index} className=' h-full w-full rounded-2xl ' src={data.imglink} alt="" />
                 })}
@@ -423,11 +431,11 @@ const Home = () => {
 
         </ section>
 
-        <section className=' h-[150vh] w-full bg-black' >
+        <section className=' md:h-[150vh] h-[125vh] w-full bg-black' >
           <div className="boxes relative top-20 h-screen z-20 flex flex-wrap justify-center gap-5 ">
 
             {ytlink.map((data, index) => {
-              return <div key={index} className="v1 h-[55%] w-[40%] ">
+              return <div key={index} className="v1 md:h-[55%] md:w-[40%] ">
                 <iframe
                   className="h-full w-full"
                   src={data.vlink}

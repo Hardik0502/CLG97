@@ -5,7 +5,7 @@ const Video = () => {
   return (
     <>
     <div >
-        <video src='../src/Videos/videoplayback.mp4' className=' h-screen w-full relative object-cover ' muted autoPlay loop >
+        <video src='../src/Videos/videoplayback.mp4' className=' h-screen w-screen border-none relative object-cover ' muted autoPlay loop >
         </video>
 
     </div>
