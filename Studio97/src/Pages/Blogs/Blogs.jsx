@@ -195,7 +195,7 @@ const Blogs = () => {
     <>
       <Navbar />
 
-      <section className=" h-[20vh] w-full bg-white " >
+      <section className=" md:h-[20vh] w-full bg-white " >
 
       </section>
 
@@ -203,28 +203,30 @@ const Blogs = () => {
         ref={containerRef}
         className="
           w-full
-          min-h-[250vh]
+          md:min-h-[250vh] h-[150vh]
           bg-[#F6F6F4]
         "
       >
         <div className="
-          max-w-[1400px]
+          md:max-w-[1400px]
+          w-full
           mx-auto
           px-20
           grid
           grid-cols-[1fr_1.15fr]
           items-center
-          gap-28
+          md:gap-28
+          gap-5
           relative top-20
         ">
 
           {/* LEFT CONTENT */}
-          <div className="flex flex-col relative top-0 left-10 ">
-            <p className="fade-text text-sm text-gray-500 mb-10">
+          <div className="flex flex-col md:w-full relative top-0 md:left-10 left-3 ">
+            <p className="fade-text md:text-sm text-[10px] text-gray-500 mb-10">
               Studio 97 Presentes,
             </p>
 
-            <h1 className="fade-text text-black font-[font3] text-[56px] leading-[1.06] font-light mb-10">
+            <h1 className="fade-text text-black font-[font3] md:text-[56px] text-[27px] leading-[1.06] font-light mb-10">
               Welcome to this
               <br />
               Exclusive
@@ -232,7 +234,7 @@ const Blogs = () => {
               Blog section
             </h1>
 
-            <p className="fade-text text-gray-600 max-w-md mb-14 leading-relaxed">
+            <p className="fade-text text-gray-600/80 max-w-md mb-14 md:leading-relaxed leading-5 ">
               We are the only one who cure your memories, emotions and your
               criteria to meet up.
             </p>
@@ -253,42 +255,42 @@ const Blogs = () => {
             <div className="meaning text-black">
 
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> S </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Supportive </span>
+                <h1 className=" md:text-8xl text-5xl "> S </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Supportive </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> T </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Technical </span>
+                <h1 className=" md:text-8xl text-5xl  "> T </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Technical </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> U </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Unique </span>
+                <h1 className=" md:text-8xl text-5xl  "> U </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Unique </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> D </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Detailed </span>
+                <h1 className=" md:text-8xl text-5xl  "> D </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Detailed </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> I </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Intuitive </span>
+                <h1 className=" md:text-8xl relative md:left-4 left-2 text-5xl  "> I </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Intuitive </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> O </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Organized </span>
+                <h1 className=" md:text-8xl relative md:right-2 right-1 text-5xl  "> O </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Organized </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> 9 </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Nine </span>
+                <h1 className=" md:text-8xl text-5xl  "> 9 </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Nine </span>
               </div>
               <div className="s flex justify-between items-center ">
-                <h1 className=" text-8xl "> 7 </h1>
-                <span className=" text-7xl w-[32vw] uppercase text-white bg-black " > Seven </span>
+                <h1 className=" md:text-8xl text-5xl  "> 7 </h1>
+                <span className=" md:text-7xl text-2xl cd:w-[32vw] w-[40vw] uppercase text-white bg-black " > Seven </span>
               </div>
             </div>
           </div>
 
           {/* RIGHT IMAGES */}
-          <div className="flex flex-col gap-12 relative right-4 ">
+          <div className="flex flex-col md:w-full w-[60%] gap-12 relative md:top-0 top-8 md:right-4 ">
             {["https://photos.smugmug.com/Pre-Wedding/i-fzpNgBD/0/MfjBzkjr2hsvv3QmkD98Np2zLqJ8FLf9fdJR7W5VV/L/JAYU-113-L.jpg",
               "https://photos.smugmug.com/Wedding/i-KjD9JjT/0/NhC2mxgWpBd25bQNQDVjGL5VXpDP8595tmKvW2hxL/L/_DSC0018-L.jpg",
               "https://photos.smugmug.com/Wedding/i-mxTvG6j/0/MbgMX5qZmbn9jcvLfjb5NdvBbtcPNQrFbgTWWvk6M/L/DSC00844-L.jpg",
@@ -298,7 +300,9 @@ const Blogs = () => {
                   ref={(el) => (imagesRef.current[i] = el)}
                   className="
                   relative
-                  h-[260px]
+                  md:h-[260px]
+                  h-35
+                  md:w-full w-40
                   rounded-[26px]
                   overflow-hidden
                   group
@@ -341,7 +345,7 @@ const Blogs = () => {
         
       </section>
 
-          <section className=" bg-[#F6F6F4] h-[500vh] " >
+          <section className=" bg-[#F6F6F4] md:h-[755vh] h-[300vh] " >
             
           <div className="gallery h-full w-full relative ">
             <Masonry
@@ -352,7 +356,7 @@ const Blogs = () => {
           </div>
           </section>
 
-              <div className="footer w-full bg-white ">
+              <div className="footer relative w-full">
           < Footer />
               </div>
 
