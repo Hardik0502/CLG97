@@ -171,11 +171,11 @@ const Home = () => {
   return (
     <div className=' font-[font1] w-full min-h-screen overflow-y-hidden '>
       <div ref={scrollContainer} className='scrolling-container relative inset-0 w-full h-full '>
-        <section id='hero' className=' h-screen w-full relative overflow-hidden '>
+        <section id='hero' className=' h-[100.1vh] md:h-screen w-full relative overflow-hidden '>
           < Navbar scrollContainer={scrollRef} />
 
           < Video />
-          <div className=' absolute top-24 bottom-6 right-16 flex flex-col justify-between opacity-90 rounded-[50px] h-[35vw] w-[90vw] ' >
+          <div className=' absolute top-24 bottom-6 right-16 flex flex-col justify-between opacity-90 rounded-[50px] h-[35vw] md:w-[90vw] w-full ' >
             {/* <div className="texts">
               <h1 className=' font-[font2] text-[8vw] text-white ' > Your Memories </h1>
               <h1 className=' font-[font2] text-[6vw] text-white ' > are our </h1>
@@ -212,7 +212,7 @@ const Home = () => {
 
         </section>
 
-        <section className=' md:min-h-[210vh] max-h-[90vh] w-full bg-white relative z-0' >
+        <section className=' md:min-h-[210vh] max-h-[80vh] w-full bg-white relative z-0' >
 
           <div className='artboard-wrapper h-full w-full flex ' >
 

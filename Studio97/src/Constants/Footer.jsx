@@ -9,7 +9,7 @@ const Footer = () => {
         w-full
         bg-linear-to-br from-slate-900 via-slate-800 to-slate-900
         text-white
-        min-h-svh
+        min-h-[60vh]
         md:min-h-[40vh]
         overflow-hidden
       ">
@@ -47,11 +47,11 @@ const Footer = () => {
 
             {/* CONTACT */}
             <div className="relative">
-              <h4 className="absolute top-0 text-lg font-[font2] text-slate-100">
+              <h4 className="absolute md:top-0 -top-12 text-lg font-[font2] text-slate-100">
                 Get In Touch
               </h4>
 
-              <div className="absolute top-[12vh] md:top-10 font-[font2] space-y-[6vh]">
+              <div className="absolute md:bottom-0 bottom-3 md:top-10 font-[font2] space-y-[6vh]">
 
                 <a href="tel:7777988897" className="flex items-center gap-3 text-slate-300">
                   <div className="w-8 h-8 flex items-center justify-center rounded-lg bg-slate-800">
@@ -82,11 +82,11 @@ const Footer = () => {
 
             {/* SOCIAL */}
             <div className="relative font-[font2]">
-              <h4 className="absolute top-0 text-lg text-slate-100">
+              <h4 className="absolute md:top-0 -top-2 text-lg text-slate-100">
                 Connect With Me
               </h4>
 
-              <div className="absolute top-[12vh] md:top-10 flex gap-3">
+              <div className="absolute top-[3vh] md:top-10 flex gap-3">
                 {[ 
                   { href:'https://www.instagram.com/studio_97__/?hl=en', icon:<Instagram size={18}/> },
                   { href:'https://www.youtube.com/@Studio_97__', icon:<Youtube size={18}/> },
