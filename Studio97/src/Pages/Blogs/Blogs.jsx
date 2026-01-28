@@ -188,7 +188,7 @@ const Blogs = () => {
       img: "https://photos.smugmug.com/Pre-Wedding/i-GC6Ltfb/0/LwWmFX38SHPQPWwDbSTh8ZrJ6hHSb7F6SfQ7xxKpq/L/JAYU-125-L.jpg",
       height: 900,
     },
-    
+
   ];
 
   return (
@@ -342,23 +342,31 @@ const Blogs = () => {
           </div>
 
         </div>
-        
+
       </section>
 
-          <section className=" bg-[#F6F6F4] md:h-[755vh] h-[300vh] " >
-            
-          <div className="gallery h-full w-full relative ">
-            <Masonry
-            items={items}
-              ease="power4.out"
-              animateFrom="top"
-            />
-          </div>
-          </section>
+      <section
+        className="
+    bg-[#F6F6F4]
+    w-full
+    relative
+    h-[clamp(260vh,280vh,320vh)]
+  "
+      >
 
-              <div className="footer relative w-full">
-          < Footer />
-              </div>
+
+        <div className="gallery w-full relative ">
+          <Masonry
+            items={items}
+            ease="power4.out"
+            animateFrom="top"
+          />
+        </div>
+      </section>
+
+      <div className="footer relative w-full">
+        < Footer />
+      </div>
 
     </>
   );

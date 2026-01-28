@@ -58,10 +58,11 @@ const Masonry = ({
   colorShiftOnHover = false
 }) => {
   const columns = useMedia(
-    ['(min-width:1500px)', '(min-width:1000px)', '(min-width:600px)', '(min-width:400px)'],
-    [5, 4, 3, 2],
-    3
+    ['(min-width:1024px)', '(min-width:768px)'],
+    [5, 4, 3],
+    3 // 📱 ALL phones → 3 columns
   );
+
 
   const [containerRef, { width }] = useMeasure();
   const [imagesReady, setImagesReady] = useState(false);
