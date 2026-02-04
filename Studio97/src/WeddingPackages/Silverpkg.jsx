@@ -8,8 +8,8 @@ const Silverpkg = () => {
                     <div className="relative mx-auto mt-[6vh] h-screen w-full overflow-hidden  bg-gray-200  flex  ">
 
                       {/* LEFT CONTENT */}
-                      <div className="w-1/2 h-screen flex flex-col items-center justify-center">
-                        <h1 className="fade uppercase font-[Playfair Display] font-bold text-[10.5vh] leading-[0.9] opacity-75 text-[#1a1a1a]">
+                      <div className="md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
+                        <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[5vh] md:leading-[0.9] relative md:top-0 opacity-75 text-[#1a1a1a]">
                           Wedding <br />
                           Package <br />
                           #1

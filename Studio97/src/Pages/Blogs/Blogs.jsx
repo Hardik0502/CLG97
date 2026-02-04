@@ -350,12 +350,13 @@ const Blogs = () => {
     bg-[#F6F6F4]
     w-full
     relative
-    h-[clamp(260vh,280vh,320vh)]
+    md:h-[500vh]
+    h-[290vh]
   "
       >
 
 
-        <div className="gallery w-full relative ">
+        <div className="gallery w-full relative">
           <Masonry
             items={items}
             ease="power4.out"
