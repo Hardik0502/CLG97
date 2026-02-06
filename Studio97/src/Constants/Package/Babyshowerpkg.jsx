@@ -1,9 +1,9 @@
 export default function NewbornPricing() {
   return (
-    <section className="min-h-screen w-full bg-white flex justify-center">
+    <section className="md:h-full w-full bg-white flex justify-center">
       
       {/* PAGE */}
-      <div className="w-[95%] bg-white text-[#2b2b2b]">
+      <div className="md:w-[95%] w-[97%] bg-white text-[#2b2b2b]">
 
         {/* HEADER */}
         <div className="text-center">
@@ -11,7 +11,7 @@ export default function NewbornPricing() {
             STUDIO 97
           </p>
 
-          <h1 className="text-[12vh] leading-none font-[font1] ">
+          <h1 className="md:text-[12vh] text-[8.5vh] leading-none font-[font1] ">
             Baby Shower
           </h1>
 
@@ -21,12 +21,12 @@ export default function NewbornPricing() {
         </div>
 
         {/* PACKAGES */}
-        <div className="grid grid-cols-2 gap-6 text-center text-sm mb-10">
+        <div className="grid grid-cols-2 md:gap-6 gap-15 text-center relative md:top-0 top-8 text-sm mb-10">
 
           {/* PACKAGE 01 */}
           <div>
-            <p className="font-semibold underline font-[font2] text-[3vh] mb-2">Packages 01 : &nbsp; ₹ 10,000/-</p>
-            <ul className="space-y-1">
+            <p className="font-semibold md:underline font-[font2] md:text-[4vh] text-[3vh] mb-2">Packages 01 : &nbsp; ₹ 10,000/-</p>
+            <ul className="space-y-1 md:text-[3.5vh] text-[2.5vh] ">
               <li>1 Traditional Photographer</li>
               <li>1 Traditional Videographer</li>
               <li>20 Minutes Video</li>
@@ -36,8 +36,9 @@ export default function NewbornPricing() {
                                 className="
                 border-2
                 border-[#C48A5A]
-                relative top-1
-                text-[3.8vh]
+                relative md:top-1 top-5
+                md:text-[3.8vh]
+                text-[3vh]
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -53,8 +54,8 @@ export default function NewbornPricing() {
 
           {/* PACKAGE 02 */}
           <div>
-            <p className="font-semibold underline font-[font2] text-[3vh] mb-2">Packages 02 : &nbsp; ₹ 18,000/-</p>
-            <ul className="space-y-1">
+            <p className="font-semibold md:underline font-[font2] md:text-[4vh] text-[3vh] mb-2">Packages 02 : &nbsp; ₹ 18,000/-</p>
+            <ul className="space-y-1 md:text-[3.5vh] text-[2.5vh] ">
               <li>2 Traditional Photographer</li>
               <li>1 Traditional Videographer</li>
               <li>30 Minutes Video</li>
@@ -64,8 +65,9 @@ export default function NewbornPricing() {
                                 className="
                 border-2
                 border-[#C48A5A]
-                relative top-1
-                text-[3.8vh]
+                relative md:top-1 top-5
+                md:text-[3.8vh]
+                text-[3vh]
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -82,7 +84,7 @@ export default function NewbornPricing() {
         </div>
 
         {/* IMAGE GRID */}
-        <div className="grid grid-cols-3 gap-4 mb-10">
+        <div className="grid grid-cols-3 md:gap-4 gap-2 relative md:top-0 top-15 mb-10">
 
           {/* TOP ROW */}
           <img
@@ -120,7 +122,7 @@ export default function NewbornPricing() {
         </div>
 
         {/* FOOTER */}
-        <div className="text-center text-xs relative top-4 ">
+        <div className="text-center text-xs relative md:top-4 top-25 ">
           <p className="italic mb-3">
             Book your Photography with us &amp; make your memory more beautiful.
           </p>

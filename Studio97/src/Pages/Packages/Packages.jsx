@@ -48,7 +48,7 @@ const Packages = () => {
       </section>
 
 
-      <section className='pkgs h-[155vh] bg-white ' >
+      <section className='pkgs md:h-[155vh] h-[200vh] bg-white ' >
 
         <div className="first h-[150vh] flex justify-center ">
 
@@ -128,23 +128,23 @@ const Packages = () => {
 
               {/* Pre-wedding  */}
               <div className="one bg-[#E4E6EA] md:h-[70vh] h-[50vh]  md:w-[30%] w-[90%] rounded-4xl ">
-                <div className=' text-black font-[font2] md:h-[20vh] h-[15vh] md:text-[9vh] text-[6vh] flex justify-center opacity-85 items-center uppercase rounded-t-3xl ' > PRE-Wedding
+                <div className=' text-black font-[font2] md:h-[20vh] h-[15vh] md:text-[9vh] text-[5vh] flex justify-center opacity-85 items-center uppercase rounded-t-3xl ' > PRE-Wedding
                 </div>
 
                 <div className=' flex justify-center md:h-[30vh] h-[20vh] w-[99%] ' >
                   <div className="types w-[65%] ">
-                    <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[4vh] flex justify-center underline ' > Packages </h1>
+                    <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3.5vh] flex justify-center underline ' > Packages </h1>
                     <div className="pkgname font-[font3] font-bold flex md:h-[25vh] h-[15vh] text-black flex-col justify-center ">
-                      <h1 className=' uppercase md:text-[3.8vh] text-[3.5vh] ' > Classy </h1>
-                      <h1 className=' uppercase md:text-[3.8vh] text-[3.5vh] ' > Premium </h1>
+                      <h1 className=' uppercase md:text-[3.8vh] text-[3.4vh] ' > Classy </h1>
+                      <h1 className=' uppercase md:text-[3.8vh] text-[3.4vh] ' > Premium </h1>
                     </div>
                   </div>
 
                   <div className="view w-[25%] ">
-                    <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[4vh] flex justify-center underline ' > Price </h1>
+                    <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3.5vh] flex justify-center underline ' > Price </h1>
                     <div className="pkgname flex md:h-[25vh] h-[15vh] text-black flex-col justify-center ">
-                      <h1 className=' uppercase md:text-[4vh] text-[3.2vh] ' >₹ 30,000 </h1>
-                      <h1 className=' uppercase md:text-[4vh] text-[3.2vh] ' >₹ 50,000 </h1>
+                      <h1 className=' uppercase md:text-[4vh] text-[3.1vh] ' >₹ 30,000 </h1>
+                      <h1 className=' uppercase md:text-[4vh] text-[3.1vh] ' >₹ 50,000 </h1>
                     </div>
                   </div>
                 </div>
@@ -185,9 +185,9 @@ const Packages = () => {
 
       </section>
 
-      <section className=' otherpackages h-[260vh] w-full bg-[#FFFFFF] ' >
+      <section className=' otherpackages md:h-[260vh] h-[400vh] w-full bg-[#FFFFFF] ' >
 
-        <div className='pkgs h-[140vh] w-full bg-[#FFFFFF] ' >
+        <div className='pkgs md:h-[140vh] h-[140vh] w-full bg-[#FFFFFF] ' >
               <div className="babyshower">
                   < NewbornPricing />              
               </div>

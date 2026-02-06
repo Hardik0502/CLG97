@@ -144,45 +144,45 @@ const AboutPage = () => {
       <section className="w-full min-h-screen bg-[#eaeaea] flex justify-center items-center">
 
         {/* PAGE WRAPPER */}
-        <div className=" w-full h-[125vh] z-10 relative top-20 bg-white">
+        <div className=" w-full md:h-[125vh] h-[98vh] z-10 relative md:top-20 top-8 bg-white">
 
           {/* HEADER */}
           <div className="absolute top-0 left-0 w-full bg-black h-16 border-b flex items-center">
-            <span className="absolute left-12 text-[12px] tracking-[0.3em] font-semibold">
+            <span className="absolute md:left-12 left-2 text-[12px] tracking-[0.3em] font-semibold">
               STUDIO 97
             </span>
           </div>
 
           {/* HERO BLUE */}
-          <div className="absolute top-16 left-0 w-full h-[420px] bg-[#6fa6d9]">
+          <div className="absolute top-16 left-0 w-full h-[420px] bg-black overflow-hidden">
+
 
             {/* MODEL IMAGE */}
             <img
               src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=600&auto=format&fit=crop"
               alt=""
-              className="absolute bottom-0 left-[90px] h-[390px] object-contain"
+              className="absolute md:bottom-0 bottom-20 md:left-[90px] left-0 md:h-[390px] h-[35vh] object-contain"
             />
 
             {/* HERO TEXT */}
-            <div className="absolute right-[90px] top-[110px] w-[420px] text-white">
+            <div className="absolute md:right-[90px] right-2 md:top-[110px] top-8 md:w-[420px] w-[35vw] text-white">
 
-              <h1 className="text-[38px] font-[font2] text-black tracking-wide">
+              <h1 className="md:text-[38px] uppercase text-[3vh] font-[font2] text-white tracking-wide">
                 Jayesh Prajapati
               </h1>
 
-              <p className="absolute top-14 text-[14px] leading-[22px] opacity-95">
+              <p className="relative md:top-2 top-3 md:text-[14px] text-[2vh] md:leading-[22px] opacity-95">
                 The Official Owner of STUDIO 97.
-                <br />
-                is now open in Chinook Centre.
+                
               </p>
 
-              <p className="absolute top-28 text-[13px] leading-5 opacity-90">
+              <p className="relative md:top-2 top-3 md:text-[13px] text-[1.5vh] leading-5 opacity-90">
                 The Modern people needs modern Photograpgy.
                 <br />
                 So Here We are
               </p>
 
-              <button className="absolute top-[180px] w-[200px] h-[42px] bg-white text-[#6fa6d9] text-[12px] tracking-widest font-[font2] cursor-pointer  hover:bg-black hover:text-white transition ease-in  ">
+              <button className="absolute md:top-[180px] top-50 md:w-[200px] w-[20vh] md:h-[42px] h-[7vh] bg-white text-black md:text-[12px] text-[1.8vh] tracking-widest font-[font2] cursor-pointer  hover:bg-black hover:text-white transition ease-in  ">
                 BOOK AN APPOINTMENT
               </button>
 
@@ -192,16 +192,12 @@ const AboutPage = () => {
           {/* MIDDLE WHITE SECTION */}
           <div className="absolute top-[484px] left-0 w-full h-[190px] bg-white flex flex-col items-center justify-center text-center">
 
-            <h2 className="text-[13px] tracking-[0.25em] font-semibold">
-              THE MADE TO MEASURE DIFFERENCE
-            </h2>
-
-            <p className="absolute top-[88px] w-[620px] text-[13px] leading-[22px] text-black/70">
+            <p className="absolute md:top-[88px] top-15 md:w-[620px] md:text-[13px] text-[2.2vh] leading-[22px] text-black/70">
               We create suits and shirts customized to your exact measurements
               and personal style, at excellent prices.
             </p>
 
-            <button className="absolute bottom-[22px] w-40 h-9 border border-[#6fa6d9] text-[#6fa6d9] text-[11px] font-[font2] cursor-pointer tracking-widest hover:bg-[#6fa6d9] hover:text-white transition ease-in ">
+            <button className="absolute bottom-[22px] w-40 h-9 border border-[#6fa6d9] text-[#6fa6d9] text-[11px] font-[font2] cursor-pointer tracking-widest hover:bg-black hover:text-white transition ease-in ">
               SEE THE SUITS
             </button>
           </div>
