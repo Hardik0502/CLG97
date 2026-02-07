@@ -135,7 +135,7 @@ const AboutPage = () => {
   }, []);
 
   return (
-    <div className="w-full bg-white">
+    <div className="w-full bg-white overflow-x-hidden ">
 
       {/* Navbar Space */}
       < Navbar />
@@ -154,14 +154,14 @@ const AboutPage = () => {
           </div>
 
           {/* HERO BLUE */}
-          <div className="absolute top-16 left-0 w-full h-[420px] bg-black overflow-hidden">
+          <div className="absolute top-16 left-0 flex justify-evenly w-full md:h-[420px] h-[50vh] bg-black overflow-hidden">
 
 
             {/* MODEL IMAGE */}
             <img
-              src="https://images.unsplash.com/photo-1520975916090-3105956dac38?q=80&w=600&auto=format&fit=crop"
+              src="https://images.unsplash.com/photo-1630481698276-300986062f83?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwcm9maWxlLXBhZ2V8MzF8fHxlbnwwfHx8fHw%3D"
               alt=""
-              className="absolute md:bottom-0 bottom-20 md:left-[90px] left-0 md:h-[390px] h-[35vh] object-contain"
+              className="relative top-10 md:right-[31vw] right-[10vh] md:bottom-0 bottom-20 md:h-[390px] h-[35vh] md:w-full w-[80vw] object-contain"
             />
 
             {/* HERO TEXT */}
@@ -172,14 +172,14 @@ const AboutPage = () => {
               </h1>
 
               <p className="relative md:top-2 top-3 md:text-[14px] text-[2vh] md:leading-[22px] opacity-95">
-                The Official Owner of STUDIO 97.
+                7777988897
                 
               </p>
 
               <p className="relative md:top-2 top-3 md:text-[13px] text-[1.5vh] leading-5 opacity-90">
-                The Modern people needs modern Photograpgy.
+                1<sup>st</sup> Floor, Near Raghuvir Society
                 <br />
-                So Here We are
+                Anand 388001
               </p>
 
               <button className="absolute md:top-[180px] top-50 md:w-[200px] w-[20vh] md:h-[42px] h-[7vh] bg-white text-black md:text-[12px] text-[1.8vh] tracking-widest font-[font2] cursor-pointer  hover:bg-black hover:text-white transition ease-in  ">
