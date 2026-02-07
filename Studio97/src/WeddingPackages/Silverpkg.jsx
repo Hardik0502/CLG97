@@ -5,25 +5,25 @@ const Silverpkg = () => {
         <>
             <section className=" inset-0 z-50 bg-black/60">
 
-                    <div className="relative mx-auto mt-[6vh] h-screen w-full overflow-hidden  bg-gray-200  flex  ">
+                    <div className="relative mx-auto md:h-screen h-[80vh] w-full overflow-hidden md:gap-0 gap-2 bg-gray-200  flex  ">
 
                       {/* LEFT CONTENT */}
-                      <div className="md:w-1/2 w-full h-screen flex flex-col items-center justify-center">
-                        <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[5vh] md:leading-[0.9] relative md:top-0 opacity-75 text-[#1a1a1a]">
+                      <div className="md:w-1/2 w-full md:h-screen h-[50vh] flex flex-col items-center justify-center">
+                        <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[5vh] md:leading-[0.9] relative md:top-0 top-20 md:left-0 left-1.5 opacity-75 text-[#1a1a1a]">
                           Wedding <br />
                           Package <br />
                           #1
                         </h1>
                         {/* <br /> */}
-                        <p className="fade relative left-6 top-2 italic text-[#020202]">
+                        <p className="fade relative left-6 md:top-2 top-20 italic text-[#020202]">
                           Studio97 — timeless wedding stories, artfully captured.
                         </p>
                         <br />
 
                         {/* PACKAGE */}
-                        <div className="fade mt-10">
+                        <div className="fade relative md:top-0 top-20 md:left-0 left-1  ">
 
-                          <ul className="space-y-2 font-[Inter] text-[3.5vh] text-[#6b6b6b]">
+                          <ul className="space-y-2 font-[Inter] md:text-[3.5vh] text-[2vh]  text-[#6b6b6b]">
                             <li>• 1 Traditional Photographer</li>
                             <li>• 1 Cinematographer</li>
                             <li>• 250 Photos album 12 x 36</li>
@@ -34,8 +34,8 @@ const Silverpkg = () => {
 
                           <button className="border-2
                 border-[#C48A5A]
-                text-[3.8vh]
-                relative top-4
+                md:text-[3.8vh]
+                relative md:top-4 top-10
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -52,7 +52,7 @@ const Silverpkg = () => {
                         <img
                           src="https://photos.smugmug.com/Best-Of-97/BEST-OF-STUDIO-97/i-CRsfJsJ/0/LX2cRttxLc8PxvbFzHKPQwH2BmNcm6vDdbsRjn7wg/L/_A749597-L.jpg"
                           alt="Wedding"
-                          className="h-[75%] w-[55%] relative top-20 object-cover"
+                          className="md:h-[75%] h-[45%] md:w-[55%] w-[90%] relative md:top-20 top-45 object-cover"
                         // style={{
                         //   clipPath: "polygon(1% 0%, 100% 0%, 100% 100%, 0% 100%)",
                         // }}

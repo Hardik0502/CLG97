@@ -10,20 +10,20 @@ const Platinumpkg = () => {
 
                       {/* HEADER */}
                       <div className="text-center pt-10">
-                        <p className="text-[4vh] font-[font5] font-bold tracking-widest relative top-2 ">STUDIO 97 </p>
+                        <p className="md:text-[4vh] font-[font5] font-bold tracking-widest relative top-2 ">STUDIO 97 </p>
 
-                        <h1 className="text-[56px] leading-[1.1] relative top-2 tracking-wide">
+                        <h1 className="md:text-[56px] text-[3vh] leading-[1.1] relative top-2 tracking-wide">
                           WEDDING<br />
                           PACKAGE #3
                         </h1>
 
-                        <p className="relative top-2 text-[22px]">Price List</p>
+                        <p className="relative top-2 md:text-[22px]">Price List</p>
 
                         {/* ORNAMENT DIVIDER */}
                         <div className="flex items-center justify-center mt-6">
-                          <div className="w-16 h-px bg-black" />
+                          <div className="md:w-16 w-10 h-px bg-black" />
                           <span className="mx-4 text-xl">❦</span>
-                          <div className="w-16 h-px bg-black" />
+                          <div className="md:w-16 w-10 h-px bg-black" />
                         </div>
                       </div>
 
@@ -32,7 +32,7 @@ const Platinumpkg = () => {
 
                         {/* STANDARD */}
                         <div className="px-8 py-10 border-r border-black">
-                          <h3 className="text-2xl underline mb-2">Photographer & Videographer </h3>
+                          <h3 className="md:text-2xl text-[2.5vh] underline mb-2">Photographer & Videographer </h3>
                           <br />
 
                           <ul className="space-y-2 text-[2.7vh] font-[font6]">
@@ -46,7 +46,7 @@ const Platinumpkg = () => {
 
                         {/* PREMIUM */}
                         <div className="px-8 py-10 border-r border-black">
-                          <h3 className="text-2xl underline mb-2">ACCESORIES</h3>
+                          <h3 className="md:text-2xl text-[2.5vh] underline mb-2">ACCESORIES</h3>
                           <br />
 
                           <ul className="space-y-2 text-[2.7vh] font-[font6] ">

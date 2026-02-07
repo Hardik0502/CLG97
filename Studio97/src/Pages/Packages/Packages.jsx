@@ -101,22 +101,22 @@ const Packages = () => {
               <PackageModal isOpen={openModal} onClose={() => setOpenModal(false)}>
                 <section className="bg-white min-h-[115vh]  text-black p-16 rounded-3xl space-y-8">
 
-                  <div className='ttl text-black font-[font2] h-[30vh] md:text-[9vh] text-[5vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Silver Package
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-[20vh] md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Silver Package
                   </div>
 
                   < Silverpkg />
 
                 </section>
 
-                <section className="bg-white min-h-screen p-16 rounded-3xl space-y-8">
-                  <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Gold Package
+                <section className="bg-white md:h-screen h-[80vh]  p-16 rounded-3xl space-y-8">
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Gold Package
                   </div>
                   < Goldpkg />
 
                 </section>
 
                 <section className='bg-white min-h-screen p-16 rounded-3xl space-y-8'>
-                  <div className='ttl text-black font-[font2] h-[30vh] text-[9vh] flex justify-center opacity-85 items-center underline uppercase rounded-t-3xl ' > Platinum Package
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[4vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Platinum Package
                   </div>
 
                   < Platinumpkg />

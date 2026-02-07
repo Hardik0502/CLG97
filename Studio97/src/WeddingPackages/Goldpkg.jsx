@@ -1,21 +1,21 @@
 import React from 'react'
 
 const Goldpkg = () => {
-  return (
-    <>  
-      <section className="w-full h-screen bg-[#F7F2ED] flex items-center justify-center px-20">
+    return (
+        <>
+            <section className="w-full md:h-screen h-[65vh] bg-[#F7F2ED] flex items-center justify-center px-20">
 
-                <div className="max-w-full w-full grid grid-cols-[1.05fr_1fr] gap-24 items-center">
+                <div className="max-w-full w-full grid grid-cols-[1.05fr_1fr] md:gap-24 gap-2 items-center">
 
                     {/* LEFT IMAGE */}
-                    <div className="relative">
+                    <div className="relative ">
 
                         {/* Most Popular text */}
                         <p className="
             absolute
-            -top-5
-            left-15
-            text-[45px]
+            md:-top-5 -top-1
+            md:left-15 left-2
+            md:text-[45px] text-[3vh]
             text-black/75
             font-[font1]
             z-10
@@ -25,9 +25,9 @@ const Goldpkg = () => {
 
                         {/* Arched image */}
                         <div className="
-            w-[55%]
-            h-[80%]
-            relative left-30
+            md:w-[55%] w-[90%]
+            md:h-[80%] 
+            relative md:left-30 left-1
             overflow-hidden
             rounded-t-full
             
@@ -46,7 +46,7 @@ const Goldpkg = () => {
                         {/* Top content */}
                         <div>
                             <h2 className="
-              text-[35px]
+              md:text-[35px] text-[3vh]
               font-bold
               tracking-[0.2em]
               text-[#C48A5A]
@@ -58,7 +58,7 @@ const Goldpkg = () => {
                             <ul className="
               space-y-8
               relative top-5
-              text-[20px]
+              md:text-[20px] text-[1.7vh]
               text-[#5A3A2B]
               leading-relaxed
               uppercase
@@ -89,8 +89,8 @@ const Goldpkg = () => {
                                 className="
                 border-2
                 border-[#C48A5A]
-                relative top-1
-                text-[3.8vh]
+                relative md:top-1 top-10
+                md:text-[3.8vh]
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -104,9 +104,9 @@ const Goldpkg = () => {
 
                     </div>
                 </div>
-            </section>                  
-    </>
-  )
+            </section>
+        </>
+    )
 }
 
 export default Goldpkg
