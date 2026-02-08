@@ -35,7 +35,7 @@ const Platinumpkg = () => {
                           <h3 className="md:text-2xl text-[2.5vh] underline mb-2">Photographer & Videographer </h3>
                           <br />
 
-                          <ul className="space-y-2 text-[2.7vh] font-[font6]">
+                          <ul className="space-y-2 md:text-[2.7vh] text-[2vh] font-[font6]">
                             <li>1 TRADITIONAL PHOTOGRAPPHER</li>
                             <li>1 CANDID PHOTOGRAPHER</li>
                             <li>1 CINEMATOGRAPHER</li>
@@ -45,12 +45,12 @@ const Platinumpkg = () => {
                         </div>
 
                         {/* PREMIUM */}
-                        <div className="px-8 py-10 border-r border-black">
+                        <div className="px-8 md:h-[40vh] h-[50vh] py-10 border-r border-black">
                           <h3 className="md:text-2xl text-[2.5vh] underline mb-2">ACCESORIES</h3>
                           <br />
 
-                          <ul className="space-y-2 text-[2.7vh] font-[font6] ">
-                            <li>300 PHOTOS ALBUM 12 X 36</li>
+                          <ul className="space-y-2 md:leading-6 relative md:top-0 top-6 leading-5 md:text-[2.7vh] text-[2vh] font-[font6] ">
+                            <li> 300 PHOTOS ALBUM ( 12 X 36 )</li>
                             <li>2:00 HOUR FULL LENGTH HD VIDEO</li>
                             <li> ( 3 ) 12 X 18 PHOTO FRAME</li>
                             <li className=' font-bold'>LIFE TIME PHOTO ACCESS LINK</li>
@@ -66,20 +66,20 @@ const Platinumpkg = () => {
                         <img
                           src="https://images.unsplash.com/photo-1519379169146-d4b170447caa?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDZ8fHdlZGRpbmd8ZW58MHx8MHx8fDA%3D"
                           alt="Wedding couple"
-                          className="w-full h-80 object-cover"
+                          className="w-full md:h-80 object-cover"
                         />
                       </div>
 
                       {/* SPECIAL OFFER */}
                       <div className="text-center h-[40vh] py-12  "> <br />
-                        <h3 className="text-[6vh] underline ">SPECIAL OFFER</h3><br />
+                        <h3 className=" md:text-[6vh] text-[4vh] underline ">SPECIAL OFFER</h3><br />
 
-                        <p className="text-[3vh] w-full flex justify-center items-center leading-relaxed">
-                          In any Package Get&nbsp;<span className=' text-[3vh] text-black font-bold ' > 10,000 /- </span>&nbsp;off on Full Payment before Wedding. Book Your Shoot Now.
+                        <p className=" md:text-[3vh] text-[2.5vh] w-full items-center leading-relaxed">
+                          In any Package Get&nbsp;<span className=' text-[3vh] text-black font-bold ' > 10,000 /- </span>&nbsp;off on Full Payment before Wedding. <br /> Book Your Shoot Now.
                         </p><br />
 
-                        <p className="text-xs mt-6">Please contact us for more details.</p>
-                        <p className="font-[font6] font-bold text-2xl ">7777988897</p>
+                        <p className="md:text-xs  text-[1.5vh] mt-6">Please contact us for more details.</p>
+                        <p className="font-[font6] font-bold md:text-2xl text-[4vh] ">7777988897</p>
                       </div>
 
                       <div className=' w-full h-full flex justify-end ' > 
@@ -88,7 +88,7 @@ const Platinumpkg = () => {
                 border-[#C48A5A]
                 text-[3.8vh]
                 font-[font6]
-                relative bottom-4
+                relative md:bottom-4
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]

@@ -3,7 +3,7 @@ import React from 'react'
 const Goldpkg = () => {
     return (
         <>
-            <section className="w-full md:h-screen h-[65vh] bg-[#F7F2ED] flex items-center justify-center px-20">
+            <section className="w-full md:h-screen h-[65vh] bg-[#F7F2ED] flex items-center justify-center">
 
                 <div className="max-w-full w-full grid grid-cols-[1.05fr_1fr] md:gap-24 gap-2 items-center">
 
@@ -50,7 +50,7 @@ const Goldpkg = () => {
               font-bold
               tracking-[0.2em]
               text-[#C48A5A]
-              mb-12
+              
             ">
                                 WEDDING PACKAGE #2
                             </h2>

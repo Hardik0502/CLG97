@@ -108,14 +108,14 @@ const Packages = () => {
 
                 </section>
 
-                <section className="bg-white md:h-screen h-[80vh]  p-16 rounded-3xl space-y-8">
+                <section className="bg-white md:h-[125vh] h-[80vh]  p-16 rounded-3xl space-y-8">
                   <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Gold Package
                   </div>
                   < Goldpkg />
 
                 </section>
 
-                <section className='bg-white min-h-screen p-16 rounded-3xl space-y-8'>
+                <section className='bg-white md:h-[180vh] h-[155vh] p-16 rounded-3xl space-y-8'>
                   <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[4vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Platinum Package
                   </div>
 
