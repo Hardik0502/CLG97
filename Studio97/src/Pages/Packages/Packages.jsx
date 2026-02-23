@@ -89,7 +89,7 @@ const Packages = () => {
                   <div className="button h-[10vh] flex justify-center ">
                     <button className=' border-2 md:h-[8vh] h-[6vh] md:w-[10vw] w-[40vw] text-black relative top-4 cursor-pointer hover:bg-black hover:text-white transition-all ease-in duration-200 rounded-3xl border-black '
                       onClick={() => setOpenModal(true)}
-                    > Check Details </button>
+                    > View Packages </button>
                   </div>
                   <div className=' w-full' >
                     <h1 className=' text-black/85 w-full flex justify-center items-center relative md:top-4 ' > You can ask any of your&nbsp;<Link to='/help' className=' text-green-900 underline ' > Query Here </Link> </h1>
