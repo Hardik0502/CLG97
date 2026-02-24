@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { collection, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../Firebase'
 
 
@@ -760,7 +760,7 @@ function PagePackages({ fireToast }) {
 
   const [packages, setPackages] = useState([]);
   const [editing, setEditing] = useState(null);
-  const [tab, setTab] = useState("P1");
+  const [tab, setTab] = useState("");
   const [loading, setLoading] = useState(true);
 
   /* ─────────────────────────────────────────────
@@ -777,7 +777,7 @@ function PagePackages({ fireToast }) {
       }));
 
       setPackages(firebasePackages);
-      setTab(firebasePackages[0]?.id);
+      setTab(prevTab => prevTab || firebasePackages[0]?.id);
       setLoading(false);
     }
     );
@@ -789,19 +789,17 @@ function PagePackages({ fireToast }) {
 
   const savePkgDetail = async () => {
     try {
-      await updateDoc(doc(db, "packages", editing.id), editing);
+      const { id, ...dataToUpdate } = editing;
 
-      // ✅ Update local UI immediately
-      setPackages(prev =>
-        prev.map(pkg => pkg.id === editing.id ? editing : pkg)
-      );
+      await setDoc(doc(db, "Packages", id), dataToUpdate);
 
+      // console.log("Editing object:", editing);
       setEditing(null);
-      fireToast("Package saved successfully!", "#1d4ed8", "#bfdbfe");
 
+      fireToast("Package updated successfully!", "#1d4ed8", "#bfdbfe");
     } catch (error) {
       console.log(error);
-      alert("Something went wrong!!!");
+      alert("Update failed!");
     }
   };
 
@@ -815,14 +813,17 @@ function PagePackages({ fireToast }) {
     return <div style={{ padding: 40 }}>No package found</div>;
   }
 
-const updFeat = (key, field, value) => {
-  setEditing(prev => ({
-    ...prev,
-    features: prev.features.map(f =>
-      f.key === key ? { ...f, [field]: value } : f
-    )
-  }));
-};
+  // Update 
+  const updFeat = (key, field, value) => {
+    setEditing(prev => ({
+      ...prev,
+      features: prev.features.map(f =>
+        f.key === key ? { ...f, [field]: value } : f
+      )
+    }));
+  };
+
+
 
   return (
     <div style={{ padding: "28px 28px 40px" }}>
@@ -868,16 +869,33 @@ const updFeat = (key, field, value) => {
             <span style={{ fontSize: 12, fontWeight: 700, color: T.sub, textTransform: "uppercase", letterSpacing: ".07em" }}>Features</span>
 
             <button className="btn-outline" style={{ fontSize: 12, padding: "5px 12px" }}
-              onClick={() => setEditing(e => ({ ...e, features: [...e.features, { key: `f${Date.now()}`, label: "New Feature", value: "" }] }))}>
+              onClick={() =>
+                setEditing(prev => ({
+                  ...prev,
+                  features: [
+                    ...(prev.features || []),
+                    {
+                      key: "f" + Date.now(),
+                      label: "",
+                      value: ""
+                    }
+                  ]
+                }))
+              }>
               + Add Feature
             </button>
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
-            {editing.features.map(f => (
+            {editing.features?.map(f => (
               <div key={f.key} style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: 8, alignItems: "center" }}>
                 <input className="input-base" placeholder="Feature name" value={f.label} onChange={e => updFeat(f.key, "label", e.target.value)} style={{ fontSize: 12 }} />
                 <input className="input-base" placeholder="Value" value={f.value} onChange={e => updFeat(f.key, "value", e.target.value)} style={{ fontSize: 12 }} />
-                <button onClick={() => setEditing(e => ({ ...e, features: e.features.filter(x => x.key !== f.key) }))} style={{ width: 32, height: 32, borderRadius: 8, border: `1px solid ${T.redBorder}`, background: T.redBg, color: T.red, cursor: "pointer", fontSize: 14, flexShrink: 0 }}>✕</button>
+                <button
+                  onClick={() => setEditing(prevdetail => ({
+                    ...prevdetail, features: prevdetail.features.filter((fltr) => {
+                      return fltr.key !== f.key;
+                    })
+                  }))} style={{ width: 32, height: 32, borderRadius: 8, border: `1px solid ${T.redBorder}`, background: T.redBg, color: T.red, cursor: "pointer", fontSize: 14, flexShrink: 0 }}>✕</button>
               </div>
             ))}
           </div>
@@ -899,7 +917,7 @@ const updFeat = (key, field, value) => {
           </div>
 
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(200px,1fr))", gap: 10 }}>
-            {current.features.map(f => (
+            {current.features?.map(f => (
               <div key={f.key} style={{ padding: "12px 14px", borderRadius: 10, background: T.bg, border: `1px solid ${T.border}` }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: T.muted, textTransform: "uppercase", letterSpacing: ".07em", marginBottom: 4 }}>{f.label}</div>
                 <div style={{ fontSize: 14, fontWeight: 700, color: T.txt }}>{f.value}</div>
