@@ -1,6 +1,12 @@
 import React from 'react'
 
-const Platinumpkg = () => {
+const Platinumpkg = ( {data} ) => {
+
+  if(!data) return null ;
+
+  const leftFeatures = data.features?.slice(0,5);
+  const rightFeatures = data.features?.slice(5);
+
   return (
     <>
       <section className="h-full w-full bg-[#e9e6df] flex justify-center items-center p-8">
@@ -36,11 +42,18 @@ const Platinumpkg = () => {
                           <br />
 
                           <ul className="space-y-2 md:text-[2.7vh] text-[2vh] font-[font6]">
-                            <li>1 TRADITIONAL PHOTOGRAPPHER</li>
+                            {/* <li>1 TRADITIONAL PHOTOGRAPPHER</li>
                             <li>1 CANDID PHOTOGRAPHER</li>
                             <li>1 CINEMATOGRAPHER</li>
                             <li>1 CANDID CINEMATOGRAPHER</li>
-                            <li>1 DAY DRONE</li>
+                            <li>1 DAY DRONE</li> */}
+
+                            {leftFeatures?.map((items, index) => {
+                                    return <div key={index} className=' uppercase' >
+                                         <li >• {items.value} {items.label} </li>
+                                    </div>
+                                })}
+
                           </ul>
                         </div>
 
@@ -50,12 +63,18 @@ const Platinumpkg = () => {
                           <br />
 
                           <ul className="space-y-2 md:leading-6 relative md:top-0 top-6 leading-5 md:text-[2.7vh] text-[2vh] font-[font6] ">
-                            <li> 300 PHOTOS ALBUM ( 12 X 36 )</li>
+                            {/* <li> 300 PHOTOS ALBUM ( 12 X 36 )</li>
                             <li>2:00 HOUR FULL LENGTH HD VIDEO</li>
                             <li> ( 3 ) 12 X 18 PHOTO FRAME</li>
-                            <li className=' font-bold'>LIFE TIME PHOTO ACCESS LINK</li>
                             <li>60 SECONDS SHORT REEL</li>
-                            <li>FULL WEDDING HIGHLIGHT</li>
+                            <li>FULL WEDDING HIGHLIGHT</li> */}
+
+                            {rightFeatures?.map((items, index) => {
+                              return <div key={index} className=' uppercase' >
+                                         <li > {items.value} {items.label} </li>
+                                    </div>
+                                })}
+                                <li className=' font-bold'>LIFE TIME PHOTO ACCESS LINK</li>
                           </ul>
                         </div>
 
@@ -86,7 +105,8 @@ const Platinumpkg = () => {
 
                         <button className="border-2
                 border-[#C48A5A]
-                text-[3.8vh]
+                md:text-[3.8vh]
+                text-[3vh]
                 font-[font6]
                 relative md:bottom-4
                 tracking-widest
@@ -95,7 +115,7 @@ const Platinumpkg = () => {
                 hover:text-white
                 hover:cursor-pointer
                 transition duration-500 ">
-                          ₹ 2,30,000 /-
+                          ₹ { data.price?.toLocaleString("en-IN") } /-
                         </button>
                       </div>
 

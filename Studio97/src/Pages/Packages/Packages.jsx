@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../../Constants/Navbar/Navbar'
 import Footer from '../../Constants/Footer'
 import { Link } from 'react-router-dom'
@@ -8,16 +8,63 @@ import Silverpkg from '../../WeddingPackages/Silverpkg'
 import Goldpkg from '../../WeddingPackages/Goldpkg'
 import NewbornPricing from '../../Constants/Package/Babyshowerpkg'
 import PricingGuide from '../../Constants/Package/Otherpkgs'
+import { collection, onSnapshot } from 'firebase/firestore'
+import { db } from '../../../Backend/Firebase'
+
 
 const Packages = () => {
 
   const [openModal, setOpenModal] = useState(false);
+  const [packages, setpackages] = useState([]);
+  const [loading, setloading] = useState(true);
+  const [editing, setEditing] = useState({
+    id: "",
+    name: "",
+    price: "",
+    features: []
+  });
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "Packages"), (snapshot) => {
+      const data = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+
+      setpackages(data);
+      setloading(false);
+    }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
+  // Add data to the front end
+  const addFeature = () => {
+    setEditing(prev => ({
+      ...prev,
+      features: [
+        ...prev.features,
+        {
+          key: Date.now().toString(),
+          label: "",
+          value: ""
+        }
+      ]
+    }));
+  };
+
+  const silver = packages.find(pkg => pkg.name === "Silver");
+  const gold = packages.find(pkg => pkg.name === "Gold");
+  const platinum = packages.find(pkg => pkg.name === "Platinum");
+
+
 
 
   return (
     <>
       < Navbar />
-      
+
       <section className=" md:h-[20vh] h-[10vh] w-full bg-white " >
 
       </section>
@@ -69,18 +116,31 @@ const Packages = () => {
                   <div className="types w-[65%] ">
                     <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3vh] flex justify-center underline ' > Packages </h1>
                     <div className="pkgname font-[font3] font-bold flex md:h-[25vh] h-[15vh] text-black flex-col justify-center ">
-                      <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Silver Package </h1>
+                      {/* <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Silver Package </h1>
                       <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Gold Package </h1>
-                      <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Platinum Package </h1>
+                      <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Platinum Package </h1> */}
+
+                      {packages.map((pkg, index) => {
+                        return <div key={pkg.id} >
+                          <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > {pkg.name} </h1>
+                        </div>
+                      })}
                     </div>
                   </div>
 
                   <div className="view w-[25%] ">
                     <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3vh] flex justify-center underline ' > Price </h1>
                     <div className="pkgname flex md:h-[25vh] h-[15vh] md:text-black text-green-950 flex-col justify-center ">
-                      <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 1,00,000 </h1>
+                      {/* <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 1,00,000 </h1>
                       <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 1,80,000 </h1>
-                      <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 2,30,000 </h1>
+                      <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 2,30,000 </h1> */}
+
+                      {packages.map((pkg, index) => {
+                        return <div key={pkg.id} >
+                          <h1 className=' uppercase md:text-[3.6vh] text-[2.5vh] ' > ₹ {pkg.price?.toLocaleString("en-IN")} </h1>
+                        </div>
+                      })}
+
                     </div>
                   </div>
                 </div>
@@ -98,13 +158,14 @@ const Packages = () => {
 
               </div>
 
-              <PackageModal isOpen={openModal} onClose={() => setOpenModal(false)}>
+              {/* <PackageModal isOpen={openModal} onClose={() => setOpenModal(false)}>
                 <section className="bg-white min-h-[115vh]  text-black p-16 rounded-3xl space-y-8">
 
                   <div className='ttl text-black font-[font2] md:h-[30vh] h-[20vh] md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Silver Package
                   </div>
 
                   < Silverpkg />
+                  
 
                 </section>
 
@@ -124,6 +185,44 @@ const Packages = () => {
                 </section>
 
 
+              </PackageModal> */}
+
+              <PackageModal
+                isOpen={openModal}
+                onClose={() => setOpenModal(false)}
+              >
+
+                {silver && (
+                 <section className="bg-white min-h-[115vh] text-black p-16 rounded-3xl space-y-8">
+
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-[20vh] md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Silver Package
+                  </div>
+
+                  < Silverpkg data={silver} />
+                  
+
+                </section>
+                )}
+
+                {gold && (
+                   <section className="bg-white md:h-[125vh] h-[80vh]  p-16 rounded-3xl space-y-8">
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Gold Package
+                  </div>
+                  < Goldpkg data={gold} />
+
+                </section>
+                )}
+
+                {platinum && (
+                   <section className='bg-white md:h-[180vh] h-[155vh] p-16 rounded-3xl space-y-8'>
+                  <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[4vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Platinum Package
+                  </div>
+
+                  < Platinumpkg data={platinum} />
+
+                </section>
+                )}
+              
               </PackageModal>
 
               {/* Pre-wedding  */}
@@ -173,7 +272,7 @@ const Packages = () => {
               </div>
 
 
-              
+
               {/* <div className="one bg-black min-h-[70vh] min-w-[40%] rounded-4xl "></div>
               <div className="one bg-black min-h-[70vh] min-w-[50%] rounded-4xl "></div> */}
             </div>
@@ -188,13 +287,13 @@ const Packages = () => {
       <section className=' otherpackages md:h-[260vh] h-[400vh] w-full bg-[#FFFFFF] ' >
 
         <div className='pkgs md:h-[140vh] h-[140vh] w-full bg-[#FFFFFF] ' >
-              <div className="babyshower">
-                  < NewbornPricing />              
-              </div>
+          <div className="babyshower">
+            < NewbornPricing />
+          </div>
         </div>
 
         <div className=' personalpkg h-[150vh] w-full ' >
-                < PricingGuide />
+          < PricingGuide />
         </div>
 
 
@@ -202,9 +301,9 @@ const Packages = () => {
 
 
       {/* < Footer /> */}
-              <div className="footer w-full bg-white ">
-          < Footer />
-              </div>
+      <div className="footer w-full bg-white ">
+        < Footer />
+      </div>
     </>
   )
 }

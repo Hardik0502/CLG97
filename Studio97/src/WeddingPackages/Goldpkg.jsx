@@ -1,6 +1,9 @@
 import React from 'react'
 
-const Goldpkg = () => {
+const Goldpkg = ({ data }) => {
+
+    if (!data) return null;
+
     return (
         <>
             <section className="w-full md:h-screen h-[65vh] bg-[#F7F2ED] flex items-center justify-center">
@@ -63,7 +66,7 @@ const Goldpkg = () => {
               leading-relaxed
               uppercase
             ">
-                                <li >• 1 Traditional Photographer </li>
+                                {/* <li >• 1 Traditional Photographer </li>
 
                                 <li >• 1 Candid Photographer </li>
 
@@ -77,7 +80,13 @@ const Goldpkg = () => {
 
                                 <li>• 2:00 hour full length hd video </li>
 
-                                <li>• ( 2 ) 12 x 18 photo frame </li>
+                                <li>• ( 2 ) 12 x 18 photo frame </li> */}
+
+                                {data.features?.map((items, index) => {
+                                    return <div key={index}>
+                                         <li >• {items.value} {items.label} </li>
+                                    </div>
+                                })}
 
                                 <li className=' font-bold' >• Life time access link for all photos </li>
                             </ul>
@@ -91,6 +100,7 @@ const Goldpkg = () => {
                 border-[#C48A5A]
                 relative md:top-1 top-10
                 md:text-[3.8vh]
+                text-[2vh]
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -98,7 +108,7 @@ const Goldpkg = () => {
                 transition
               "
                             >
-                                ₹ 1,80,000 /-
+                                ₹ {data.price.toLocaleString("en-IN")} /-
                             </button>
                         </div>
 

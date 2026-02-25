@@ -21,7 +21,7 @@ const PackageModal = ({ isOpen, onClose, children }) => {
 
                     {/* Modal Box */}
                     <div
-                        className="relative bg-white w-[85%] h-[85vh] rounded-4xl z-10"
+                        className="relative bg-white md:w-[85%] w-[95%] md:h-[85vh] h-[95vh] rounded-4xl z-10"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Close Button */}
