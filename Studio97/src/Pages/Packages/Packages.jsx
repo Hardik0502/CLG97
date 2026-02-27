@@ -40,19 +40,19 @@ const Packages = () => {
   }, []);
 
   // Add data to the front end
-  const addFeature = () => {
-    setEditing(prev => ({
-      ...prev,
-      features: [
-        ...prev.features,
-        {
-          key: Date.now().toString(),
-          label: "",
-          value: ""
-        }
-      ]
-    }));
-  };
+  // const addFeature = () => {
+  //   setEditing(prev => ({
+  //     ...prev,
+  //     features: [
+  //       ...prev.features,
+  //       {
+  //         key: Date.now().toString(),
+  //         label: "",
+  //         value: ""
+  //       }
+  //     ]
+  //   }));
+  // };
 
   const silver = packages.find(pkg => pkg.name === "Silver");
   const gold = packages.find(pkg => pkg.name === "Gold");

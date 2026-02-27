@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../Firebase'
+import { format } from "date-fns";
 
 
 /* ─────────────────────────────────────────────
@@ -106,53 +107,53 @@ const INIT_REJECTED = [
   { id: "ORD-010", name: "Aditya Singh", email: "aditya@gmail.com", phone: "9223456789", address: "Gomti Nagar, Lucknow", pkg: "Gold", event: "Anniversary", dateFrom: "2025-02-14", dateTo: "2025-02-14", price: 75000, reqDate: "2025-01-25", reason: "Not available" },
 ];
 
-const INIT_PACKAGES = [
-  {
-    id: "P1", name: "Silver Package", price: 45000, color: "#64748b", tag: "silver", features: [
-      { key: "cine", label: "Cinematographers", value: "1" },
-      { key: "candid", label: "Candid Photographers", value: "2" },
-      { key: "video", label: "Videographers", value: "1" },
-      { key: "album", label: "Photo Album Pages", value: "100" },
-      { key: "photos", label: "Edited Photos", value: "200" },
-      { key: "reels", label: "Reels / Short Films", value: "1" },
-      { key: "drone", label: "Drone Coverage", value: "No" },
-      { key: "hl", label: "Highlight Video", value: "5 min" },
-      { key: "del", label: "Delivery Time", value: "30 days" },
-    ]
-  },
-  {
-    id: "P2", name: "Gold Package", price: 75000, color: "#ca8a04", tag: "gold", features: [
-      { key: "cine", label: "Cinematographers", value: "2" },
-      { key: "candid", label: "Candid Photographers", value: "3" },
-      { key: "video", label: "Videographers", value: "1" },
-      { key: "album", label: "Photo Album Pages", value: "150" },
-      { key: "photos", label: "Edited Photos", value: "400" },
-      { key: "reels", label: "Reels / Short Films", value: "2" },
-      { key: "drone", label: "Drone Coverage", value: "Yes (1 day)" },
-      { key: "hl", label: "Highlight Video", value: "10 min" },
-      { key: "del", label: "Delivery Time", value: "25 days" },
-    ]
-  },
-  {
-    id: "P3", name: "Diamond Package", price: 110000, color: "#0ea5e9", tag: "diamond", features: [
-      { key: "cine", label: "Cinematographers", value: "2" },
-      { key: "candid", label: "Candid Photographers", value: "3" },
-      { key: "video", label: "Videographers", value: "2" },
-      { key: "album", label: "Photo Album Pages", value: "200" },
-      { key: "photos", label: "Edited Photos", value: "600" },
-      { key: "reels", label: "Reels / Short Films", value: "3" },
-      { key: "drone", label: "Drone Coverage", value: "Yes (full event)" },
-      { key: "hl", label: "Highlight Video", value: "20 min" },
-      { key: "del", label: "Delivery Time", value: "20 days" },
-    ]
-  },
-];
+// const INIT_PACKAGES = [
+//   {
+//     id: "P1", name: "Silver Package", price: 45000, color: "#64748b", tag: "silver", features: [
+//       { key: "cine", label: "Cinematographers", value: "1" },
+//       { key: "candid", label: "Candid Photographers", value: "2" },
+//       { key: "video", label: "Videographers", value: "1" },
+//       { key: "album", label: "Photo Album Pages", value: "100" },
+//       { key: "photos", label: "Edited Photos", value: "200" },
+//       { key: "reels", label: "Reels / Short Films", value: "1" },
+//       { key: "drone", label: "Drone Coverage", value: "No" },
+//       { key: "hl", label: "Highlight Video", value: "5 min" },
+//       { key: "del", label: "Delivery Time", value: "30 days" },
+//     ]
+//   },
+//   {
+//     id: "P2", name: "Gold Package", price: 75000, color: "#ca8a04", tag: "gold", features: [
+//       { key: "cine", label: "Cinematographers", value: "2" },
+//       { key: "candid", label: "Candid Photographers", value: "3" },
+//       { key: "video", label: "Videographers", value: "1" },
+//       { key: "album", label: "Photo Album Pages", value: "150" },
+//       { key: "photos", label: "Edited Photos", value: "400" },
+//       { key: "reels", label: "Reels / Short Films", value: "2" },
+//       { key: "drone", label: "Drone Coverage", value: "Yes (1 day)" },
+//       { key: "hl", label: "Highlight Video", value: "10 min" },
+//       { key: "del", label: "Delivery Time", value: "25 days" },
+//     ]
+//   },
+//   {
+//     id: "P3", name: "Diamond Package", price: 110000, color: "#0ea5e9", tag: "diamond", features: [
+//       { key: "cine", label: "Cinematographers", value: "2" },
+//       { key: "candid", label: "Candid Photographers", value: "3" },
+//       { key: "video", label: "Videographers", value: "2" },
+//       { key: "album", label: "Photo Album Pages", value: "200" },
+//       { key: "photos", label: "Edited Photos", value: "600" },
+//       { key: "reels", label: "Reels / Short Films", value: "3" },
+//       { key: "drone", label: "Drone Coverage", value: "Yes (full event)" },
+//       { key: "hl", label: "Highlight Video", value: "20 min" },
+//       { key: "del", label: "Delivery Time", value: "20 days" },
+//     ]
+//   },
+// ];
 
-const INIT_EVENTS = [
-  { id: "EV-001", title: "Christmas Special", discount: 20, desc: "Flat 20% off on all packages", applies: "all", startDate: "2025-12-20", endDate: "2025-12-26", active: true, color: "#dc2626" },
-  { id: "EV-002", title: "New Year Offer", discount: 15, desc: "Start the new year with a bang", applies: "all", startDate: "2026-01-01", endDate: "2026-01-05", active: true, color: "#7c3aed" },
-  { id: "EV-003", title: "Valentine Special", discount: 10, desc: "Couples discount on Gold & Diamond", applies: "Gold,Diamond", startDate: "2026-02-10", endDate: "2026-02-14", active: false, color: "#db2777" },
-];
+// const INIT_EVENTS = [
+//   { id: "EV-001", title: "Christmas Special", discount: 20, desc: "Flat 20% off on all packages", applies: "all", startDate: "2025-12-20", endDate: "2025-12-26", active: true, color: "#dc2626" },
+//   { id: "EV-002", title: "New Year Offer", discount: 15, desc: "Start the new year with a bang", applies: "all", startDate: "2026-01-01", endDate: "2026-01-05", active: true, color: "#7c3aed" },
+//   { id: "EV-003", title: "Valentine Special", discount: 10, desc: "Couples discount on Gold & Diamond", applies: "Gold,Diamond", startDate: "2026-02-10", endDate: "2026-02-14", active: false, color: "#db2777" },
+// ];
 
 /* ─────────────────────────────────────────────
    HELPERS
@@ -160,8 +161,35 @@ const INIT_EVENTS = [
 let _eid = 4;
 const mkEvId = () => `EV-${String(_eid++).padStart(3, "0")}`;
 const fmt = n => `₹${Number(n).toLocaleString("en-IN")}`;
-const fmtD = d => d ? new Date(d).toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" }) : "—";
-const initials = s => s.split(" ").map(w => w[0]).join("").toUpperCase().slice(0, 2);
+const fmtD = (d) => {
+  if (!d) return "-";
+
+  try {
+    if (d.seconds) {
+      return format(new Date(d.seconds * 1000), "dd MMM yyyy");
+    }
+
+    if (d.toDate) {
+      return format(d.toDate(), "dd MMM yyyy");
+    }
+
+    return format(new Date(d), "dd MMM yyyy");
+  } catch {
+    return "-";
+  }
+};
+
+
+const initials = (name = "") => {
+  if (!name) return "NA";
+
+  return name
+    .split(" ")
+    .filter(Boolean)
+    .map(n => n[0])
+    .join("")
+    .toUpperCase();
+};
 const avBg = i => ["#e0e7ff", "#fce7f3", "#d1fae5", "#fef3c7", "#ffe4e6", "#e0f2fe"][i % 6];
 const avTc = i => ["#4338ca", "#be185d", "#065f46", "#92400e", "#be123c", "#0369a1"][i % 6];
 const pkgColor = p => p === "Diamond" ? "#0ea5e9" : p === "Gold" ? "#ca8a04" : "#64748b";
@@ -322,27 +350,57 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
 
   const sorted = useMemo(() => {
     const a = [...pending];
-    if (sort === "newest") a.sort((x, y) => y.reqDate.localeCompare(x.reqDate));
-    if (sort === "oldest") a.sort((x, y) => x.reqDate.localeCompare(y.reqDate));
-    if (sort === "price_desc") a.sort((x, y) => y.price - x.price);
-    if (sort === "price_asc") a.sort((x, y) => x.price - y.price);
-    if (sort === "event_asc") a.sort((x, y) => x.dateFrom.localeCompare(y.dateFrom));
-    if (sort === "event_desc") a.sort((x, y) => y.dateFrom.localeCompare(x.dateFrom));
+
+    if (sort === "newest")
+      a.sort((x, y) => (y.createdAt?.seconds || 0) - (x.createdAt?.seconds || 0));
+
+    if (sort === "oldest")
+      a.sort((x, y) => (x.createdAt?.seconds || 0) - (y.createdAt?.seconds || 0));
+
+    if (sort === "price_desc")
+      a.sort((x, y) => (y.price || 0) - (x.price || 0));
+
+    if (sort === "price_asc")
+      a.sort((x, y) => (x.price || 0) - (y.price || 0));
+
+    if (sort === "event_asc")
+      a.sort((x, y) => (x.startDate?.seconds || 0) - (y.startDate?.seconds || 0));
+
+    if (sort === "event_desc")
+      a.sort((x, y) => (y.startDate?.seconds || 0) - (x.startDate?.seconds || 0));
+
     return a;
+
   }, [pending, sort]);
 
-  const acceptOrder = o => {
-    setPending(p => p.filter(x => x.id !== o.id));
-    setClients(c => [{ ...o, completedDate: null, payment: "unpaid" }, ...c]);
-    fireToast("Order accepted! Client added to Clients.", "#15803d", "#bbf7d0");
+  // const acceptOrder = o => {
+  //   setPending(p => p.filter(x => x.id !== o.id));
+  //   setClients(c => [{ ...o, completedDate: null, payment: "unpaid" }, ...c]);
+  //   fireToast("Order accepted! Client added to Clients.", "#15803d", "#bbf7d0");
+  // };
+
+  const handleAccept = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "accepted"
+      });
+
+      fireToast("Order Accepted", "#16a34a", "#bbf7d0");
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const confirmDecline = reason => {
-    setPending(p => p.filter(x => x.id !== declineTarget.id));
-    setRejected(r => [{ ...declineTarget, reason }, ...r]);
-    fireToast("Order declined. Moved to Rejected Orders.", "#dc2626", "#fecaca");
-    setDeclineTarget(null);
+
+  const rejectOrder = async (id) => {
+    await updateDoc(doc(db, "orderRequests", id), {
+      status: "rejected"
+    });
   };
+
+
+
 
   return (
     <div style={{ padding: "28px 28px 40px" }}>
@@ -374,7 +432,7 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 700, color: T.txt }}>{o.name}</div>
                     <div style={{ fontSize: 12, color: T.muted, fontFamily: "'DM Mono',monospace" }}>{o.email} · {o.phone}</div>
-                    <div style={{ fontSize: 12, color: T.sub, marginTop: 2 }}>📍 {o.address}</div>
+                    <div style={{ fontSize: 12, color: T.sub, marginTop: 2 }}>📍 {o.address || "-"} </div>
                   </div>
                 </div>
                 {/* Right: chips */}
@@ -388,7 +446,7 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(140px,1fr))", gap: 8, margin: "14px 0" }}>
                 {[
                   ["📅 Event Dates", `${fmtD(o.dateFrom)} → ${fmtD(o.dateTo)}`],
-                  ["📬 Requested", fmtD(o.reqDate)],
+                  ["📬 Requested", fmtD(o.createdAt)],
                   ["💰 Package Price", fmt(o.price)],
                   ["📦 Package", o.pkg + " Package"],
                 ].map(([l, v]) => (
@@ -401,7 +459,7 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
 
               {/* Actions */}
               <div style={{ display: "flex", gap: 9, flexWrap: "wrap" }}>
-                <button className="btn-green" onClick={() => acceptOrder(o)}>Accept Order</button>
+                <button className="btn-green" onClick={() => handleAccept(o)}>Accept Order</button>
                 <button className="btn-red" onClick={() => setDeclineTarget(o)}>Decline</button>
                 <button className="btn-outline" style={{ marginLeft: "auto" }} onClick={() => setViewOrder(o)}>View Full Details</button>
               </div>
@@ -419,7 +477,7 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
 
       {/* Decline modal */}
       {declineTarget && (
-        <DeclineModal order={declineTarget} onConfirm={confirmDecline} onClose={() => setDeclineTarget(null)} />
+        <DeclineModal order={declineTarget} onConfirm={rejectOrder} onClose={() => setDeclineTarget(null)} />
       )}
     </div>
   );
@@ -687,6 +745,17 @@ function PageRejected({ rejected, setRejected, clients, setClients, setPending, 
     setViewOrder(null);
   };
 
+  const handleDeleteRejected = async (order) => {
+    try {
+      await deleteDoc(doc(db, "orderRequests", order.id));
+
+      fireToast("Order permanently deleted", "#dc2626", "#fecaca");
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div style={{ padding: "28px 28px 40px" }}>
       <STitle title="Rejected Orders" sub={`${rejected.length} declined order${rejected.length !== 1 ? "s" : " "} — stored for reference`} />
@@ -707,7 +776,7 @@ function PageRejected({ rejected, setRejected, clients, setClients, setPending, 
                   <div>
                     <div style={{ fontSize: 15, fontWeight: 700, color: T.txt }}>{o.name}</div>
                     <div style={{ fontSize: 12, color: T.muted, fontFamily: "'DM Mono',monospace" }}>{o.email} · {o.phone}</div>
-                    <div style={{ fontSize: 12, color: T.sub, marginTop: 2 }}>📍 {o.address}</div>
+                    <div style={{ fontSize: 12, color: T.sub, marginTop: 2 }}>📍 {o.address || "-"} </div>
                   </div>
                 </div>
                 <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center", flexShrink: 0 }}>
@@ -734,6 +803,21 @@ function PageRejected({ rejected, setRejected, clients, setClients, setPending, 
                 <button className="btn-outline" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => setViewOrder(o)}>View Details</button>
                 <button className="btn-green" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => restoreToClients(o.id)}>Accept & Move to Clients</button>
                 <button className="btn-amber" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => restoreToPending(o.id)}>Move Back to Pending</button>
+                <button
+                  className="btn-red"
+                  onClick={() => {
+                    if (window.confirm("Are you sure you want to permanently delete this order?")) {
+                      handleDeleteRejected(o);
+                    }
+                  }}
+                  style={{
+                    background: "#7a1313",
+                    border: "1.5px solid #dc2626",
+                    color: "#fff"
+                  }}
+                >
+                  🗑 Delete Permanently
+                </button>
               </div>
             </div>
           ))}
@@ -934,7 +1018,7 @@ function PagePackages({ fireToast }) {
    PAGE: EVENTS / OFFERS
 ═══════════════════════════════════════════ */
 function PageEvents({ fireToast }) {
-  const [events, setEvents] = useState(INIT_EVENTS);
+  const [events, setEvents] = useState();
   const [showForm, setShowForm] = useState(false);
   const [editEvt, setEditEvt] = useState(null);
 
@@ -1226,7 +1310,7 @@ function PageAnalytics({ pending, clients, rejected }) {
 ═══════════════════════════════════════════ */
 export default function Backend() {
   const [page, setPage] = useState("dashboard");
-  const [pending, setPending] = useState(INIT_PENDING);
+  const [pending, setPending] = useState([]);
   const [clients, setClients] = useState(INIT_CLIENTS);
   const [rejected, setRejected] = useState(INIT_REJECTED);
   const [toast, setToast] = useState(null);
@@ -1236,6 +1320,40 @@ export default function Backend() {
     if (document.getElementById("s97gcss")) return;
     const s = document.createElement("style"); s.id = "s97gcss"; s.textContent = GCSS; document.head.appendChild(s);
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = onSnapshot(
+      collection(db, "orderRequests"),
+      (snapshot) => {
+        const firebaseData = snapshot.docs.map(doc => {
+          const d = doc.data();
+
+          return {
+            id: doc.id,
+            name: d.fullname || "",
+            email: d.email || "",
+            phone: d.phone || "",
+            address: d.address || "",
+            pkg: d.packageName || "",
+            price: d.price || 0,
+            dateFrom: d.startDate || null,
+            dateTo: d.endDate || null,
+            createdAt: d.createdAt || null,
+            status: d.status || "pending",
+            payment: d.payment || "pending",
+            message: d.message || ""
+          };
+        });
+
+        setPending(firebaseData.filter(d => d.status === "pending"));
+        setClients(firebaseData.filter(d => d.status === "accepted"));
+        setRejected(firebaseData.filter(d => d.status === "rejected"));
+      }
+    );
+
+    return () => unsubscribe();
+  }, []);
+
 
   const fireToast = useCallback((msg, dot, border) => {
     setToast({ msg, dot, border }); setTimeout(() => setToast(null), 2800);

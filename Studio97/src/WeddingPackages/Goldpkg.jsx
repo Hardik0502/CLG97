@@ -84,7 +84,7 @@ const Goldpkg = ({ data }) => {
 
                                 {data.features?.map((items, index) => {
                                     return <div key={index}>
-                                         <li >• {items.value} {items.label} </li>
+                                        <li >• {items.value} {items.label} </li>
                                     </div>
                                 })}
 
@@ -94,19 +94,25 @@ const Goldpkg = ({ data }) => {
 
                         {/* PRICE BUTTON */}
                         <div className="flex justify-end mt-16">
-                            <button
+                            <button onClick={() => navigate("/orderRequest", {
+                                state: {
+                                    packageName: "Gold",
+                                    price: 25000
+                                }
+                            })
+                            }
                                 className="
-                border-2
-                border-[#C48A5A]
-                relative md:top-1 top-10
-                md:text-[3.8vh]
-                text-[2vh]
-                tracking-widest
-                text-[#C48A5A]
-                hover:bg-[#C48A5A]
-                hover:text-white
-                transition
-              "
+                            border-2
+                            border-[#C48A5A]
+                            relative md:top-1 top-10
+                            md:text-[3.8vh]
+                            text-[2vh]
+                            tracking-widest
+                            text-[#C48A5A]
+                            hover:bg-[#C48A5A]
+                            hover:text-white
+                            transition
+                            "
                             >
                                 ₹ {data.price.toLocaleString("en-IN")} /-
                             </button>
@@ -114,7 +120,7 @@ const Goldpkg = ({ data }) => {
 
                     </div>
                 </div>
-            </section>
+            </section >
         </>
     )
 }

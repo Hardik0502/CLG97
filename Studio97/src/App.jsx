@@ -7,6 +7,7 @@ import  { Routes, Route } from 'react-router-dom'
 import Navbar from '../src/Constants/Navbar/Navbar'
 import Packages from './Pages/Packages/Packages'
 import Backend from '../Backend/Packages/Backend Layout/Backend'
+import OrderRequest from './Order_Managing/OrderRequest'
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path='/blogs' element={ <Blogs />} />
       <Route path='/help' element={ <Help />} />
       <Route path='/studio97.captian.admin97' element={< Backend />}  />
+      <Route path='/order' element={ < OrderRequest /> } />
 
     </Routes>
     
