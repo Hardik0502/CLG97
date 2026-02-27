@@ -56,7 +56,7 @@ const Silverpkg = ({ data }) => {
                 hover:cursor-pointer
                 transition duration-500 "
 
-                onClick={() => navigate("/orderRequest", {
+                onClick={() => navigate("/order", {
                   state: {
                     packageName: "Silver",
                     price: 25000
