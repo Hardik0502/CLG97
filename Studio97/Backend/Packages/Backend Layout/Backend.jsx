@@ -250,6 +250,7 @@ function StatCard({ label, value, icon, color, sub, delay = 0 }) {
 
 /* Full-detail client card (used in View modal) */
 function ClientDetailCard({ o, onClose }) {
+
   return (
     <>
       <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 22, fontWeight: 700, color: T.txt, marginBottom: 6 }}>Order Details</h2>
@@ -273,11 +274,11 @@ function ClientDetailCard({ o, onClose }) {
         <div style={{ fontSize: 11, fontWeight: 700, color: T.sub, textTransform: "uppercase", letterSpacing: ".07em", marginBottom: 10 }}>Event & Booking</div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
           {[
-            ["Event Type", o.event],
+            ["Event Type", o.event || "Normal Booking"],
             ["Package", <span className="tag" style={{ background: pkgColor(o.pkg) + "20", color: pkgColor(o.pkg) }}>{o.pkg}</span>],
             ["From Date", fmtD(o.dateFrom)],
             ["To Date", fmtD(o.dateTo)],
-            ["Requested On", fmtD(o.reqDate)],
+            ["Requested On", fmtD(o.createdAt)],
             ["Package Price", <span style={{ fontFamily: "'DM Mono',monospace", fontWeight: 700, color: T.navy }}>{fmt(o.price)}</span>],
           ].map(([l, v]) => (
             <div key={l} style={{ background: T.white, borderRadius: 9, padding: "10px 12px", border: `1px solid ${T.border}` }}>
@@ -298,6 +299,46 @@ function ClientDetailCard({ o, onClose }) {
           </div>
         </div>
       )}
+
+      {/* Client Message / Query */}
+{o.message && (
+  <div
+    style={{
+      background: T.bg,
+      borderRadius: 12,
+      padding: 16,
+      marginBottom: 16,
+    }}
+  >
+    <div
+      style={{
+        fontSize: 11,
+        fontWeight: 700,
+        color: T.sub,
+        textTransform: "uppercase",
+        letterSpacing: ".07em",
+        marginBottom: 10,
+      }}
+    >
+      Client Message / Query
+    </div>
+
+    <div
+      style={{
+        background: T.white,
+        borderRadius: 9,
+        padding: "12px 14px",
+        border: `1px solid ${T.border}`,
+        fontSize: 13,
+        fontWeight: 500,
+        color: T.txt,
+        lineHeight: 1.5,
+      }}
+    >
+      {o.message || "No additional message provided."}
+    </div>
+  </div>
+)}
 
       {o.reason && (
         <div style={{ padding: "10px 14px", borderRadius: 10, background: T.redBg, border: `1px solid ${T.redBorder}`, marginBottom: 16 }}>
@@ -393,10 +434,17 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
   };
 
 
-  const rejectOrder = async (id) => {
-    await updateDoc(doc(db, "orderRequests", id), {
-      status: "rejected"
-    });
+  const rejectOrder = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "rejected"
+      });
+
+      fireToast("Order Rejected", "#16a34a", "#bbf7d0");
+
+    } catch (error) {
+      console.error(error);
+    }
   };
 
 
@@ -437,8 +485,14 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
                 </div>
                 {/* Right: chips */}
                 <div style={{ display: "flex", gap: 7, flexWrap: "wrap", flexShrink: 0, alignItems: "center" }}>
-                  <span className="tag" style={{ background: pkgColor(o.pkg) + "20", color: pkgColor(o.pkg) }}>{o.pkg}</span>
-                  <span className="tag" style={{ background: T.blueBg, color: T.blue }}>{o.event}</span>
+                  <span className="tag" style={{ background: pkgColor(o.pkg) + "20", color: pkgColor(o.pkg) }}>
+                    {o.pkg}
+                  </span>
+
+                  <span className="tag" style={{ background: T.blueBg, color: T.blue }}>
+                    {o.event || "Normal Day"}
+                  </span>
+
                 </div>
               </div>
 
@@ -477,8 +531,26 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
 
       {/* Decline modal */}
       {declineTarget && (
-        <DeclineModal order={declineTarget} onConfirm={rejectOrder} onClose={() => setDeclineTarget(null)} />
+        <DeclineModal
+          order={declineTarget}
+          onConfirm={async (reason) => {
+            try {
+              await updateDoc(doc(db, "orderRequests", declineTarget.id), {
+                status: "rejected",
+                reason: reason,
+              });
+
+              fireToast("Order Declined", "#dc2626", "#fecaca");
+              setDeclineTarget(null);
+
+            } catch (error) {
+              console.error(error);
+            }
+          }}
+          onClose={() => setDeclineTarget(null)}
+        />
       )}
+
     </div>
   );
 }
