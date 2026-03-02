@@ -68,36 +68,48 @@ const OrderRequest = () => {
 
   const handleSubmit = async () => {
 
-  if (!packageName || !price) {
-    alert("Package information missing. Please select a package again.");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "orderRequests"), {
-      fullname: form.fullname,
-      email: form.email,
-      address : form.address,
-      phone: form.phone,
-      message: form.message,
-      packageName: packageName,
-      price: price,
-      startDate: range[0].startDate,
-      endDate: range[0].endDate,
-      status: "pending",
-      payment: "pending",
-      createdAt: new Date(),
+    React.event({
+      category: "Booking",
+      action: "Order Submitted",
     });
 
-    alert("Request Sent Successfully");
+    await addDoc(collection(db, "orders"), {
+      name,
+      pkg,
+      price,
+      createdAt: serverTimestamp(),
+    });
 
-  } catch (error) {
-    console.error(error);
-  }
-};
+    if (!packageName || !price) {
+      alert("Package information missing. Please select a package again.");
+      return;
+    }
 
-// const start = order.startDate?.toDate?.();
-// const end = order.endDate?.toDate?.();
+    try {
+      await addDoc(collection(db, "orderRequests"), {
+        fullname: form.fullname,
+        email: form.email,
+        address: form.address,
+        phone: form.phone,
+        message: form.message,
+        packageName: packageName,
+        price: price,
+        startDate: range[0].startDate,
+        endDate: range[0].endDate,
+        status: "pending",
+        payment: "pending",
+        createdAt: new Date(),
+      });
+
+      alert("Request Sent Successfully");
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // const start = order.startDate?.toDate?.();
+  // const end = order.endDate?.toDate?.();
 
 
   return (
@@ -197,8 +209,8 @@ const OrderRequest = () => {
               onClick={handleSubmit}
               disabled={!isValid}
               className={`h-11 w-44 self-end rounded-full font-semibold tracking-wide transition-all duration-300 shadow-md ${isValid
-                  ? "bg-red-500 text-white hover:bg-red-600 hover:scale-105"
-                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                ? "bg-red-500 text-white hover:bg-red-600 hover:scale-105"
+                : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
             >
               SEND REQUEST

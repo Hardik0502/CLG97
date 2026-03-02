@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import Video from '../../Constants/Videopage/Video'
@@ -14,6 +14,8 @@ import { easeIn, easeOut } from 'motion/react'
 import LightRays from '../../Features/LightsEffect'
 import LastPageDivider from '../../Features/LastPageDivider'
 import Footer from '../../Constants/Footer'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { db } from '../../../Backend/Firebase'
 
 
 
@@ -149,7 +151,7 @@ const Home = () => {
     },
 
   ]
-  
+
   let ytlink = [
     {
       vlink: 'https://www.youtube.com/embed/jxoHZ8iLMVE'
@@ -166,6 +168,23 @@ const Home = () => {
   ]
 
   const [activemobileClick, setactivemobileClick] = useState(null)
+
+  useEffect(() => {
+    const trackVisit = async () => {
+      const today = new Date().toDateString();
+      const stored = localStorage.getItem("lastVisit");
+
+      if (stored !== today) {
+        await addDoc(collection(db, "visits"), {
+          createdAt: serverTimestamp(),
+        });
+
+        localStorage.setItem("lastVisit", today);
+      }
+    };
+
+    trackVisit();
+  }, []);
 
 
   return (
@@ -390,9 +409,9 @@ const Home = () => {
                     // onClick={ ()=>{
                     //   setactivemobileClick(isActive ? null : index )
                     // } }
-                  className={`card group md:h-[45%] h-[40%] md:w-[27%] cursor-pointer md:bg-white relative flex flex-col top-50  ${ index > 3 ? ' hidden md:flex' : 'flex' } `}>
+                    className={`card group md:h-[45%] h-[40%] md:w-[27%] cursor-pointer md:bg-white relative flex flex-col top-50  ${index > 3 ? ' hidden md:flex' : 'flex'} `}>
                     <img className='subcard relative h-full w-full ' src={data.link} alt="" />
-                    <h2 className= 'subtxt w-full md:text-white bg-white md:bg-transparent text-black absolute md:relative flex justify-around items-baseline md:left-2 text-xl md:top-1 bottom-0 font-[font2] group-hover:text-black ' > {data.name}  <span className=' underline font-[font1] text-[22px] ' > {data.date} </span> </h2>
+                    <h2 className='subtxt w-full md:text-white bg-white md:bg-transparent text-black absolute md:relative flex justify-around items-baseline md:left-2 text-xl md:top-1 bottom-0 font-[font2] group-hover:text-black ' > {data.name}  <span className=' underline font-[font1] text-[22px] ' > {data.date} </span> </h2>
                   </div>
                 })}
 

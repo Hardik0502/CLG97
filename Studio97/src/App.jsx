@@ -8,7 +8,10 @@ import Navbar from '../src/Constants/Navbar/Navbar'
 import Packages from './Pages/Packages/Packages'
 import Backend from '../Backend/Packages/Backend Layout/Backend'
 import OrderRequest from './Order_Managing/OrderRequest'
+import ReactGA from "react-ga4";
 
+ReactGA.initialize("G-XXXXXXXX");
+ReactGA.send("pageview");
 
 function App() {
   

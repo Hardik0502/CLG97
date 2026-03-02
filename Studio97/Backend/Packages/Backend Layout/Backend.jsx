@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
-import { collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../Firebase'
 import { format } from "date-fns";
 
@@ -218,7 +218,7 @@ function Ava({ name, idx, size = 38 }) {
 function Modal({ onClose, children, wide = false }) {
   return (
     <div className="modal-bg" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="fi card" style={{ width: `min(${wide ? "680px" : "440px"},96vw)`, padding: 28, position: "relative", maxHeight: "92vh", overflowY: "auto" }}>
+      <div className="fi card" style={{ width: `min(${wide ? "680px" : "440px"},96vw)`, padding: 28, position: "relative", maxHeight: "unset", overflowY: "visible" }}>
         <button onClick={onClose} className="btn-outline" style={{ position: "absolute", top: 14, right: 14, padding: "4px 10px", fontSize: 12 }}>✕</button>
         {children}
       </div>
@@ -301,44 +301,44 @@ function ClientDetailCard({ o, onClose }) {
       )}
 
       {/* Client Message / Query */}
-{o.message && (
-  <div
-    style={{
-      background: T.bg,
-      borderRadius: 12,
-      padding: 16,
-      marginBottom: 16,
-    }}
-  >
-    <div
-      style={{
-        fontSize: 11,
-        fontWeight: 700,
-        color: T.sub,
-        textTransform: "uppercase",
-        letterSpacing: ".07em",
-        marginBottom: 10,
-      }}
-    >
-      Client Message / Query
-    </div>
+      {o.message && (
+        <div
+          style={{
+            background: T.bg,
+            borderRadius: 12,
+            padding: 16,
+            marginBottom: 16,
+          }}
+        >
+          <div
+            style={{
+              fontSize: 11,
+              fontWeight: 700,
+              color: T.sub,
+              textTransform: "uppercase",
+              letterSpacing: ".07em",
+              marginBottom: 10,
+            }}
+          >
+            Client Message / Query
+          </div>
 
-    <div
-      style={{
-        background: T.white,
-        borderRadius: 9,
-        padding: "12px 14px",
-        border: `1px solid ${T.border}`,
-        fontSize: 13,
-        fontWeight: 500,
-        color: T.txt,
-        lineHeight: 1.5,
-      }}
-    >
-      {o.message || "No additional message provided."}
-    </div>
-  </div>
-)}
+          <div
+            style={{
+              background: T.white,
+              borderRadius: 9,
+              padding: "12px 14px",
+              border: `1px solid ${T.border}`,
+              fontSize: 13,
+              fontWeight: 500,
+              color: T.txt,
+              lineHeight: 1.5,
+            }}
+          >
+            {o.message || "No additional message provided."}
+          </div>
+        </div>
+      )}
 
       {o.reason && (
         <div style={{ padding: "10px 14px", borderRadius: 10, background: T.redBg, border: `1px solid ${T.redBorder}`, marginBottom: 16 }}>
@@ -564,17 +564,52 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
   const [viewOrder, setView2] = useState(null);
   const [declineTarget, setDeclineT] = useState(null);
   const [editPayment, setEditPay] = useState(null);
+  const [advanceAmount, setAdvanceAmount] = useState(0);
 
-  const active = clients.filter(c => !c.completedDate);
-  const completed = clients.filter(c => !!c.completedDate);
+  const active = clients.filter(c => c.status === "accepted");
+  const completed = clients.filter(c => c.status === "completed");
   const list = (view === "active" ? active : completed).filter(c =>
     c.name.toLowerCase().includes(search.toLowerCase()) || c.email.toLowerCase().includes(search.toLowerCase())
   );
 
-  const markComplete = c => {
-    setClients(p => p.map(x => x.id === c.id ? { ...x, completedDate: new Date().toISOString().slice(0, 10) } : x));
-    setView2(null);
-    fireToast("Order marked as completed!", "#15803d", "#bbf7d0");
+
+
+  const markComplete = async (order) => {
+    try {
+      const completedDate = new Date();
+
+      // 1️⃣ Update Firestore
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        completedDate: new Date(),
+        status: "completed"
+      });
+
+      // 2️⃣ Update UI state
+      setClients(prev =>
+        prev.map(c =>
+          c.id === order.id
+            ? { ...c, completedDate, status: "completed" }
+            : c
+        )
+      );
+
+    } catch (err) {
+      console.error("Error marking complete:", err);
+    }
+  };
+
+  const markNotCompleted = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "accepted",
+        completedDate: null
+      });
+
+      fireToast("Moved back to Active Bookings", "#2563eb", "#dbeafe");
+
+    } catch (err) {
+      console.error("Error moving back:", err);
+    }
   };
 
   const confirmDecline = reason => {
@@ -586,15 +621,59 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
     setView2(null);
   };
 
-  const updatePayment = (id, payment) => {
-    setClients(p => p.map(x => x.id === id ? { ...x, payment } : x));
-    setEditPay(null);
-    fireToast("Payment status updated.", "#1d4ed8", "#bfdbfe");
+  const updatePayment = async (id, value) => {
+    try {
+      let paid = 0;
+
+      if (value === "full") {
+        paid = editPayment.price;
+      }
+
+      if (value === "advance") {
+        paid = advanceAmount || editPayment.price * 0.4;
+      }
+
+      if (value === "pending") {
+        paid = 0;
+      }
+
+      await updateDoc(doc(db, "orderRequests", id), {
+        payment: value,
+        paidAmount: paid
+      });
+
+      setClients(prev =>
+        prev.map(c =>
+          c.id === id
+            ? { ...c, payment: value, paidAmount: paid }
+            : c
+        )
+      );
+
+      setEditPay(null);
+
+    } catch (err) {
+      console.error("Payment update failed:", err);
+    }
   };
 
   const payIcon = s => s === "full" ? "✅" : s === "advance" ? "💰" : "⏳";
   const payColor = s => s === "full" ? T.green : s === "advance" ? T.amber : T.red;
-  const payLabel = s => s === "full" ? "Full Paid" : s === "advance" ? "Advance" : s === "unpaid" ? "Unpaid" : "—";
+  const payLabel = s => s === "full" ? "Full Paid" : s === "advance" ? "Advance" : s === "pending" ? "Pending" : "—";
+
+  const moveToRejected = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "rejected"
+      });
+
+      fireToast("Moved to Rejected Orders", "#dc2626", "#fecaca");
+
+    } catch (error) {
+      console.error("Error moving to rejected:", error);
+    }
+  };
+
 
   return (
     <div style={{ padding: "28px 28px 40px" }}>
@@ -638,9 +717,9 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
               <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 7, marginBottom: 12 }}>
                 {[
                   ["Package", <span className="tag" style={{ background: pkgColor(c.pkg) + "20", color: pkgColor(c.pkg) }}>{c.pkg}</span>],
-                  ["Event", c.event],
+                  ["Event", c.event || "Normal Day"], ,
                   ["Dates", `${fmtD(c.dateFrom)} → ${fmtD(c.dateTo)}`],
-                  ["Amount", <span style={{ fontFamily: "'DM Mono',monospace", fontWeight: 700, color: T.navy }}>{fmt(c.price)}</span>],
+                  ["Amount", <span style={{ fontFamily: "'DM Mono',monospace", fontWeight: 700, color: T.navy }}> {fmt(c.price)}</span>],
                 ].map(([l, v]) => (
                   <div key={l} style={{ background: T.bg, borderRadius: 8, padding: "8px 10px" }}>
                     <div style={{ fontSize: 10, fontWeight: 600, color: T.muted, textTransform: "uppercase", letterSpacing: ".06em", marginBottom: 2 }}>{l}</div>
@@ -652,17 +731,90 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
               {/* Payment status */}
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 10px", borderRadius: 9, background: payColor(c.payment) + "14", border: `1px solid ${payColor(c.payment)}30`, marginBottom: 11 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-                  <span style={{ fontSize: 15 }}>{payIcon(c.payment)}</span>
-                  <span style={{ fontSize: 12, fontWeight: 600, color: payColor(c.payment) }}>{payLabel(c.payment)}</span>
+                  <span style={{ fontSize: 15 }}>{payIcon(c.payment ?? "pending")}</span>
+                  {/* <span style={{ fontSize: 12, fontWeight: 600, color: payColor(c.payment ?? "pending") }}>{payLabel(c.payment ?? "pending")}</span> */}
+                  {c.payment === "advance" ? (
+                    <div style={{ display: "flex", flexDirection: "column" }}>
+
+                      {/* BIG REMAINING AMOUNT */}
+                      <span
+                        style={{
+                          fontSize: 14,
+                          fontWeight: 700,
+                          color: "#dc2626", // premium red
+                        }}
+                      >
+                        {fmt((c.price || 0) - (c.paidAmount || 0))} Remaining
+                      </span>
+
+                      {/* SMALL TOTAL */}
+                      <span
+                        style={{
+                          fontSize: 11,
+                          color: T.muted,
+                        }}
+                      >
+                        Total: {fmt(c.price)}
+                      </span>
+                    </div>
+                  ) : (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 600,
+                        color: payColor(c.payment ?? "pending"),
+                      }}
+                    >
+                      {payLabel(c.payment ?? "pending")}
+                    </span>
+                  )}
+
                 </div>
-                <button className="btn-outline" style={{ padding: "3px 9px", fontSize: 11 }} onClick={() => setEditPay(c)}>Edit</button>
+                <button className="btn-outline" style={{ padding: "3px 9px", fontSize: 11 }}
+                  onClick={() => {
+                    setEditPay(c);
+
+                    if (c.payment === "advance") {
+                      setAdvanceAmount(
+                        c.paidAmount || Math.round(c.price * 0.4)
+                      );
+                    } else {
+                      setAdvanceAmount(Math.round(c.price * 0.4));
+                    }
+                  }}
+                >Edit</button>
               </div>
 
               {/* Actions */}
               <div style={{ display: "flex", gap: 7, flexWrap: "wrap" }}>
                 <button className="btn-outline" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => setView2(c)}>View Details</button>
-                {!c.completedDate && <button className="btn-dark" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => markComplete(c)}>Mark Complete</button>}
-                <button className="btn-red" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => setDeclineT(c)}>Move to Rejected</button>
+
+                {c.status === "accepted" && (
+                  <button
+                    className="btn-dark"
+                    style={{ fontSize: 12, padding: "6px 12px" }}
+                    onClick={() => markComplete(c)}
+                  >
+                    Mark Complete
+                  </button>
+                )}
+
+                {c.status === "completed" && (
+                  <button
+                    className="btn-outline"
+                    style={{
+                      fontSize: 12,
+                      padding: "6px 12px",
+                      backgroundColor: "black",
+                      borderColor: T.navy,
+                      color: T.white,
+                    }}
+                    onClick={() => markNotCompleted(c)}
+                  >
+                    Not Completed
+                  </button>
+                )}
+                <button className="btn-red" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => moveToRejected(c)}>Move to Rejected</button>
               </div>
             </div>
           ))}
@@ -675,7 +827,7 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
           <ClientDetailCard o={viewOrder} />
           <div style={{ display: "flex", gap: 9, marginTop: 16, flexWrap: "wrap" }}>
             {!viewOrder.completedDate && <button className="btn-dark" onClick={() => markComplete(viewOrder)}>Mark Complete</button>}
-            <button className="btn-red" onClick={() => { setDeclineT(viewOrder); setView2(null); }}>Move to Rejected</button>
+            <button className="btn-red" onClick={() => { moveToRejected(viewOrder); setView2(null); }}>Move to Rejected</button>
           </div>
         </Modal>
       )}
@@ -689,13 +841,97 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
           <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, fontWeight: 700, color: T.txt, marginBottom: 4 }}>Update Payment</h2>
           <p style={{ fontSize: 13, color: T.sub, marginBottom: 20 }}>Set payment status for <strong>{editPayment.name}</strong></p>
           <div style={{ display: "flex", flexDirection: "column", gap: 9, marginBottom: 20 }}>
-            {[["full", "Full Payment Received", "✅", T.green], ["advance", "Advance Payment Received", "💰", T.amber], ["unpaid", "Not Paid Yet", "⏳", T.red]].map(([v, l, ic, cl]) => (
-              <button key={v} onClick={() => updatePayment(editPayment.id, v)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 10, border: `1.5px solid ${editPayment.payment === v ? cl : T.border}`, background: editPayment.payment === v ? cl + "14" : T.white, cursor: "pointer", transition: "all .15s", textAlign: "left" }}>
+            {[["full", "Full Payment Received", "✅", T.green], ["advance", "Advance Payment Received", "💰", T.amber], ["pending", "Not Paid Yet", "⏳", T.red]].map(([v, l, ic, cl]) => (
+              <button key={v} onClick={() => {
+                if (v === "advance") {
+                  setEditPay({ ...editPayment, payment: "advance" });
+                  setAdvanceAmount(
+                    editPayment.paidAmount || Math.round(editPayment.price * 0.4)
+                  );
+                } else {
+                  updatePayment(editPayment.id, v);
+                }
+              }}
+                style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 10, border: `1.5px solid ${editPayment.payment === v ? cl : T.border}`, background: editPayment.payment === v ? cl + "14" : T.white, cursor: "pointer", transition: "all .15s", textAlign: "left" }}>
                 <span style={{ fontSize: 20 }}>{ic}</span>
                 <span style={{ fontSize: 13, fontWeight: 600, color: T.txt }}>{l}</span>
               </button>
             ))}
           </div>
+
+          {editPayment?.payment === "advance" && (
+            <div
+              style={{
+                marginTop: 20,
+                padding: 20,
+                borderRadius: 14,
+                background: "#f8fafc",
+                border: "1px solid #e2e8f0"
+              }}
+            >
+              <div
+                style={{
+                  fontSize: 14,
+                  fontWeight: 700,
+                  color: "#111827",
+                  marginBottom: 10
+                }}
+              >
+                Enter Advance Amount
+              </div>
+
+              <input
+                type="number"
+                value={advanceAmount}
+                onChange={(e) =>
+                  setAdvanceAmount(Number(e.target.value) || 0)
+                }
+                style={{
+                  width: "100%",
+                  padding: "12px 14px",
+                  borderRadius: 10,
+                  border: "2px solid #cbd5e1",
+                  fontSize: 16,
+                  fontWeight: 700,
+                  color: "#000",
+                  background: "#ffffff",
+                  outline: "none",
+                  marginBottom: 16
+                }}
+              />
+
+              <div style={{ lineHeight: "1.8" }}>
+                <div style={{ fontSize: 14, color: "#111827", fontWeight: 600 }}>
+                  Total: {fmt(editPayment?.price || 0)}
+                </div>
+
+                <div style={{ fontSize: 14, color: "#16a34a", fontWeight: 700 }}>
+                  Paid: {fmt(advanceAmount || 0)}
+                </div>
+
+                <div style={{ fontSize: 16, color: "#dc2626", fontWeight: 800 }}>
+                  Remaining:{" "}
+                  {fmt(
+                    (editPayment?.price || 0) - (advanceAmount || 0)
+                  )}
+                </div>
+              </div>
+
+              <button
+                className="btn-dark"
+                style={{
+                  marginTop: 18,
+                  width: "100%",
+                  padding: "12px",
+                  fontSize: 14
+                }}
+                onClick={() => updatePayment(editPayment.id, "advance")}
+              >
+                Confirm Advance Payment
+              </button>
+            </div>
+          )}
+
         </Modal>
       )}
     </div>
@@ -706,20 +942,61 @@ function PageClients({ clients, setClients, rejected, setRejected, setPending, f
    PAGE: PAYMENTS
 ═══════════════════════════════════════════ */
 function PagePayments({ clients, setClients, fireToast }) {
+
   const [editPay, setEditPay] = useState(null);
+  const [advanceAmount, setAdvanceAmount] = useState();
+
+  // const full = clients.filter(c => c.payment === "full");
+  // const advance = clients.filter(c => c.payment === "advance");
+  // const pending = clients.filter(c => c.payment === "pending");
+
+  // const totalRevenue = full.reduce((s, c) => s + (c.price || 0), 0);
+
+  // const advanceAmt = advance.reduce((s, c) => s + ((c.price || 0) * 0.5), 0);
+
+  // const pendingAmt = pending.reduce((s, c) => s + (c.price || 0), 0);
 
   const full = clients.filter(c => c.payment === "full");
   const advance = clients.filter(c => c.payment === "advance");
-  const unpaid = clients.filter(c => c.payment === "unpaid" || !c.payment);
+  const pending = clients.filter(c => c.payment === "pending");
 
-  const totalRevenue = full.reduce((s, c) => s + c.price, 0);
-  const advanceAmt = advance.reduce((s, c) => s + (c.price * 0.5), 0); // assuming 50% advance
-  const pendingAmt = unpaid.reduce((s, c) => s + c.price, 0) + advanceAmt;
+  const totalRevenue = clients.reduce((sum, c) => {
+    if (c.payment === "full") {
+      return sum + (Number(c.price) || 0);
+    }
+
+    return sum + (Number(c.paidAmount) || 0);
+  }, 0);
+
+  const pendingAmt = clients.reduce(
+    (sum, c) => sum + ((c.price || 0) - (c.paidAmount || 0)),
+    0
+  );
 
   const updatePayment = (id, payment) => {
-    setClients(p => p.map(x => x.id === id ? { ...x, payment } : x));
-    setEditPay(null);
-    fireToast("Payment status updated.", "#1d4ed8", "#bfdbfe");
+    setClients(prev =>
+      prev.map(c => {
+        if (c.id !== id) return c;
+
+        if (payment === "full") {
+          return {
+            ...c,
+            payment: "full",
+            paidAmount: Number(c.price) || 0
+          };
+        }
+
+        if (payment === "pending") {
+          return {
+            ...c,
+            payment: "pending",
+            paidAmount: 0
+          };
+        }
+
+        return c;
+      })
+    );
   };
 
   const PaySection = ({ title, list, color, bg, border, icon, emptyMsg }) => (
@@ -741,11 +1018,72 @@ function PagePayments({ clients, setClients, fireToast }) {
           <Ava name={c.name} idx={i} size={34} />
           <div style={{ flex: 1, minWidth: 0 }}>
             <div style={{ fontSize: 13, fontWeight: 600, color: T.txt, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{c.name}</div>
-            <div style={{ fontSize: 11, color: T.muted }}>{c.event} · {c.pkg}</div>
+            <div style={{ fontSize: 11, color: T.muted }}> {c.event || "Normal Day"} · {c.pkg}</div>
           </div>
           <div style={{ textAlign: "right", flexShrink: 0 }}>
-            <div style={{ fontFamily: "'DM Mono',monospace", fontSize: 12, fontWeight: 700, color: T.navy }}>{fmt(c.price)}</div>
-            <button className="btn-outline" style={{ padding: "2px 8px", fontSize: 10, marginTop: 3 }} onClick={() => setEditPay(c)}>Edit</button>
+
+            {c.payment === "advance" ? (
+              <div style={{ lineHeight: "1.4" }}>
+
+                {/* Paid */}
+                <div
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: T.green
+                  }}
+                >
+                  Paid: {fmt(c.paidAmount || 0)}
+                </div>
+
+                {/* Remaining */}
+                <div
+                  style={{
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: "#dc2626"
+                  }}
+                >
+                  Remaining: {fmt((c.price || 0) - (c.paidAmount || 0))}
+                </div>
+
+                {/* Total */}
+                <div
+                  style={{
+                    fontSize: 11,
+                    color: T.muted
+                  }}
+                >
+                  Total: {fmt(c.price)}
+                </div>
+              </div>
+
+            ) : (
+              <div
+                style={{
+                  fontFamily: "'DM Mono',monospace",
+                  fontSize: 13,
+                  fontWeight: 700,
+                  color: T.navy
+                }}
+              >
+                {fmt(c.price)}
+              </div>
+            )}
+
+            <button
+              className="btn-outline"
+              style={{ padding: "2px 8px", fontSize: 10, marginTop: 6 }}
+              onClick={() => {
+                setEditPay(c);
+                setAdvanceAmount(
+                  c.paidAmount ?? Math.round((c.price || 0) * 0.4)
+                );
+              }}
+            >
+              Edit
+            </button>
+
           </div>
         </div>
       ))}
@@ -758,17 +1096,21 @@ function PagePayments({ clients, setClients, fireToast }) {
 
       {/* Summary cards */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))", gap: 12, marginBottom: 22 }}>
-        <StatCard label="Full Payments" value={full.length} icon="✅" color={T.green} delay={0} sub={fmt(totalRevenue) + " collected"} />
-        <StatCard label="Advance Payments" value={advance.length} icon="💰" color={T.amber} delay={.07} sub="Remaining due on event day" />
-        <StatCard label="Unpaid" value={unpaid.length} icon="⏳" color={T.red} delay={.14} sub={fmt(pendingAmt) + " outstanding"} />
-        <StatCard label="Total Collected" value={fmt(totalRevenue + advanceAmt)} icon="💵" color={T.blue} delay={.21} sub="Full + advance received" />
+        <StatCard label="Full Payments" value={full.length} icon="✅" color={T.green} delay={0}
+          sub={fmt(
+            full.reduce((s, c) => s + (Number(c.price) || 0), 0)
+          ) + " collected"
+          } />
+        <StatCard label="Advance Payments" value={advance.length} icon="💰" color={T.amber} delay={.07} sub={fmt(advance.reduce((s, c) => s + (c.paidAmount || 0), 0)) + " received"} />
+        <StatCard label="Pending" value={pending.length} icon="⏳" color={T.red} delay={.14} sub={fmt(pendingAmt) + " remaining"} />
+        <StatCard label="Total Collected" value={fmt(totalRevenue)} icon="💵" color={T.blue} delay={.21} sub="Full + advance received" />
       </div>
 
       {/* Three columns */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(260px,1fr))", gap: 14 }}>
         <PaySection title="Full Payment" list={full} color={T.green} bg={T.greenBg} border={T.greenBorder} icon="✅" emptyMsg="No full payments yet." />
         <PaySection title="Advance Paid" list={advance} color={T.amber} bg={T.amberBg} border={T.amberBorder} icon="💰" emptyMsg="No advance payments." />
-        <PaySection title="Not Paid" list={unpaid} color={T.red} bg={T.redBg} border={T.redBorder} icon="⏳" emptyMsg="All clients have paid." />
+        <PaySection title="Not Paid" list={pending} color={T.red} bg={T.redBg} border={T.redBorder} icon="⏳" emptyMsg="All clients have paid." />
       </div>
 
       {/* Edit payment modal */}
@@ -777,13 +1119,109 @@ function PagePayments({ clients, setClients, fireToast }) {
           <h2 style={{ fontFamily: "'Playfair Display',serif", fontSize: 20, fontWeight: 700, color: T.txt, marginBottom: 4 }}>Update Payment</h2>
           <p style={{ fontSize: 13, color: T.sub, marginBottom: 18 }}>Set payment status for <strong>{editPay.name}</strong> ({fmt(editPay.price)})</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 9, marginBottom: 16 }}>
-            {[["full", "Full Payment Received", "✅", T.green], ["advance", "Advance Payment Received", "💰", T.amber], ["unpaid", "Not Paid Yet", "⏳", T.red]].map(([v, l, ic, cl]) => (
-              <button key={v} onClick={() => updatePayment(editPay.id, v)} style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", borderRadius: 10, border: `1.5px solid ${editPay.payment === v ? cl : T.border}`, background: editPay.payment === v ? cl + "14" : T.white, cursor: "pointer", transition: "all .15s" }}>
+            {[
+              ["full", "Full Payment Received", "✅", T.green],
+              ["advance", "Advance Payment Received", "💰", T.amber],
+              ["pending", "Not Paid Yet", "⏳", T.red]
+            ].map(([v, l, ic, cl]) => (
+              <button
+                key={v}
+                onClick={() => {
+                  if (v === "advance") {
+                    setAdvanceAmount(editPay.paidAmount || Math.round(editPay.price * 0.4));
+                    setEditPay({ ...editPay, payment: "advance" });
+                  } else {
+                    updatePayment(editPay.id, v);
+                  }
+                }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 12,
+                  padding: "12px 16px",
+                  borderRadius: 10,
+                  border: `1.5px solid ${editPay.payment === v ? cl : T.border}`,
+                  background: editPay.payment === v ? cl + "14" : T.white,
+                  cursor: "pointer",
+                  transition: "all .15s"
+                }}
+              >
                 <span style={{ fontSize: 20 }}>{ic}</span>
-                <span style={{ fontSize: 13, fontWeight: 600, color: T.txt }}>{l}</span>
+                <span style={{ fontSize: 13, fontWeight: 600, color: T.txt }}>
+                  {l}
+                </span>
               </button>
             ))}
+
+            {editPay?.payment === "advance" && (
+              <div
+                style={{
+                  marginTop: 15,
+                  padding: 15,
+                  borderRadius: 10,
+                  background: T.bg,
+                  border: `1px solid ${T.border}`
+                }}
+              >
+                <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 6, color: T.txt }}>
+                  Advance Amount
+                </div>
+
+                <input
+                  type="number"
+                  value={advanceAmount}
+                  onChange={(e) => setAdvanceAmount(Number(e.target.value))}
+                  onFocus={(e) => e.target.style.border = `1.5px solid ${T.navy}`}
+                  onBlur={(e) => e.target.style.border = `1.5px solid ${T.border}`}
+                  style={{
+                    width: "100%",
+                    padding: "10px 12px",
+                    borderRadius: 8,
+                    border: `1.5px solid ${T.border}`,
+                    fontSize: 15,
+                    fontWeight: 600,
+                    color: "#000",          // 🔥 BLACK TEXT
+                    background: "#fff",     // 🔥 White background
+                    outline: "none",
+                    marginBottom: 10
+                  }}
+                />
+
+                <div style={{ fontSize: 12, color: T.sub, lineHeight: "1.6" }}>
+                  <div><strong>Total:</strong> {fmt(editPay.price)}</div>
+                  <div><strong>Paid:</strong> {fmt(advanceAmount)}</div>
+                  <div>
+                    <strong>Remaining:</strong>{" "}
+                    {fmt(editPay.price - advanceAmount)}
+                  </div>
+                </div>
+
+                <button
+                  className="btn-dark"
+                  style={{ marginTop: 12, width: "100%" }}
+                  onClick={() => {
+                    setClients(prev =>
+                      prev.map(c =>
+                        c.id === editPay.id
+                          ? {
+                            ...c,
+                            payment: "advance",
+                            paidAmount: advanceAmount
+                          }
+                          : c
+                      )
+                    );
+                    setEditPay(null);
+                    fireToast("Advance payment updated.", "#2563eb", "#dbeafe");
+                  }}
+                >
+                  Confirm Advance Payment
+                </button>
+              </div>
+            )}
+
           </div>
+
         </Modal>
       )}
     </div>
@@ -807,15 +1245,42 @@ function PageRejected({ rejected, setRejected, clients, setClients, setPending, 
     setViewOrder(null);
   };
 
-  const restoreToPending = id => {
-    const o = rejected.find(r => r.id === id);
-    if (!o) return;
-    const { reason, ...rest } = o;
-    setRejected(p => p.filter(r => r.id !== id));
-    setPending(p => [rest, ...p]);
-    fireToast("Order moved back to Pending.", "#d97706", "#fde68a");
-    setViewOrder(null);
+  // const restoreToPending = id => {
+  //   const o = rejected.find(r => r.id === id);
+  //   if (!o) return;
+  //   const { reason, ...rest } = o;
+  //   setRejected(p => p.filter(r => r.id !== id));
+  //   setPending(p => [rest, ...p]);
+  //   fireToast("Order moved back to Pending.", "#d97706", "#fde68a");
+  //   setViewOrder(null);
+  // };
+
+  const acceptFromRejected = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "accepted"
+      });
+
+      fireToast("Moved to Clients", "#16a34a", "#bbf7d0");
+
+    } catch (error) {
+      console.error("Error moving to clients:", error);
+    }
   };
+
+  const restoreToPending = async (order) => {
+    try {
+      await updateDoc(doc(db, "orderRequests", order.id), {
+        status: "pending",
+      });
+
+      fireToast("Order moved back to Pending", "#2563eb", "#bfdbfe");
+
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   const handleDeleteRejected = async (order) => {
     try {
@@ -873,8 +1338,8 @@ function PageRejected({ rejected, setRejected, clients, setClients, setPending, 
 
               <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
                 <button className="btn-outline" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => setViewOrder(o)}>View Details</button>
-                <button className="btn-green" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => restoreToClients(o.id)}>Accept & Move to Clients</button>
-                <button className="btn-amber" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => restoreToPending(o.id)}>Move Back to Pending</button>
+                <button className="btn-green" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => acceptFromRejected(o)}>Accept & Move to Clients</button>
+                <button className="btn-amber" style={{ fontSize: 12, padding: "6px 12px" }} onClick={() => restoreToPending(o)}>Move Back to Pending</button>
                 <button
                   className="btn-red"
                   onClick={() => {
@@ -1090,7 +1555,7 @@ function PagePackages({ fireToast }) {
    PAGE: EVENTS / OFFERS
 ═══════════════════════════════════════════ */
 function PageEvents({ fireToast }) {
-  const [events, setEvents] = useState();
+  const [events, setEvents] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editEvt, setEditEvt] = useState(null);
 
@@ -1100,25 +1565,63 @@ function PageEvents({ fireToast }) {
   const openNew = () => { setForm(BLANK); setEditEvt(null); setShowForm(true); };
   const openEdit = ev => { setForm({ ...ev }); setEditEvt(ev.id); setShowForm(true); };
 
-  const saveForm = () => {
+  useEffect(() => {
+    const fetchEvents = async () => {
+      const snap = await getDocs(collection(db, "events"));
+      const list = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      setEvents(list);
+    };
+
+    fetchEvents();
+  }, []);
+
+  // const saveForm = () => {
+  //   if (!form.title.trim()) return;
+  //   if (editEvt) {
+  //     setEvents(p => p.map(e => e.id === editEvt ? { ...form, id: editEvt } : e));
+  //     fireToast("Event updated!", "#7c3aed", "#ddd6fe");
+  //   } else {
+  //     setEvents(p => [{ ...form, id: mkEvId() }, ...p]);
+  //     fireToast("New event created!", "#7c3aed", "#ddd6fe");
+  //   }
+  //   setShowForm(false);
+  // };
+
+  const saveForm = async () => {
     if (!form.title.trim()) return;
+
     if (editEvt) {
-      setEvents(p => p.map(e => e.id === editEvt ? { ...form, id: editEvt } : e));
+      await updateDoc(doc(db, "events", editEvt), form);
       fireToast("Event updated!", "#7c3aed", "#ddd6fe");
     } else {
-      setEvents(p => [{ ...form, id: mkEvId() }, ...p]);
+      await addDoc(collection(db, "events"), form);
       fireToast("New event created!", "#7c3aed", "#ddd6fe");
     }
+
     setShowForm(false);
+
+    // Refresh events
+    const snap = await getDocs(collection(db, "events"));
+    setEvents(snap.docs.map(d => ({ id: d.id, ...d.data() })));
   };
 
-  const toggleActive = id => {
-    setEvents(p => p.map(e => e.id === id ? { ...e, active: !e.active } : e));
+  const toggleActive = async (id) => {
+    const target = events.find(e => e.id === id);
+
+    await updateDoc(doc(db, "events", id), {
+      active: !target.active
+    });
+
+    setEvents(prev =>
+      prev.map(e => e.id === id ? { ...e, active: !e.active } : e)
+    );
+
     fireToast("Event status toggled.", "#1d4ed8", "#bfdbfe");
   };
 
-  const deleteEvent = id => {
-    setEvents(p => p.filter(e => e.id !== id));
+  const deleteEvent = async (id) => {
+    await deleteDoc(doc(db, "events", id));
+    setEvents(prev => prev.filter(e => e.id !== id));
     fireToast("Event deleted.", "#dc2626", "#fecaca");
   };
 
@@ -1286,7 +1789,10 @@ function PageEvents({ fireToast }) {
    PAGE: ANALYTICS
 ═══════════════════════════════════════════ */
 function PageAnalytics({ pending, clients, rejected }) {
-  const totalRev = clients.reduce((s, c) => s + c.price, 0);
+  const totalRev = clients.reduce(
+    (s, c) => s + (c.paidAmount || 0),
+    0
+  );
   const completed = clients.filter(c => c.completedDate).length;
   const active = clients.filter(c => !c.completedDate).length;
 
@@ -1297,19 +1803,123 @@ function PageAnalytics({ pending, clients, rejected }) {
     return Object.entries(map).sort((a, b) => b[1] - a[1]);
   }, [clients, rejected, pending]);
 
+  // const revData = useMemo(() => {
+  //   const map = {};
+  //   clients.forEach(c => { const m = c.dateFrom?.slice(0, 7) || ""; if (m) map[m] = (map[m] || 0) + c.price; });
+  //   return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0])).slice(-6);
+  // }, [clients]);
+
+  // const payData = useMemo(() => [
+  //   ["Full Paid", clients.filter(c => c.payment === "full").length, T.green],
+  //   ["Advance", clients.filter(c => c.payment === "advance").length, T.amber],
+  //   ["Pending", clients.filter(c => c.payment === "pending" || !c.payment).length, T.red],
+  // ], [clients]);
+
   const revData = useMemo(() => {
     const map = {};
-    clients.forEach(c => { const m = c.dateFrom?.slice(0, 7) || ""; if (m) map[m] = (map[m] || 0) + c.price; });
-    return Object.entries(map).sort((a, b) => a[0].localeCompare(b[0])).slice(-6);
+
+    clients.forEach(c => {
+      if (!c.createdAt) return;
+
+      const date =
+        typeof c.createdAt === "string"
+          ? new Date(c.createdAt)
+          : c.createdAt.toDate(); // for Firestore Timestamp
+
+      const monthKey = date.toISOString().slice(0, 7);
+
+      map[monthKey] = (map[monthKey] || 0) + (c.paidAmount || 0);
+    });
+
+    return Object.entries(map)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .slice(-6); // last 6 months
   }, [clients]);
 
   const maxRev = Math.max(...revData.map(([, v]) => v), 1);
 
-  const payData = useMemo(() => [
-    ["Full Paid", clients.filter(c => c.payment === "full").length, T.green],
-    ["Advance", clients.filter(c => c.payment === "advance").length, T.amber],
-    ["Unpaid", clients.filter(c => c.payment === "unpaid" || !c.payment).length, T.red],
-  ], [clients]);
+  const payData = useMemo(() => {
+    const full = clients
+      .filter(c => c.payment === "full")
+      .reduce((s, c) => s + c.paidAmount, 0);
+
+    const advance = clients
+      .filter(c => c.payment === "advance")
+      .reduce((s, c) => s + c.paidAmount, 0);
+
+    const pending = clients
+      .filter(c => c.payment === "pending" || !c.payment)
+      .reduce((s, c) => s + (c.price - (c.paidAmount || 0)), 0);
+
+    return [
+      ["Full Paid ₹", full, T.green],
+      ["Advance ₹", advance, T.amber],
+      ["Pending ₹", pending, T.red],
+    ];
+  }, [clients]);
+
+  const [visits, setVisits] = useState([]);
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const visitSnap = await getDocs(collection(db, "visits"));
+      const orderSnap = await getDocs(collection(db, "orders"));
+
+      setVisits(visitSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+      setOrders(orderSnap.docs.map(d => ({ id: d.id, ...d.data() })));
+    };
+
+    fetchData();
+  }, []);
+
+  const filterByPeriod = (data, period) => {
+    const now = new Date();
+
+    return data.filter(item => {
+      if (!item.createdAt) return false;
+
+      const date = item.createdAt.toDate();
+
+      if (period === "daily") {
+        return date.toDateString() === now.toDateString();
+      }
+
+      if (period === "weekly") {
+        const weekAgo = new Date();
+        weekAgo.setDate(now.getDate() - 7);
+        return date >= weekAgo;
+      }
+
+      if (period === "monthly") {
+        return (
+          date.getMonth() === now.getMonth() &&
+          date.getFullYear() === now.getFullYear()
+        );
+      }
+
+      if (period === "yearly") {
+        return date.getFullYear() === now.getFullYear();
+      }
+
+      return false;
+    });
+  };
+
+  const dailyVisits = filterByPeriod(visits, "daily").length;
+  const weeklyVisits = filterByPeriod(visits, "weekly").length;
+  const monthlyVisits = filterByPeriod(visits, "monthly").length;
+  const yearlyVisits = filterByPeriod(visits, "yearly").length;
+
+  const dailyOrders = filterByPeriod(orders, "daily").length;
+  const weeklyOrders = filterByPeriod(orders, "weekly").length;
+  const monthlyOrders = filterByPeriod(orders, "monthly").length;
+  const yearlyOrders = filterByPeriod(orders, "yearly").length;
+
+  const conversionRate = visits.length
+    ? ((orders.length / visits.length) * 100).toFixed(2)
+    : 0;
+
 
   return (
     <div style={{ padding: "28px 28px 40px" }}>
@@ -1372,6 +1982,19 @@ function PageAnalytics({ pending, clients, rejected }) {
             </div>
           ))}
         </div>
+        <StatCard label="Daily Visitors" value={dailyVisits} />
+        <StatCard label="Daily Orders" value={dailyOrders} />
+
+        <StatCard label="Weekly Visitors" value={weeklyVisits} />
+        <StatCard label="Weekly Orders" value={weeklyOrders} />
+
+        <StatCard label="Monthly Visitors" value={monthlyVisits} />
+        <StatCard label="Monthly Orders" value={monthlyOrders} />
+
+        <StatCard label="Yearly Visitors" value={yearlyVisits} />
+        <StatCard label="Yearly Orders" value={yearlyOrders} />
+
+        <StatCard label="Conversion Rate" value={`${conversionRate}%`} />
       </div>
     </div>
   );
@@ -1383,8 +2006,8 @@ function PageAnalytics({ pending, clients, rejected }) {
 export default function Backend() {
   const [page, setPage] = useState("dashboard");
   const [pending, setPending] = useState([]);
-  const [clients, setClients] = useState(INIT_CLIENTS);
-  const [rejected, setRejected] = useState(INIT_REJECTED);
+  const [clients, setClients] = useState([]);
+  const [rejected, setRejected] = useState([]);
   const [toast, setToast] = useState(null);
   const [drawer, setDrawer] = useState(false);
 
@@ -1413,12 +2036,14 @@ export default function Backend() {
             createdAt: d.createdAt || null,
             status: d.status || "pending",
             payment: d.payment || "pending",
-            message: d.message || ""
+            paidAmount: d.paidAmount || 0,
+            message: d.message || "",
+            event: d.event || "Normal Day",
           };
         });
 
         setPending(firebaseData.filter(d => d.status === "pending"));
-        setClients(firebaseData.filter(d => d.status === "accepted"));
+        setClients(firebaseData.filter(d => d.status === "accepted" || d.status === "completed"));
         setRejected(firebaseData.filter(d => d.status === "rejected"));
       }
     );
