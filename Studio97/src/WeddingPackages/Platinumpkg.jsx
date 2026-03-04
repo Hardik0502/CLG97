@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Platinumpkg = ({ data }) => {
 
@@ -7,6 +8,8 @@ const Platinumpkg = ({ data }) => {
   const leftFeatures = data.features?.slice(0, 5);
   const rightFeatures = data.features?.slice(5);
 
+  const navigate = useNavigate();
+  
   return (
     <>
       <section className="h-full w-full bg-[#e9e6df] flex justify-center items-center p-8">
@@ -103,13 +106,13 @@ const Platinumpkg = ({ data }) => {
 
           <div className=' w-full h-full flex justify-end ' >
 
-            <button onClick={() => navigate("/orderRequest", {
-              state: {
-                packageName: "Platinum",
-                price: 25000
-              }
-            })
-          }
+            <button
+              onClick={() => navigate("/order", {
+                state: {
+                  packageId: "platinum",
+                }
+              })}
+
               className="border-2
                 border-[#C48A5A]
                 md:text-[3.8vh]

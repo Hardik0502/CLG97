@@ -19,6 +19,10 @@
     font-family: 'font5';
     src: url('../Fonts/Zaslia.ttf');
 }
+@font-face {
+    font-family: 'font6';
+    src: url('../Fonts/AbrilFatface-Regular.ttf');
+}
 
 @import "tailwindcss";
 *{

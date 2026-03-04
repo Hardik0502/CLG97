@@ -218,7 +218,7 @@ function Ava({ name, idx, size = 38 }) {
 function Modal({ onClose, children, wide = false }) {
   return (
     <div className="modal-bg" onClick={e => e.target === e.currentTarget && onClose()}>
-      <div className="fi card" style={{ width: `min(${wide ? "680px" : "440px"},96vw)`, padding: 28, position: "relative", maxHeight: "unset", overflowY: "visible" }}>
+      <div className="fi card" style={{ width: `min(${wide ? "680px" : "440px"},96vw)`, padding: 28, position: "relative", maxHeight: "95vh", overflowY: "auto" }}>
         <button onClick={onClose} className="btn-outline" style={{ position: "absolute", top: 14, right: 14, padding: "4px 10px", fontSize: 12 }}>✕</button>
         {children}
       </div>
@@ -242,7 +242,7 @@ function StatCard({ label, value, icon, color, sub, delay = 0 }) {
         <span style={{ fontSize: 11, fontWeight: 700, color: T.sub, textTransform: "uppercase", letterSpacing: ".07em" }}>{label}</span>
         <div style={{ width: 34, height: 34, borderRadius: 9, background: color + "22", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 17 }}>{icon}</div>
       </div>
-      <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 28, fontWeight: 700, color: T.txt, lineHeight: 1 }}>{value}</div>
+      <div style={{ fontFamily: " font6 ", fontSize: 28, fontWeight: 300, color: T.txt, lineHeight: 1 }}>{value}</div>
       {sub && <div style={{ fontSize: 11, color: T.muted, marginTop: 3 }}>{sub}</div>}
     </div>
   );
@@ -457,7 +457,7 @@ function PageDashboard({ pending, setPending, clients, setClients, rejected, set
       {/* Sort strip */}
       <div className="fu card" style={{ padding: "10px 14px", marginBottom: 16, display: "flex", flexWrap: "wrap", alignItems: "center", gap: 8, animationDelay: ".06s" }}>
         <span style={{ fontSize: 11, fontWeight: 700, color: T.sub, textTransform: "uppercase", letterSpacing: ".07em", flexShrink: 0 }}>Sort</span>
-        {[["newest", "Newest First"], ["oldest", "Oldest First"], ["price_desc", "Price ↓"], ["price_asc", "Price ↑"], ["event_asc", "Event: Soon"], ["event_desc", "Event: Late"]].map(([v, l]) => (
+        {[["newest", "Newest First"], ["oldest", "Oldest First"], ["price_desc", "Price ↑"], ["price_asc", "Price ↓"]].map(([v, l]) => (
           <button key={v} onClick={() => setSort(v)} style={{ padding: "5px 13px", borderRadius: 20, border: `1.5px solid ${sort === v ? T.navy : T.border}`, background: sort === v ? T.navy : T.white, color: sort === v ? "#fff" : T.sub, fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .14s", whiteSpace: "nowrap" }}>{l}</button>
         ))}
         <span style={{ marginLeft: "auto", fontSize: 11, color: T.muted, fontFamily: "'DM Mono',monospace" }}>{sorted.length} order{sorted.length !== 1 ? "s" : ""}</span>
@@ -973,29 +973,34 @@ function PagePayments({ clients, setClients, fireToast }) {
     0
   );
 
-  const updatePayment = (id, payment) => {
+
+  const updatePayment = async (id, payment, price) => {
+
+    const clientRef = doc(db, "orderRequests", id);
+
+    let updatedData = {};
+
+    if (payment === "full") {
+      updatedData = {
+        payment: "full",
+        paidAmount: Number(price) || 0
+      };
+    }
+
+    if (payment === "pending") {
+      updatedData = {
+        payment: "pending",
+        paidAmount: 0
+      };
+    }
+
+    await updateDoc(clientRef, updatedData);
+
+    // update local state after backend success
     setClients(prev =>
-      prev.map(c => {
-        if (c.id !== id) return c;
-
-        if (payment === "full") {
-          return {
-            ...c,
-            payment: "full",
-            paidAmount: Number(c.price) || 0
-          };
-        }
-
-        if (payment === "pending") {
-          return {
-            ...c,
-            payment: "pending",
-            paidAmount: 0
-          };
-        }
-
-        return c;
-      })
+      prev.map(c =>
+        c.id === id ? { ...c, ...updatedData } : c
+      )
     );
   };
 
@@ -1128,10 +1133,13 @@ function PagePayments({ clients, setClients, fireToast }) {
                 key={v}
                 onClick={() => {
                   if (v === "advance") {
-                    setAdvanceAmount(editPay.paidAmount || Math.round(editPay.price * 0.4));
-                    setEditPay({ ...editPay, payment: "advance" });
+                    setAdvanceAmount(
+                      editPay.paidAmount || Math.round(editPay.price * 0.4)
+                    );
+                    setEditPay(prev => ({ ...prev, payment: "advance" }));
                   } else {
-                    updatePayment(editPay.id, v);
+                    updatePayment(editPay.id, v, editPay.price);
+                    setEditPay(prev => ({ ...prev, payment: v }));
                   }
                 }}
                 style={{
@@ -1199,18 +1207,24 @@ function PagePayments({ clients, setClients, fireToast }) {
                 <button
                   className="btn-dark"
                   style={{ marginTop: 12, width: "100%" }}
-                  onClick={() => {
+                  onClick={async () => {
+                    const clientRef = doc(db, "orderRequests", editPay.id);
+
+                    const updatedData = {
+                      payment: "advance",
+                      paidAmount: Number(advanceAmount) || 0
+                    };
+
+                    await updateDoc(clientRef, updatedData);
+
                     setClients(prev =>
                       prev.map(c =>
                         c.id === editPay.id
-                          ? {
-                            ...c,
-                            payment: "advance",
-                            paidAmount: advanceAmount
-                          }
+                          ? { ...c, ...updatedData }
                           : c
                       )
                     );
+
                     setEditPay(null);
                     fireToast("Advance payment updated.", "#2563eb", "#dbeafe");
                   }}

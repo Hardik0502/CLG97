@@ -58,10 +58,9 @@ const Silverpkg = ({ data }) => {
 
                 onClick={() => navigate("/order", {
                   state: {
-                    packageName: "Silver",
-                    price: 25000
+                    packageId: "silver",
                   }
-                }) }
+                })}
 
 
               >
@@ -82,7 +81,7 @@ const Silverpkg = ({ data }) => {
             />
           </div>
         </div>
-      </section>
+      </section >
     </>
   )
 }

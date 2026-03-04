@@ -1,6 +1,9 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Goldpkg = ({ data }) => {
+
+    const navigate = useNavigate();
 
     if (!data) return null;
 
@@ -94,13 +97,13 @@ const Goldpkg = ({ data }) => {
 
                         {/* PRICE BUTTON */}
                         <div className="flex justify-end mt-16">
-                            <button onClick={() => navigate("/orderRequest", {
-                                state: {
-                                    packageName: "Gold",
-                                    price: 25000
-                                }
-                            })
-                            }
+                            <button
+                                onClick={() => navigate("/order", {
+                                    state: {
+                                        packageId: "gold",
+                                    }
+                                })}
+
                                 className="
                             border-2
                             border-[#C48A5A]
@@ -111,6 +114,7 @@ const Goldpkg = ({ data }) => {
                             text-[#C48A5A]
                             hover:bg-[#C48A5A]
                             hover:text-white
+                            hover:cursor-pointer
                             transition
                             "
                             >
