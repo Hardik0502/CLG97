@@ -1,7 +1,10 @@
 import { useState, useEffect, useMemo, useCallback } from "react";
 import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, onSnapshot, setDoc, updateDoc } from "firebase/firestore";
-import { db } from '../../Firebase'
+import { auth, db } from '../Firebase'
 import { format } from "date-fns";
+import AdminLogout from "../Admin Authentication/AdminLogout";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
 
 
 /* ─────────────────────────────────────────────
@@ -2017,13 +2020,25 @@ function PageAnalytics({ pending, clients, rejected }) {
 /* ═══════════════════════════════════════════
    ROOT APP
 ═══════════════════════════════════════════ */
-export default function Backend() {
+export default function Backend({ onLogout }) {
+
   const [page, setPage] = useState("dashboard");
   const [pending, setPending] = useState([]);
   const [clients, setClients] = useState([]);
   const [rejected, setRejected] = useState([]);
   const [toast, setToast] = useState(null);
   const [drawer, setDrawer] = useState(false);
+  const [showLogout, setShowLogout] = useState(false);
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/studio97.captian.admin97"); // back to login
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   useEffect(() => {
     if (document.getElementById("s97gcss")) return;
@@ -2127,12 +2142,28 @@ export default function Backend() {
         </nav>
 
         {/* User */}
-        <div style={{ padding: "13px 16px", borderTop: `1.5px solid ${T.border}`, display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
+        <div style={{ padding: "13px 16px", borderTop: `1.5px solid ${T.border}`, display: "flex", alignItems: "center", justifyContent: 'space-evenly', gap: 10, flexShrink: 0 }}>
           <div style={{ width: 36, height: 36, borderRadius: "50%", background: T.navy, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", fontFamily: "'DM Mono',monospace" }}>AD</div>
           <div>
             <div style={{ fontSize: 13, fontWeight: 600, color: T.txt }}>Admin</div>
             <div style={{ fontSize: 11, color: T.muted }}>Studio97 Owner</div>
-          </div>
+          </div> &nbsp;&nbsp;
+
+          <button
+            onClick={() => setShowLogout(true)}
+            className="h-8 w-20 text-sm rounded-lg border border-red-700 text-red-800 hover:bg-red-800
+            hover:text-white hover:cursor-pointer transition duration-300"
+          >
+            Logout
+          </button>
+
+          {showLogout && (
+            <AdminLogout
+              onCancel={() => setShowLogout(false)}
+              onConfirm={handleLogout}
+            />
+          )}
+
         </div>
       </div>
 
