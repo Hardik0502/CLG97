@@ -113,7 +113,7 @@ const Packages = () => {
                 </div>
 
                 <div className=' flex justify-center md:h-[30vh] h-[20vh] w-[99%] ' >
-                  <div className="types w-[65%] ">
+                  <div className="types md:w-[65%] w-[60%] ">
                     <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3vh] flex justify-center underline ' > Packages </h1>
                     <div className="pkgname font-[font3] font-bold flex md:h-[25vh] h-[15vh] text-black flex-col justify-center ">
                       {/* <h1 className=' uppercase md:text-[3.8vh] text-[2.5vh] ' > Silver Package </h1>
@@ -128,7 +128,7 @@ const Packages = () => {
                     </div>
                   </div>
 
-                  <div className="view w-[25%] ">
+                  <div className="view md:w-[25%] w-[30%] ">
                     <h1 className=' text-black font-[font2] uppercase md:text-[5vh] text-[3vh] flex justify-center underline ' > Price </h1>
                     <div className="pkgname flex md:h-[25vh] h-[15vh] md:text-black text-green-950 flex-col justify-center ">
                       {/* <h1 className=' uppercase md:text-[4vh] text-[3vh] ' > 1,00,000 </h1>
@@ -205,7 +205,7 @@ const Packages = () => {
                 )}
 
                 {gold && (
-                   <section className="bg-white md:h-[125vh] h-[80vh]  p-16 rounded-3xl space-y-8">
+                   <section className="bg-white md:h-[125vh] h-[80vh] p-16 rounded-3xl space-y-8">
                   <div className='ttl text-black font-[font2] md:h-[30vh] h-0 md:text-[9vh] text-[5vh] flex justify-center opacity-85 md:items-center items-end underline uppercase rounded-t-3xl ' > Gold Package
                   </div>
                   < Goldpkg data={gold} />

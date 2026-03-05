@@ -12,17 +12,17 @@ const Silverpkg = ({ data }) => {
     <>
       <section className=" inset-0 z-50 bg-black/60">
 
-        <div className="relative mx-auto md:h-screen h-[80vh] w-full overflow-hidden md:gap-0 gap-2 bg-gray-200  flex  ">
+        <div className="relative mx-auto md:h-screen h-[70vh] w-full overflow-hidden md:gap-0 gap-2 bg-gray-200  flex  ">
 
           {/* LEFT CONTENT */}
           <div className="md:w-1/2 w-full md:h-screen h-[50vh] flex flex-col items-center justify-center">
-            <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[5vh] md:leading-[0.9] relative md:top-0 top-20 md:left-0 left-1.5 opacity-75 text-[#1a1a1a]">
+            <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[4.5vh] md:leading-[0.9] relative md:top-0 top-18 md:left-0 left-1.5 opacity-75 text-[#1a1a1a]">
               Wedding <br />
               Package <br />
               #1
             </h1>
             {/* <br /> */}
-            <p className="fade relative left-6 md:top-2 top-20 italic text-[#020202]">
+            <p className="fade md:text-[2.9vh] text-[1.5vh] relative left-6 md:top-2 top-20 italic text-[#020202]">
               Studio97 — timeless wedding stories, artfully captured.
             </p>
             <br />
@@ -30,7 +30,7 @@ const Silverpkg = ({ data }) => {
             {/* PACKAGE */}
             <div className="fade relative md:top-0 top-20 md:left-0 left-1  ">
 
-              <ul className="space-y-2 font-[Inter] md:text-[3.5vh] text-[2vh]  text-[#6b6b6b]">
+              <ul className="space-y-2 font-[Inter] md:text-[3.5vh] text-[1.5vh]  text-[#6b6b6b]">
                 {/* <li>• 1 Traditional Photographer</li>
                             <li>• 1 Cinematographer</li>
                             <li>• 250 Photos album 12 x 36</li>

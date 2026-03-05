@@ -7,6 +7,7 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../Backend/Firebase";
+import emailjs from "@emailjs/browser";
 
 
 const OrderRequest = () => {
@@ -110,19 +111,34 @@ const OrderRequest = () => {
 
       setShowSuccess(true);
 
-      // alert("Request Sent Successfully");
-      // navigate("/order-success", { replace: true });
+      // 2️⃣ Send Email
+      await emailjs.send(
+        "service_0utvlut",
+        "template_np80z5e",
+        {
+          name: form.fullname,
+          date: new Date(range[0].startDate).toLocaleDateString(),
+          package: packageData.name,
+          email: form.email
+        },
+        "9IqqgmAjIu0MgxsCE"
+      )
+        .then((res) => {
+          console.log("Email sent successfully", res);
+        })
 
-    } catch (error) {
+
+    }
+    catch (error) {
       console.error(error);
     }
   };
 
   useEffect(() => {
-  if (!packageId) {
-    navigate("/package", { replace: true });
-  }
-}, [packageId, navigate]);
+    if (!packageId) {
+      navigate("/package", { replace: true });
+    }
+  }, [packageId, navigate]);
 
   useEffect(() => {
     if (showSuccess) {
@@ -155,7 +171,7 @@ const OrderRequest = () => {
               </div>
             </div>
 
-            <h2 className="text-xl font-semibold tracking-widest text-gray-800">
+            <h2 className="md:text-xl font-semibold tracking-widest text-gray-800">
               ORDER REQUEST FORM
             </h2>
 
@@ -165,7 +181,7 @@ const OrderRequest = () => {
               name="fullname"
               placeholder="Full Name"
               onChange={handleForm}
-              className="h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -173,7 +189,7 @@ const OrderRequest = () => {
               name="email"
               placeholder="Email Address"
               onChange={handleForm}
-              className="h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -181,7 +197,7 @@ const OrderRequest = () => {
               name="phone"
               placeholder="Phone Number (Whatsapp) "
               onChange={handleForm}
-              className="h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -189,22 +205,23 @@ const OrderRequest = () => {
               name="address"
               placeholder="Address"
               onChange={handleForm}
-              className="h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             {/* DATE RANGE */}
-            <div className="relative" ref={calendarRef}>
+            <div className="relative  " ref={calendarRef}>
 
               <div
                 onClick={() => setShowCalendar(!showCalendar)}
-                className="h-11 rounded-full border border-gray-300 bg-white px-5 flex items-center justify-between cursor-pointer hover:border-black transition"
+                className="md:h-11 rounded-full border border-gray-300 bg-white px-5 flex md:items-center items-end justify-between cursor-pointer hover:border-black transition"
               >
-                <span className="text-gray-700 relative left-2 text-sm">
-                  {format(range[0].startDate, "dd/MM/yyyy")} -{" "}
-                  {format(range[0].endDate, "dd/MM/yyyy")}
+                <span className="text-gray-700 w-full relative md:left-2 md:text-sm md:top-0 top-2 left-2 text-[1.5vh] ">
+                  {format(range[0].startDate, "dd MMMM")} -{" "}
+                  {format(range[0].endDate, "dd MMMM")}
                 </span>
 
-                <CalendarDays size={22} className="text-gray-600 relative right-5" />
+                <CalendarDays size={22} className="text-gray-600 relative right-5 md:bottom-0 bottom-2 " />
+                
               </div>
 
               {showCalendar && (
