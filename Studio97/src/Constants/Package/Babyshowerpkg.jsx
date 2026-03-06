@@ -24,7 +24,7 @@ export default function NewbornPricing() {
         <div className="grid grid-cols-2 md:gap-6 gap-15 text-center relative md:top-0 top-8 text-sm mb-10">
 
           {/* PACKAGE 01 */}
-          <div>
+          <div className=" md:w-full w-[99%]  " >
             <p className="font-semibold md:underline font-[font2] md:text-[4vh] text-[3vh] mb-2">Packages 01 : &nbsp; ₹ 10,000/-</p>
             <ul className="space-y-1 md:text-[3.5vh] text-[2.5vh] ">
               <li>1 Traditional Photographer</li>
@@ -34,11 +34,11 @@ export default function NewbornPricing() {
                <div className="flex justify-end mt-16">
                             <button
                                 className="
-                border-2
-                border-[#C48A5A]
+                border-none
                 relative md:top-1 top-5
                 md:text-[3.8vh]
                 text-[3vh]
+                md:w-45 w-46
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]
@@ -53,7 +53,7 @@ export default function NewbornPricing() {
           </div>
 
           {/* PACKAGE 02 */}
-          <div>
+          <div className=" md:w-full w-[99%] " >
             <p className="font-semibold md:underline font-[font2] md:text-[4vh] text-[3vh] mb-2">Packages 02 : &nbsp; ₹ 18,000/-</p>
             <ul className="space-y-1 md:text-[3.5vh] text-[2.5vh] ">
               <li>2 Traditional Photographer</li>
@@ -63,11 +63,12 @@ export default function NewbornPricing() {
               <div className="flex justify-start mt-16">
                             <button
                                 className="
-                border-2
+                border-0
                 border-[#C48A5A]
                 relative md:top-1 top-5
                 md:text-[3.8vh]
                 text-[3vh]
+                md:w-45 w-46
                 tracking-widest
                 text-[#C48A5A]
                 hover:bg-[#C48A5A]

@@ -6,7 +6,7 @@ export default function PricingGuide() {
             <div className="md:w-[90%] w-[97%] grid md:grid-cols-2 gap-6">
 
                 {/* LEFT CARD */}
-                <div className="relative md:h-screen h-[120vh] overflow-hidden bg-black rounded-sm">
+                <div className="relative md:h-screen h-[90vh] overflow-hidden bg-black rounded-sm">
 
                     <img
                         src="https://images.unsplash.com/photo-1589434488848-abfcbd1f0388?q=80&w=395&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -38,7 +38,7 @@ export default function PricingGuide() {
                 {/* RIGHT CARD */}
                 <div className="h-full bg-[#1c1c1c] text-white flex flex-col">
 
-                    <div className=" md:h-[80%] h-[110vh] " >
+                    <div className=" md:h-[80%] h-[90vh] " >
                         {/* TOP IMAGE */}
                         <div className="relative h-[62%]">
                             <img
@@ -70,11 +70,11 @@ export default function PricingGuide() {
                             <div className="px-4 h-full py-6 flex flex-col justify-between text-center border-r border-[#3a3a3a]">
                                 <div className="info">
 
-                                    <h3 className="md:text-[3vh] tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Birthday Shoot</h3>
-                                    <ul className="md:text-[2.2vh] text-[2vh] flex flex-col items-start relative top-2 md:left-2 left-1  space-y-2 opacity-90">
-                                        <li>Edited Photos</li>
-                                        <li>Captured Pics are Not Provided</li>
-                                        <li>With Setup</li>
+                                    <h3 className="md:text-[3vh] md:leading-8 tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Birthday Shoot</h3>
+                                    <ul className="md:text-[2.2vh] md:leading-2 leading-4 text-[2vh] flex flex-col items-start relative top-2 md:left-2 left-1  space-y-2 opacity-90">
+                                        <li>Edited Photos</li> <br />
+                                        <li>Captured Pics are Not Provided</li> <br />
+                                        <li>With Setup</li><br />
                                         <li>Indoor / Outdoor</li>
                                     </ul>
                                 </div>
@@ -84,7 +84,7 @@ export default function PricingGuide() {
                                         className="
                                     border-2
                                     border-white
-                                    relative md:bottom-1 bottom-4
+                                    relative md:bottom-1 bottom-6
                                     md:text-[3.8vh] text-[3vh]
                                     tracking-widest
                                     text-white
@@ -103,11 +103,11 @@ export default function PricingGuide() {
                             <div className="px-4 py-6 flex flex-col justify-between text-center border-r border-[#3a3a3a]">
                                 <div className="info">
 
-                                    <h3 className="text-[3vh] tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Baby Shoot</h3>
-                                    <ul className="md:text-[2.2vh] text-[2vh] flex flex-col items-start relative top-2 md:left-2 left-1 space-y-2 opacity-90">
-                                        <li>Edited Photos</li>
-                                        <li>Captured Pics are not Provided</li>
-                                        <li>With Setup</li>
+                                    <h3 className="md:text-[3vh] text-[2vh] md:leading-8 tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Baby Shoot</h3>
+                                    <ul className="md:text-[2.2vh] text-[2vh] md:leading-2 leading-4 flex flex-col items-start relative top-2 md:left-2 left-1 space-y-2 opacity-90">
+                                        <li>Edited Photos</li><br />
+                                        <li>Captured Pics are not Provided</li><br />
+                                        <li>With Setup</li><br />
                                         <li>Indoor / Outdoor</li>
                                     </ul>
                                 </div>
@@ -117,7 +117,7 @@ export default function PricingGuide() {
                                         className="
                                     border-2
                                     border-white
-                                    relative md:bottom-1 bottom-4
+                                    relative md:bottom-1 bottom-6
                                     md:text-[3.8vh] text-[3vh]
                                     tracking-widest
                                     text-white
@@ -136,11 +136,11 @@ export default function PricingGuide() {
                             <div className="px-4 py-6 flex flex-col justify-between text-center border-r border-[#3a3a3a]">
                                 <div className="info">
 
-                                    <h3 className="md:text-[3vh] tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Personal Shoot</h3>
-                                    <ul className="md:text-[2.2vh] text-[2vh] flex flex-col items-start relative top-2 md:left-2 left-1 space-y-2 opacity-90">
-                                        <li>Edited Photos</li>
-                                        <li>Captured Pics are Not Provided</li>
-                                        <li>Without Setup </li>
+                                    <h3 className="md:text-[3vh] text-[2vh] md:leading-8 tracking-widest text-white/90 font-[font2] relative top-1 mb-4">Personal Shoot</h3>
+                                    <ul className="md:text-[2.2vh] text-[2vh] md:leading-2 leading-4 flex flex-col items-start relative top-2 md:left-2 left-1 space-y-2 opacity-90">
+                                        <li>Edited Photos</li><br />
+                                        <li>Captured Pics are Not Provided</li><br />
+                                        <li>Without Setup </li><br /> 
                                         <li>Indoor / Outdoor </li>
                                     </ul>
                                 </div>
@@ -150,7 +150,7 @@ export default function PricingGuide() {
                                         className="
                                     border-2
                                     border-white
-                                    relative md:bottom-1 bottom-4
+                                    relative md:bottom-1 bottom-6
                                     md:text-[3.8vh] text-[3vh]
                                     tracking-widest
                                     text-white
@@ -171,8 +171,8 @@ export default function PricingGuide() {
 
                     <div className=" h-[20%] border- border-black w-full bg-white text-black" >
                         {/* <h1 className=" text-2xl relative left-2 font-[font6] " > Instructions : </h1> */}
-                        <div className="text-center text-[2.5vh] relative top-5  ">
-                            <p className=" mb-3">
+                        <div className="text-center text-[2.5vh]  relative top-5  ">
+                            <p className=" mb-3 ">
                                 Any Pic with Setup (Theme) - &nbsp;₹ 350&nbsp; |&nbsp; Without Setup (Theme) - &nbsp;₹ 150
                             </p>
                             <p className="italic mb-3">

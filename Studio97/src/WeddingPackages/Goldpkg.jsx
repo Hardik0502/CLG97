@@ -109,6 +109,7 @@ const Goldpkg = ({ data }) => {
                             border-[#C48A5A]
                             relative md:top-1 top-10
                             md:text-[3.8vh]
+                            md:w-45 w-38
                             text-[2vh]
                             tracking-widest
                             text-[#C48A5A]

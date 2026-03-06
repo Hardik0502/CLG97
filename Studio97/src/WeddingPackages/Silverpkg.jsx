@@ -12,10 +12,10 @@ const Silverpkg = ({ data }) => {
     <>
       <section className=" inset-0 z-50 bg-black/60">
 
-        <div className="relative mx-auto md:h-screen h-[70vh] w-full overflow-hidden md:gap-0 gap-2 bg-gray-200  flex  ">
+        <div className="relative mx-auto md:h-screen h-[67vh] w-full overflow-hidden md:gap-0 gap-2 bg-gray-200  flex  ">
 
           {/* LEFT CONTENT */}
-          <div className="md:w-1/2 w-full md:h-screen h-[50vh] flex flex-col items-center justify-center">
+          <div className="md:w-1/2 w-full md:h-screen h-[45vh] flex flex-col items-center justify-center">
             <h1 className="fade uppercase font-[Playfair Display] font-bold md:text-[10.5vh] text-[4.5vh] md:leading-[0.9] relative md:top-0 top-18 md:left-0 left-1.5 opacity-75 text-[#1a1a1a]">
               Wedding <br />
               Package <br />
@@ -48,6 +48,7 @@ const Silverpkg = ({ data }) => {
                 border-[#C48A5A]
                 md:text-[3.8vh]
                 text-[2vh]
+                md:w-45 w-38
                 relative md:top-4 top-10
                 tracking-widest
                 text-[#C48A5A]
@@ -74,7 +75,7 @@ const Silverpkg = ({ data }) => {
             <img
               src="https://photos.smugmug.com/Best-Of-97/BEST-OF-STUDIO-97/i-CRsfJsJ/0/LX2cRttxLc8PxvbFzHKPQwH2BmNcm6vDdbsRjn7wg/L/_A749597-L.jpg"
               alt="Wedding"
-              className="md:h-[75%] h-[45%] md:w-[55%] w-[90%] relative md:top-20 top-45 object-cover"
+              className="md:h-[78%] rounded-4xl h-[40%] md:w-[55%] w-[90%] relative md:top-12 top-50 object-cover"
             // style={{
             //   clipPath: "polygon(1% 0%, 100% 0%, 100% 100%, 0% 100%)",
             // }}

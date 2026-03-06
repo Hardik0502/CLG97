@@ -40,11 +40,11 @@ const Platinumpkg = ({ data }) => {
           <div className="mt-12 border-t border-b border-black grid grid-cols-2 text-center">
 
             {/* STANDARD */}
-            <div className="px-8 py-10 border-r border-black">
+            <div className="px-8 py-10  border-r border-black">
               <h3 className="md:text-2xl text-[2.5vh] underline mb-2">Photographer & Videographer </h3>
               <br />
 
-              <ul className="space-y-2 md:text-[2.7vh] text-[2vh] font-[font6]">
+              <ul className="space-y-2 md:text-[2.7vh] md:w-full w-[90%] leading-5 text-[2vh] font-[font2]">
                 {/* <li>1 TRADITIONAL PHOTOGRAPPHER</li>
                             <li>1 CANDID PHOTOGRAPHER</li>
                             <li>1 CINEMATOGRAPHER</li>
@@ -53,7 +53,7 @@ const Platinumpkg = ({ data }) => {
 
                 {leftFeatures?.map((items, index) => {
                   return <div key={index} className=' uppercase' >
-                    <li >• {items.value} {items.label} </li>
+                    <li >• {items.value} {items.label} </li> <br />
                   </div>
                 })}
 
@@ -61,11 +61,11 @@ const Platinumpkg = ({ data }) => {
             </div>
 
             {/* PREMIUM */}
-            <div className="px-8 md:h-[40vh] h-[50vh] py-10 border-r border-black">
+            <div className="px-8 md:h-[40vh] h-[50vh] md:w-full w-[95%]  py-10 border-r border-black">
               <h3 className="md:text-2xl text-[2.5vh] underline mb-2">ACCESORIES</h3>
               <br />
 
-              <ul className="space-y-2 md:leading-6 relative md:top-0 top-6 leading-5 md:text-[2.7vh] text-[2vh] font-[font6] ">
+              <ul className="space-y-2 md:leading-6 leading-5 relative md:top-0 top-6 md:text-[2.7vh] text-[2vh] font-[font2] ">
                 {/* <li> 300 PHOTOS ALBUM ( 12 X 36 )</li>
                             <li>2:00 HOUR FULL LENGTH HD VIDEO</li>
                             <li> ( 3 ) 12 X 18 PHOTO FRAME</li>
@@ -74,10 +74,10 @@ const Platinumpkg = ({ data }) => {
 
                 {rightFeatures?.map((items, index) => {
                   return <div key={index} className=' uppercase' >
-                    <li > {items.value} {items.label} </li>
+                    <li className=' md:leading-2 leading-5 ' > {items.value} {items.label} </li> <br />
                   </div>
                 })}
-                <li className=' font-bold'>LIFE TIME PHOTO ACCESS LINK</li>
+                <li className=' text-green-900 '>LIFE TIME PHOTO ACCESS LINK</li>
               </ul>
             </div>
 
@@ -101,7 +101,7 @@ const Platinumpkg = ({ data }) => {
             </p><br />
 
             <p className="md:text-xs  text-[1.5vh] mt-6">Please contact us for more details.</p>
-            <p className="font-[font6] font-bold md:text-2xl text-[4vh] ">7777988897</p>
+            <p className="font-[font2] tracking-tighter md:text-2xl text-[4vh] ">7 7 7 7 9 8 8 8 9 7</p>
           </div>
 
           <div className=' w-full h-full flex justify-end ' >
@@ -116,8 +116,9 @@ const Platinumpkg = ({ data }) => {
               className="border-2
                 border-[#C48A5A]
                 md:text-[3.8vh]
-                text-[3vh]
+                text-[2.5vh]
                 font-[font6]
+                md:w-45 w-45
                 relative md:bottom-4
                 tracking-widest
                 text-[#C48A5A]
