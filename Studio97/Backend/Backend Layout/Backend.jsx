@@ -2110,9 +2110,9 @@ export default function Backend({ onLogout }) {
         {/* Header */}
         <div style={{ padding: "18px 18px 14px", borderBottom: `1.5px solid ${T.border}`, display: "flex", alignItems: "center", justifyContent: "space-between", flexShrink: 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <div style={{ width: 38, height: 38, background: T.navy, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: 14, color: "#fff", letterSpacing: "-.5px" }}>S97</div>
+            <div style={{ width: 38, height: 38, background: T.navy, borderRadius: 10, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: " font6 ", fontWeight: 400, fontSize: 14, color: "#fff", letterSpacing: "-.5px" }}>S 97</div>
             <div>
-              <div style={{ fontFamily: "'Playfair Display',serif", fontSize: 16, fontWeight: 700, color: T.txt, lineHeight: 1.1 }}>Studio97</div>
+              <div style={{ fontFamily: "font6", fontSize: 19, fontWeight: 400, color: T.txt, lineHeight: 1.1 }}>Studio97</div>
               <div style={{ fontSize: 10, fontWeight: 700, color: T.sub, textTransform: "uppercase", letterSpacing: ".08em", marginTop: 1 }}>Admin Panel</div>
             </div>
           </div>
@@ -2143,7 +2143,7 @@ export default function Backend({ onLogout }) {
 
         {/* User */}
         <div style={{ padding: "13px 16px", borderTop: `1.5px solid ${T.border}`, display: "flex", alignItems: "center", justifyContent: 'space-evenly', gap: 10, flexShrink: 0 }}>
-          <div style={{ width: 36, height: 36, borderRadius: "50%", background: T.navy, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", fontFamily: "'DM Mono',monospace" }}>AD</div>
+          <div style={{ width: 36, height: 36, borderRadius: "50%", background: T.navy, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", fontFamily: "'DM Mono',monospace" }}>97</div>
           <div>
             <div style={{ fontSize: 13, fontWeight: 600, color: T.txt }}>Admin</div>
             <div style={{ fontSize: 11, color: T.muted }}>Studio97 Owner</div>
@@ -2178,12 +2178,12 @@ export default function Backend({ onLogout }) {
             </div>
           </button>
           <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <div style={{ width: 32, height: 32, background: T.navy, borderRadius: 8, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "'Playfair Display',serif", fontWeight: 700, fontSize: 12, color: "#fff", letterSpacing: "-.5px" }}>S97</div>
-            <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 17, fontWeight: 700, color: T.txt }}>Studio97</span>
+            <div style={{ width: 32, height: 32, background: T.navy, borderRadius: 8, flexShrink: 0, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "font6", fontWeight: 400, fontSize: 12, color: "#fff", letterSpacing: "-.5px" }}>S97</div>
+            <span style={{ fontFamily: "font6", fontSize: 20, fontWeight: 400, color: T.txt }}>Studio97</span>
           </div>
         </div>
 
-        <div style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 7, pointerEvents: "none" }}>
+        <div className="header-center-title" style={{ position: "absolute", left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 7, pointerEvents: "none" }}>
           <span style={{ fontSize: 15 }}>{cur?.icon}</span>
           <span style={{ fontFamily: "'Playfair Display',serif", fontSize: 15, fontWeight: 700, color: T.txt, whiteSpace: "nowrap" }}>{cur?.label}</span>
         </div>
@@ -2195,7 +2195,7 @@ export default function Backend({ onLogout }) {
               <span style={{ fontSize: 11, fontWeight: 700, color: T.amber, fontFamily: "'DM Mono',monospace" }}>{pending.length} pending</span>
             </button>
           )}
-          <div style={{ width: 34, height: 34, borderRadius: "50%", background: T.navy, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>AD</div>
+          <div style={{ width: 34, height: 34, borderRadius: "50%", background: T.navy, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff", cursor: "pointer", fontFamily: "'DM Mono',monospace" }}>97</div>
         </div>
       </header>
 

@@ -75,3 +75,11 @@ body{
 .animate-scaleIn {
   animation: scaleIn 0.2s ease-out forwards;
 }
+
+
+
+@media (max-width: 768px) {
+  .header-center-title {
+    display: none !important;
+  }
+}
