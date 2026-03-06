@@ -161,12 +161,12 @@ const OrderRequest = () => {
         {/* LEFT SIDE */}
         <div className="w-1/2 h-full flex flex-col justify-center items-center">
 
-          <div className="w-[80%] h-[98%] flex flex-col justify-evenly">
+          <div className="md:w-[80%] w-[85%] md:h-[98%] h-full flex flex-col justify-evenly">
 
             {/* PACKAGE BADGE */}
             <div className=" flex justify-end ">
 
-              <div className=" border border-black/25 h-10 w-65 flex justify-center items-center rounded-full text-base font-semibold shadow-md bg-white text-gray-800 tracking-wide">
+              <div className=" border border-black/25 md:h-10 md:w-65 w-full flex justify-center items-center rounded-full text-base font-semibold shadow-md bg-white text-gray-800 tracking-wide">
                 {packageData?.name} ~ ₹ {packageData?.price?.toLocaleString("en-IN")} /-
               </div>
             </div>
@@ -181,7 +181,7 @@ const OrderRequest = () => {
               name="fullname"
               placeholder="Full Name"
               onChange={handleForm}
-              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -189,7 +189,7 @@ const OrderRequest = () => {
               name="email"
               placeholder="Email Address"
               onChange={handleForm}
-              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -197,7 +197,7 @@ const OrderRequest = () => {
               name="phone"
               placeholder="Phone Number (Whatsapp) "
               onChange={handleForm}
-              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-8 placeholder:text-[12px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -205,7 +205,7 @@ const OrderRequest = () => {
               name="address"
               placeholder="Address"
               onChange={handleForm}
-              className="md:h-11 rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             {/* DATE RANGE */}
@@ -213,7 +213,7 @@ const OrderRequest = () => {
 
               <div
                 onClick={() => setShowCalendar(!showCalendar)}
-                className="md:h-11 rounded-full border border-gray-300 bg-white px-5 flex md:items-center items-end justify-between cursor-pointer hover:border-black transition"
+                className="md:h-11  rounded-full border border-gray-300 bg-white px-5 flex md:items-center items-end justify-between cursor-pointer hover:border-black transition"
               >
                 <span className="text-gray-700 w-full relative md:left-2 md:text-sm md:top-0 top-2 left-2 text-[1.5vh] ">
                   {format(range[0].startDate, "dd MMMM")} -{" "}
@@ -243,14 +243,14 @@ const OrderRequest = () => {
               name="message"
               placeholder="Write your query (optional)"
               onChange={handleForm}
-              className="h-16 border border-gray-300 rounded-lg bg-white text-gray-800 px-5 pt-3 outline-none resize-none focus:border-black transition"
+              className="md:h-16 border placeholder:text-[12px] border-gray-300 rounded-lg bg-white text-gray-800 px-5 pt-3 outline-none resize-none focus:border-black transition"
             />
 
             {/* BUTTON */}
             <button
               onClick={handleSubmit}
               disabled={!isValid}
-              className={`h-11 w-44 self-end rounded-full font-semibold tracking-wide transition-all duration-300 shadow-md ${isValid
+              className={`md:h-11 w-44  md:text-[3.4vh] text-[2vh] self-end rounded-full font-semibold tracking-wide transition-all duration-300 shadow-md ${isValid
                 ? "bg-red-500 text-white hover:bg-red-600 hover:scale-105"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
                 }`}
