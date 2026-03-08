@@ -38,7 +38,7 @@ function App() {
 
         {/* Protected Backend */}
         <Route
-          path="/Studio97.Backend.admin97"
+          path="/Studio97.Backend.admin97/*"
           element={
             <AdminProtectedRoute>
               <Backend />
