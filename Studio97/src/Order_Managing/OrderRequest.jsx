@@ -159,7 +159,7 @@ const OrderRequest = () => {
       <div className="relative w-[85vw] h-[95vh] max-w-[1200px] bg-white rounded-3xl flex shadow-[0_50px_120px_rgba(0,0,0,0.25)] overflow-visible">
 
         {/* LEFT SIDE */}
-        <div className="w-1/2 h-full flex flex-col justify-center items-center">
+        <div className="w-full md:w-1/2 h-[70%] md:h-full flex flex-col justify-center items-center">
 
           <div className="md:w-[80%] w-[85%] md:h-[98%] h-full flex flex-col justify-evenly">
 
@@ -181,7 +181,7 @@ const OrderRequest = () => {
               name="fullname"
               placeholder="Full Name"
               onChange={handleForm}
-              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-10 placeholder:text-[15px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -189,7 +189,7 @@ const OrderRequest = () => {
               name="email"
               placeholder="Email Address"
               onChange={handleForm}
-              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-10 placeholder:text-[15px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -197,7 +197,7 @@ const OrderRequest = () => {
               name="phone"
               placeholder="Phone Number (Whatsapp) "
               onChange={handleForm}
-              className="md:h-11 h-8 placeholder:text-[12px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-10 placeholder:text-[15px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             <input
@@ -205,7 +205,7 @@ const OrderRequest = () => {
               name="address"
               placeholder="Address"
               onChange={handleForm}
-              className="md:h-11 h-8 placeholder:text-[13px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
+              className="md:h-11 h-10 placeholder:text-[15px] rounded-full border border-gray-300 bg-white text-gray-800 px-5 outline-none focus:border-black transition"
             />
 
             {/* DATE RANGE */}
@@ -243,7 +243,7 @@ const OrderRequest = () => {
               name="message"
               placeholder="Write your query (optional)"
               onChange={handleForm}
-              className="md:h-16 border placeholder:text-[12px] border-gray-300 rounded-lg bg-white text-gray-800 px-5 pt-3 outline-none resize-none focus:border-black transition"
+              className="md:h-16 h-16 border placeholder:text-[12px] border-gray-300 rounded-lg bg-white text-gray-800 px-5 pt-3 outline-none resize-none focus:border-black transition"
             />
 
             {/* BUTTON */}
@@ -262,7 +262,7 @@ const OrderRequest = () => {
         </div>
 
         {/* RIGHT SIDE IMAGE */}
-        <div className="w-1/2 h-full">
+        <div className="w-full md:w-1/2 h-[30%] md:h-full">
           <img
             src="https://photos.smugmug.com/Best-Of-97/BEST-OF-STUDIO-97/i-HQmsKvw/0/KnwrQB6pnGgTMK5Lv87Q7g5hLbSS4m8Z67XGcgBLZ/L/DSC09298-L.jpg"
             alt="wedding"
